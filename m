@@ -1,120 +1,123 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
- by mx.groups.io with SMTP id smtpd.web10.12153.1594392130328755129
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com [209.85.160.196])
+ by mx.groups.io with SMTP id smtpd.web11.591.1597275323116676502
  for <linux-safety@lists.elisa.tech>;
- Fri, 10 Jul 2020 07:42:10 -0700
+ Wed, 12 Aug 2020 16:35:23 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=OaICqlmH;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.167.176, mailfrom: skhan@linuxfoundation.org)
-Received: by mail-oi1-f176.google.com with SMTP id j11so4939357oiw.12
-        for <linux-safety@lists.elisa.tech>; Fri, 10 Jul 2020 07:42:10 -0700 (PDT)
+ dkim=fail reason="no key for verify" header.i=@mab-labs.com header.s=google header.b=UKTY1SO1;
+ spf=softfail (domain: mab-labs.com, ip: 209.85.160.196, mailfrom: mab@mab-labs.com)
+Received: by mail-qt1-f196.google.com with SMTP id c12so2968265qtn.9
+        for <linux-safety@lists.elisa.tech>; Wed, 12 Aug 2020 16:35:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ExMs+y6Mw4TrsX6EmWrdA2mMgSpw5cS9CeNTmOH0Bz8=;
-        b=OaICqlmH0BTTjIIyurx2hc5a8IBY0BOoeWNypqGAnRAY5QkqCCxrbtKvlkhaSkv04I
-         LyzAiApi4ovNyDawJ/Fape8eWAq6cEdNS1Jx7BGqNGe/liC3rJa15aOlOY/T+iQ7flZm
-         G8AG22zr6Fc/uRfx0nThD8IXGw5BjQce/eVno=
+        d=mab-labs.com; s=google;
+        h=from:to:cc:subject:date:message-id;
+        bh=fbJSzUz1uqHHXYgwjJIHraZsrmd4Ph2XbokVFPdxw6s=;
+        b=UKTY1SO1atQJYhZVoKs+BtVFoExBjGGrxEw47X8NPmcSJKcVZBNAZ3KOAfW8Ccs+YA
+         JpPqvFz6xY+a4X9H2FfeMDq+iz/lRkbnuW4HFfj+BoSaxL2NoDhT472G7jNQsCtIUDcH
+         +n2FX3fjI5dZ7Mm72HfBYQxDacMCnCqC2j8o/uf22wBe6+3OD6Mx8a+qjmpW03gwKh+X
+         /HvgucOLh5xv6AGjlAmafDPKNgHqsEs/55sgHQ5CpbNT+FhGVlUWIB5rkdSOlKtN/zTu
+         GQN/VCM7pw1aOXsKtPYV5gNSr5jasArolOjEWyqe6DIzBnoPfCbto9h6rS5R8iutVdMK
+         1saw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ExMs+y6Mw4TrsX6EmWrdA2mMgSpw5cS9CeNTmOH0Bz8=;
-        b=pCTv2C5gaIc8PNaNMWcetxC/Vwdp9SaYaugk/YJPXJZr94J2IcUobUCsCtZ2/tSgiG
-         Y0uEHIWVb3Fh1y+sxDWiAJeeo1y5pihFt7JFYs1a4rP1Hf8OpY4jMMsAJKFQ/i3yYH2T
-         0HcOv+d7BKLkx0rpDSeWS96ws1AAXbN09Ntdlz6PVLpZf+5EM7S3D6dHu3H1vcOuHbtB
-         5G/7YBw42tR1Cs1A2cTVx/qyK3BmDFKyBrknhHPHp6J/AxNHl5qEw4Wn2FNVcXqGfIy9
-         9R3cUlMvcm+6dwhltpVfNvqXLMir6nS6I/rntnstX5msQqgSGDFGuWPenb39JmlY/qxQ
-         dl3A==
-X-Gm-Message-State: AOAM531oL+pX+ZU2+hYail8Q6OgrawXDc/3VDveLW5SN0s7mX1Kan03M
-	/7qGk2Aut0diFoOoPfzQ1iVXhA==
-X-Google-Smtp-Source: ABdhPJzwI4IBtamvcpLgm7tNl3maUTvJW8Y5ZglEgX0qJoA8Armz+wMIgmMx+8Rl5rZKZbE7Umu15A==
-X-Received: by 2002:a54:4884:: with SMTP id r4mr4444065oic.74.1594392129607;
-        Fri, 10 Jul 2020 07:42:09 -0700 (PDT)
-Return-Path: <skhan@linuxfoundation.org>
-Received: from [192.168.1.112] (c-24-9-64-241.hsd1.co.comcast.net. [24.9.64.241])
-        by smtp.gmail.com with ESMTPSA id z2sm1123720otq.17.2020.07.10.07.42.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2020 07:42:08 -0700 (PDT)
-Subject: Re: [ANNOUNCE][CFP] Kernel Dependability & Assurance Micro Conference - LPC 2020
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-safety@lists.elisa.tech
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- "lukas.bulwahn@bmw.de" <lukas.bulwahn@bmw.de>,
- "devel@lists.elisa.tech" <devel@lists.elisa.tech>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <675ed25a-3fa8-e288-1be4-41710a807d1f@linuxfoundation.org>
-From: "Shuah Khan" <skhan@linuxfoundation.org>
-Message-ID: <34aa3ed4-7405-d1b2-f884-30ee5ad279aa@linuxfoundation.org>
-Date: Fri, 10 Jul 2020 08:42:08 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <675ed25a-3fa8-e288-1be4-41710a807d1f@linuxfoundation.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=fbJSzUz1uqHHXYgwjJIHraZsrmd4Ph2XbokVFPdxw6s=;
+        b=JUDGtaEYUqPfHXajWH9cGvk/T2XWZDxAhOeSNOxU2yQAeboxvL5+c6zfWN2Efr1x8D
+         cUVWVYm3FRoi2nJSLcFOL8e0BqkxuYrUhzWc3CZlVnFR51ITFra2akkEKTOQ4KfwWhvW
+         +B2iF+XFpHgtJRC4mQDPwFaK1Exvm5TBsesj+d2sbysyw7LVyz2OBps+Ox1cnSn8maol
+         JR0aolrIyDr7lehMYLI3vpKUOEwGvUvinQVv2MDSZRi0F4xMUQDR3/DLAAr8FUPV20h9
+         n2vThsNqzbO39TcDSldvEuVLt1BgBVLrMvCstHghF4GWJuYDrxgC11ZlMJpOp6ZZEgnn
+         4Yjw==
+X-Gm-Message-State: AOAM533nVWiLyTCHs5dq3W388f3QZQAjJzqqP92Mf5JytMv7bZnnjSdI
+	U8sD4Z/mMMDLVpJtIxtIbM5fr2Sw7DDBMA==
+X-Google-Smtp-Source: ABdhPJyqrQcI6AHPqOEumjZ6DtAWWbRPpfcMHUtql6elcZZ8e/VScrD475LKv0Kw+PeK5y2d4btirw==
+X-Received: by 2002:ac8:4e4a:: with SMTP id e10mr2260296qtw.315.1597275321971;
+        Wed, 12 Aug 2020 16:35:21 -0700 (PDT)
+Return-Path: <mab@mab-labs.com>
+Received: from localhost.localdomain (ool-45752a48.dyn.optonline.net. [69.117.42.72])
+        by smtp.googlemail.com with ESMTPSA id d8sm4373545qtr.12.2020.08.12.16.35.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2020 16:35:21 -0700 (PDT)
+From: "Mohammed Billoo" <mab@mab-labs.com>
+To: linux-safety@lists.elisa.tech
+Cc: Mohammed Billoo <mab@mab-labs.com>
+Subject: [PATCH] coccinelle: misc: Check for hard-coded constants
+Date: Wed, 12 Aug 2020 19:35:04 -0400
+Message-Id: <20200812233504.31666-1-mab@mab-labs.com>
+X-Mailer: git-send-email 2.17.1
 
-On 7/9/20 2:58 PM, Shuah Khan wrote:
+This semantic patch looks for variables that are initialized to
+constants, arrays that are both declared and indexed with constants.
+A false positive will occur  when a variable is initialized to 0, which
+must happen for auto variables. This will be resolved in a future patch.
 
-+ devel@lists.elisa.tech <devel@lists.elisa.tech>
+The patch was tested against the following snippet:
 
-> This is the call for proposals for the Kernel Dependability & Assurance
-> Micro Conference at the Linux Plumbers Conference 2020. It will take
-> place online during the Linux Plumbers Conference on August 24th-28th,
-> 2020.
-> 
-> The Kernel Dependability & Assurance Micro Conference is intended to
-> bring the safety-critical systems community and the kernel community
-> together to start a dialogue and collaboration on making sure that the
-> kernel is fit to be used in safety-critical systems and that questions
-> from the safety community and other wrt. software quality can be
-> answered adequately.
-> 
-> The goal for this conference is to explore kernel dependability as it
-> relates to safety-critical applications in the areas of uptime, tooling,
-> and processes. The focus is going to be on the following topics.
-> 
-> - Kernel Quality Assurance beyond Testing and CI?
-> 
-> - Understanding the User's Expectations on Software Quality for
->    business-critical systems
-> 
-> - Define safety requirements for overall kernel: features, tests etc.
-> 
-> - Define run-time characteristics and requirements
-> 
-> - Identify missing features necessary to operate in safety critical
->    environments.
-> 
-> - Discuss safety features
-> 
-> - Regression Testing for safety: Identify configurations and tests
->    critical and important for safety quality and dependability
-> 
-> - Discuss and identify gaps in tests.
-> 
-> - Add tests and add configurations to existing test rings.
-> 
-> - Understanding the Kernel Development Organization and Management
-> 
-> - Assessing, Measuring and Evaluating the Development Process
-> 
-> We encourage submissions that do not present a final solution. Instead,
-> that serves to get feedback from the community, to point to action items
-> for future development, and that can result in patches for the Linux
-> Kernel and Linux ecosystem in the future.
-> 
-> Please submit your proposals on the LPC website at:
-> 
-> https://www.linuxplumbersconf.org/event/7/abstracts/#submit-abstract
-> 
-> And be sure to select "Kernel Dependability & Assurance MC" in the Track
-> pulldown menu.
-> 
-> Proposals must be submitted by August 2nd, and submitters will be
-> notified of acceptance by August 9th.
-> 
-> thanks,
-> -- Shuah
+int main()
+{
+    int iarr[54]; /* instance 1 */
+    int j = 0;    /* instance 2 */
+    int i = 1;    /* instance 3 */
+    iarr[0] = 3;  /* instance 4 */
+    return 0;
+}
+
+and it correctly identified instances 1, 3, and 4. It incorrectly
+identified instance 2, which will be addressed in a future patch.
+---
+ scripts/coccinelle/misc/magic_numbers.cocci | 45 +++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+ create mode 100644 scripts/coccinelle/misc/magic_numbers.cocci
+
+diff --git a/scripts/coccinelle/misc/magic_numbers.cocci b/scripts/coccinelle/misc/magic_numbers.cocci
+new file mode 100644
+index 000000000000..be6df33d28e4
+--- /dev/null
++++ b/scripts/coccinelle/misc/magic_numbers.cocci
+@@ -0,0 +1,45 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/// Capture and instances of CWE-547 (https://cwe.mitre.org/data/definitions/547.html)
++///
++//# This attempts to capture instances of magic numbers and report them
++
++virtual report
++
++@r1 depends on report@
++type T;
++constant C;
++identifier var;
++position p;
++@@
++* T var@p = C;
++
++@script:python depends on report@
++p << r1.p;
++@@
++coccilib.report.print_report(p[0], "Hard-coded constant, consider using #define")
++
++@r2 depends on report@
++type T;
++identifier var;
++constant C;
++position p;
++@@
++* T var[C];
++
++@script:python depends on report@
++p << r2.p;
++@@
++coccilib.report.print_report(p[0], "Hard-coded constant, consider using #define")
++
++@r3 depends on report@
++type T;
++constant C;
++position p;
++T[] E;
++@@
++* E[C]@p = ... ;
++
++@script:python depends on report@
++p << r3.p;
++@@
++coccilib.report.print_report(p[0], "Hard-coded constant, consider using #define")
+-- 
+2.17.1
