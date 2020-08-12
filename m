@@ -1,48 +1,48 @@
-Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com [209.85.160.196])
- by mx.groups.io with SMTP id smtpd.web11.591.1597275323116676502
+Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com [209.85.160.195])
+ by mx.groups.io with SMTP id smtpd.web12.728.1597275708014193127
  for <linux-safety@lists.elisa.tech>;
- Wed, 12 Aug 2020 16:35:23 -0700
+ Wed, 12 Aug 2020 16:41:48 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="no key for verify" header.i=@mab-labs.com header.s=google header.b=UKTY1SO1;
- spf=softfail (domain: mab-labs.com, ip: 209.85.160.196, mailfrom: mab@mab-labs.com)
-Received: by mail-qt1-f196.google.com with SMTP id c12so2968265qtn.9
-        for <linux-safety@lists.elisa.tech>; Wed, 12 Aug 2020 16:35:23 -0700 (PDT)
+ dkim=fail reason="no key for verify" header.i=@mab-labs.com header.s=google header.b=JUMNI9l0;
+ spf=softfail (domain: mab-labs.com, ip: 209.85.160.195, mailfrom: mab@mab-labs.com)
+Received: by mail-qt1-f195.google.com with SMTP id o22so2965457qtt.13
+        for <linux-safety@lists.elisa.tech>; Wed, 12 Aug 2020 16:41:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=mab-labs.com; s=google;
         h=from:to:cc:subject:date:message-id;
         bh=fbJSzUz1uqHHXYgwjJIHraZsrmd4Ph2XbokVFPdxw6s=;
-        b=UKTY1SO1atQJYhZVoKs+BtVFoExBjGGrxEw47X8NPmcSJKcVZBNAZ3KOAfW8Ccs+YA
-         JpPqvFz6xY+a4X9H2FfeMDq+iz/lRkbnuW4HFfj+BoSaxL2NoDhT472G7jNQsCtIUDcH
-         +n2FX3fjI5dZ7Mm72HfBYQxDacMCnCqC2j8o/uf22wBe6+3OD6Mx8a+qjmpW03gwKh+X
-         /HvgucOLh5xv6AGjlAmafDPKNgHqsEs/55sgHQ5CpbNT+FhGVlUWIB5rkdSOlKtN/zTu
-         GQN/VCM7pw1aOXsKtPYV5gNSr5jasArolOjEWyqe6DIzBnoPfCbto9h6rS5R8iutVdMK
-         1saw==
+        b=JUMNI9l0V/6ZuEU3ibCaqjhAHioweSEpxYqcfHqeCnYbpGcfI/p4GVKDXGhuluGk1y
+         FWVq3Qt7bU5y7NwkFn1CmVjEbQIsObpoPQzwdObtCGeQ8dA5PLh1Jk2CEjqxNV56YL25
+         /MzvIOtxKZuyckrzBZq02Io0AINN1oqqlgME76elBm042DWbPMjWRcWNgQjo3OWAA245
+         ceM/2oQJ7r8EKNjpdwqL4PC1aB5O1Pb0WhFUMxu9yNKOH/KsxJMoyqxK71PHxC8UJ81/
+         5cy0MWHH4t2VJMn/C+o9CEHKZoOjNoBLr+BgIDyknFxlnpn4rRnvUD7DEV5STq41d2pL
+         KYWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
         bh=fbJSzUz1uqHHXYgwjJIHraZsrmd4Ph2XbokVFPdxw6s=;
-        b=JUDGtaEYUqPfHXajWH9cGvk/T2XWZDxAhOeSNOxU2yQAeboxvL5+c6zfWN2Efr1x8D
-         cUVWVYm3FRoi2nJSLcFOL8e0BqkxuYrUhzWc3CZlVnFR51ITFra2akkEKTOQ4KfwWhvW
-         +B2iF+XFpHgtJRC4mQDPwFaK1Exvm5TBsesj+d2sbysyw7LVyz2OBps+Ox1cnSn8maol
-         JR0aolrIyDr7lehMYLI3vpKUOEwGvUvinQVv2MDSZRi0F4xMUQDR3/DLAAr8FUPV20h9
-         n2vThsNqzbO39TcDSldvEuVLt1BgBVLrMvCstHghF4GWJuYDrxgC11ZlMJpOp6ZZEgnn
-         4Yjw==
-X-Gm-Message-State: AOAM533nVWiLyTCHs5dq3W388f3QZQAjJzqqP92Mf5JytMv7bZnnjSdI
-	U8sD4Z/mMMDLVpJtIxtIbM5fr2Sw7DDBMA==
-X-Google-Smtp-Source: ABdhPJyqrQcI6AHPqOEumjZ6DtAWWbRPpfcMHUtql6elcZZ8e/VScrD475LKv0Kw+PeK5y2d4btirw==
-X-Received: by 2002:ac8:4e4a:: with SMTP id e10mr2260296qtw.315.1597275321971;
-        Wed, 12 Aug 2020 16:35:21 -0700 (PDT)
+        b=LmsP/oRAFZIixTa+ELOrt34Wsfarz7Sxq+4Xv1wFD45EhKhZRUpc7C15ixB4rK8EGc
+         4QVQh73JAdQIvUDjTNoog/dTFXOdqlYnfRJKHlK0whUPFQX9ytZOyrAAGsQU042Mm7tW
+         Ql+j7Lkr2UzPJKaoDAFNRIzM/BqoMUSt4x4O2AUa552NEQm1qlBcGO968s/1KyBK5Apy
+         VFL0pgk0nK2KTxnr9stp2ihrZgbi0rBdqbIsJI8PxoIaDTSrgtC+fJthLtej8vqEHgnw
+         P0Tb4trwZDdDrZy+6ulxXjZWOBO/ZcEM0xRdiX3tyRW+IOQ1rDXOW+l1bjuutXmndNMB
+         b4sw==
+X-Gm-Message-State: AOAM530BjFuc2mMZCRvUwpXXK4Gr9Xas35JKWk9yKiZbO0IqxWbCCC+h
+	jZ4wzzoB4STHpmdnauPNTdTx6Vgsw0NZxA==
+X-Google-Smtp-Source: ABdhPJxdumkiO/Z1ypIGxdi4i8fN9WEhCLgDAAHrLXIGCh5csNi7iRFojGMKB0aMwCntkC4hd9AwyA==
+X-Received: by 2002:ac8:65d3:: with SMTP id t19mr2347552qto.193.1597275706986;
+        Wed, 12 Aug 2020 16:41:46 -0700 (PDT)
 Return-Path: <mab@mab-labs.com>
 Received: from localhost.localdomain (ool-45752a48.dyn.optonline.net. [69.117.42.72])
-        by smtp.googlemail.com with ESMTPSA id d8sm4373545qtr.12.2020.08.12.16.35.21
+        by smtp.googlemail.com with ESMTPSA id c42sm5008868qte.5.2020.08.12.16.41.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2020 16:35:21 -0700 (PDT)
+        Wed, 12 Aug 2020 16:41:46 -0700 (PDT)
 From: "Mohammed Billoo" <mab@mab-labs.com>
 To: linux-safety@lists.elisa.tech
 Cc: Mohammed Billoo <mab@mab-labs.com>
 Subject: [PATCH] coccinelle: misc: Check for hard-coded constants
-Date: Wed, 12 Aug 2020 19:35:04 -0400
-Message-Id: <20200812233504.31666-1-mab@mab-labs.com>
+Date: Wed, 12 Aug 2020 19:41:29 -0400
+Message-Id: <20200812234129.32109-1-mab@mab-labs.com>
 X-Mailer: git-send-email 2.17.1
 
 This semantic patch looks for variables that are initialized to
