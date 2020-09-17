@@ -1,179 +1,251 @@
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com [209.85.208.66])
- by mx.groups.io with SMTP id smtpd.web10.2607.1600358557140541575
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by mx.groups.io with SMTP id smtpd.web12.3087.1600359849583060835
  for <linux-safety@lists.elisa.tech>;
- Thu, 17 Sep 2020 09:02:37 -0700
+ Thu, 17 Sep 2020 09:24:09 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=X09D5SHL;
- spf=pass (domain: gmail.com, ip: 209.85.208.66, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ed1-f66.google.com with SMTP id t16so3051198edw.7;
-        Thu, 17 Sep 2020 09:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=Vy2CE15V28VzlY7h8e20GOlpUIA6yvJjq9ogNq6Jakk=;
-        b=X09D5SHLlmqNBr0fDkqZaQkdZxLANqIQh1Q0HvlgsFyoOcSOKALIHiqbOCfZZjaK9q
-         iV8QIDYxiDX0CXL6SSrLp6MoI490WWCJJXMNUdXinGzT1akjGJ2nzpg2MH7KVQLb6qPN
-         DRi1heVKBR4keoGPdUXLG+I9Fr8BVesKk19lhraM6qa7nQTv8J8cK9bDee6Hho03szde
-         A7l5OybhbdNs/KeKc0Sg3MQZY/2HyDQtmLGa6+KoskYgv8QJ3UZ7kSRh+pMLyDhqrp7l
-         8dvr1PqT2IoI/Zil9g4fXKzYNHXfOqJqZKr51i+vVlhwkyr914uZO4vfDlN9BNyRu+Wf
-         5+3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=Vy2CE15V28VzlY7h8e20GOlpUIA6yvJjq9ogNq6Jakk=;
-        b=Zf2fiM4WDZmum52JtD9N9voa7DvXgDOO+tL061yYi9SywKkK4gNfhLXIU3aEC4ybQ/
-         6EeLYfZ+pEWOOUQyZ1j3kP8w8RPmK7PyrJdP4y6EaoUHujiavwD/ydCeEQwQVdc7iJpD
-         170cGXpHrmN/9UFCY+83aqyeotiHg3j4fevJ+I0siCGfjcX2itXAFfX6A7EGDHprJlQZ
-         3b/pDxAQJJ/WowZFkm48dGJx+f40DnEkB7Uy/2cXiqbG50tXTpl1Hdga9ggm5PBdxUqu
-         iErZWXG8Rgj0THZqGR7+eWRf292weIuOMtJmovL4g20rgGWAds19juS/ERZEn21MZd5k
-         1j8A==
-X-Gm-Message-State: AOAM5302KkqOvVL3dKsmuCR2ThpNo3ZiJdGFrhWhyM5u0iFPtbkvKt0b
-	d5fO7MVPKNFZ3nUValkIBe0=
-X-Google-Smtp-Source: ABdhPJwy0u5UG2tfZDa1RiS54pZLTixmxV26QO6P8N3nHnORS+fU8UHvJYWFiEx/cRT+ITvINO72pQ==
-X-Received: by 2002:a05:6402:1710:: with SMTP id y16mr35199734edu.197.1600358555352;
-        Thu, 17 Sep 2020 09:02:35 -0700 (PDT)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2da3:1100:b096:8628:b410:46b3])
-        by smtp.gmail.com with ESMTPSA id q13sm84073edr.27.2020.09.17.09.02.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2020 09:02:34 -0700 (PDT)
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Thu, 17 Sep 2020 18:02:33 +0200 (CEST)
-X-X-Sender: lukas@felia
-To: Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, linux-safety@lists.elisa.tech, 
-    development-process@lists.elisa.tech
-Subject: Re: [ELISA Development Process WG] [linux-safety] [PATCH] mm: vmscan: provide a change to the development-process group
-In-Reply-To: <37746704-f127-1f4c-4856-9f510826bb92@codethink.co.uk>
-Message-ID: <alpine.DEB.2.21.2009171754020.9985@felia>
-References: <20200917084409.26992-1-lukas.bulwahn@gmail.com> <bca08c66-cad5-aac5-865c-f9b319142af0@codethink.co.uk> <alpine.DEB.2.21.2009171718090.9985@felia> <37746704-f127-1f4c-4856-9f510826bb92@codethink.co.uk>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ dkim=fail reason="body hash did not verify" header.i=@intel.onmicrosoft.com header.s=selector2-intel-onmicrosoft-com header.b=qgyz1LUg;
+ spf=pass (domain: intel.com, ip: 192.55.52.43, mailfrom: gabriele.paoloni@intel.com)
+IronPort-SDR: 9xKCJdr9iusLIZ4wrF3jvPQLCAYdZPgY5FfylE7ie4EV1cnPxHBSyUK6PKPgs6inFqM2oNUHk7
+ O4pWcqmWYvfg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="244570739"
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; 
+   d="scan'208";a="244570739"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2020 09:23:42 -0700
+IronPort-SDR: BD6impr6eNXPhIFsYctNScBIdMbmoKN3hZo8Fdk7fHVcgDrmjE9LGW6oOl7LpoV3X9WK7Fhcf2
+ zjm0I5zX16Kw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; 
+   d="scan'208";a="346680626"
+Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
+  by orsmga007.jf.intel.com with ESMTP; 17 Sep 2020 09:23:41 -0700
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 17 Sep 2020 09:23:40 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Thu, 17 Sep 2020 09:23:40 -0700
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.47) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Thu, 17 Sep 2020 09:23:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LrSwXkGgzt6/Ny629ExjWo9PrB5yeRkd9NN+M9pFpnkeoQaNO8NSgMjKBMgIgXSJydXC/tXSuqas2gi/qw9EgHH1d2LjxHYJ8WzarmPm/3RcgnPl2gVLPkuxT8uOzN3kUZcv19jlw8BG7z4RbEuyipMuzpCw0XoDVqeVqOzhqbFLCBnwJSdjai5Ua4UNn6zRme1jBDH6lXPNRaWdJEB41hLaQQBU7p7viHxQfci9RQBrCLw19vrg2bEZfsMPDjyYz6wIsN+3XdcnCNthzOVajxjPtLA2ZT5EN/t/C6aNn6IkUNETIByQ/h5O8bnnrB7zfCo2XH0Us6aD9r3dS42Gaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IgiK14QH223exdXx6fJxsU89ffVw0FOKA33+gZwvekU=;
+ b=PekuMDePs/q62PtDsLJC/MMwLr90VbVHfG/W6xwXzS/KsdtevQtzQBMjnqEdFgwqcbrYiju84P+HqRjywhVWs0vwj71xpiA2GcuDj8O9E3fT0yQ15hiTyx00ZMBshDqie08bY+jqhauABBWum74f2Rtwy3LFfZdOmwulJh2b2MgvrOETyCRSxW/JJM68ZRypSq34h5t47xFhUQpsO/np1c/hCMpBJf1mHr4gzU2Z8G9vfsNhm5bT9Ef3B75wYKfwr+8cEclh+iUi+GTvIvthJd94GbWAK62VEbd7BpoNBKnPSXGmo/jrXX8vI5oCTP2lPoCJ1OjajG7J8KsO/wYymQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IgiK14QH223exdXx6fJxsU89ffVw0FOKA33+gZwvekU=;
+ b=qgyz1LUg/bZ8HWCXiywvs3d8kWq8fiQloupbz2Mg7XarQnV5I6Nvu8eWTQ+PAtddezEB5EizeR7pf40W/WmQYUA9dKZ3EC7Soq4d+iqSOeZ2bvvs2ApFJP/KnWyvvYPpnIulsyW3lWCXz0fsByNz8VkJ8OS/qtNPHxgqcRozz5E=
+Received: from BY5PR11MB4195.namprd11.prod.outlook.com (2603:10b6:a03:1be::26)
+ by BY5PR11MB4054.namprd11.prod.outlook.com (2603:10b6:a03:189::26) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14; Thu, 17 Sep
+ 2020 16:23:35 +0000
+Received: from BY5PR11MB4195.namprd11.prod.outlook.com
+ ([fe80::b879:fdbe:e87b:6806]) by BY5PR11MB4195.namprd11.prod.outlook.com
+ ([fe80::b879:fdbe:e87b:6806%7]) with mapi id 15.20.3391.014; Thu, 17 Sep 2020
+ 16:23:35 +0000
+From: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+CC: "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>,
+	"development-process@lists.elisa.tech" <development-process@lists.elisa.tech>
+Subject: Re: [linux-safety] [ELISA Development Process WG] [PATCH] mm: vmscan: provide a change to the development-process group
+Thread-Topic: [linux-safety] [ELISA Development Process WG] [PATCH] mm:
+ vmscan: provide a change to the development-process group
+Thread-Index: AQHWjM7CoqVw7yoSUUGyBqwThwnJmalsxbrQgAAzZ4CAAAnWEA==
+Date: Thu, 17 Sep 2020 16:23:35 +0000
+Message-ID: <BY5PR11MB41954AB0A7968933F7DA6314883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
+References: <20200917084409.26992-1-lukas.bulwahn@gmail.com>
+ <BY5PR11MB419520C95C248EFDB49A3DEA883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
+ <alpine.DEB.2.21.2009171729190.9985@felia>
+In-Reply-To: <alpine.DEB.2.21.2009171729190.9985@felia>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [93.57.250.116]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 265bd28c-d6e8-4f5b-444a-08d85b2606e4
+x-ms-traffictypediagnostic: BY5PR11MB4054:
+x-microsoft-antispam-prvs: <BY5PR11MB4054F250CCA4944E1E98C211883E0@BY5PR11MB4054.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LkwJ9u7EH60BzGSeq1e2EyMoNaFUPjTfQvs7N+YnAZtv73BCsF6FMq/7/oh9Ut5f9XoDGd+gt9Fc+aMCTIA5pJKYEhNa6SypsNCrg3AWR8dAwAiaCr2A511gz8sF0Sx4Ht2G9sVqLMraVE9IbMB4tkORcpQOqa9czYPg66yV7h7RX9rXG8xjMuNCKztJVll+Zx/LozTCd1scHxenM19LZXkViaEZLXAK6uo4xn5GRzuzSdbOghI74/1+M7rjRqDYpTyp9+WCvzRt3jOfhB1/EyQ0qngghos9U7EDf9I34e7X9rIpzyfW+QVufgCLHC+sgUO5YV1T0OVy/wUmxjryp24Xd57Xqm1/JeAnVtdZMS1bp2KqgB/fiJP3xi/yxDCTHTfVdybDatI9a87p/WeBNA==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR11MB4195.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(39860400002)(136003)(376002)(396003)(366004)(8676002)(83380400001)(6506007)(5660300002)(52536014)(26005)(53546011)(2906002)(7696005)(86362001)(54906003)(55016002)(9686003)(64756008)(6916009)(478600001)(76116006)(33656002)(966005)(66476007)(316002)(8936002)(186003)(4326008)(66946007)(66446008)(66556008)(71200400001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: m2vTMBOx1GEU2EVCrkpUZU/gQPtZkw6jsJ6XwF3osu7XK2l/VR2OPZYpiAD+h348lqYIBCcb3eOXAvO5GamlSgNGiHZpWfKuj43r1lrXOyzT1G+8qOYO9UbBGEEEY1TaUV3NTRUWaGbYg1cTLPTeqd5XRovc7mFg3iiTvHwKha9szRyrzyUhL6LRFvuYB0GOxHwqElmv/fla1TSJQQcXnlm//G4zr5VzmG2PM8M7T2wISN0QMCn3iuCDlRI1w468WfILxzQ9muZ8x3aFvrwUJwjyuJUg4/yVMTEqyr/dq6IV5rifEPKtF3RKdo23t0L4p8yTok1mtq6esqguaetLCwQxcQ/tsfumzWfc8GAICzRwy1IwZvKHWYoOWufN507N/cxuFx9GS4MA1QoJGooSxoRU3ZXp7CUDjxJOR0tx75W7dCJtAztfJj/6FFAM9Q+y/+kLGsiawvuCAN/iSVMElVHbMVpcKrHWL4tJ+H3FFkdWil4SXB6WMoa8BdEQdrykSj0QrFagvUe/jeNdP4bZXuy9eEsfspR/fsooNIP9EsdrmoztZGfUKNuGCDZShv+kSCofaV5qz6UL2uzdafnu7QOBeizLsIV0pbEMusJzWBYdLBMmJMMzC02B5D5VumTGVPB+NUq4EvI46PTHIwZRhg==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB4195.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 265bd28c-d6e8-4f5b-444a-08d85b2606e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2020 16:23:35.3344
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: L819LUBgVb8s/3tmNoVroncmVVIKjkIeEyFQ6z5Wov7/65zgm70GG/Gq6H3+ZkgjVsJtr2zkdQCeT2QjrtATTUvfyBoSAY/X35pkMLDyihY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB4054
+Return-Path: gabriele.paoloni@intel.com
+X-OriginatorOrg: intel.com
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
 
 
-On Thu, 17 Sep 2020, Sudip Mukherjee wrote:
+> -----Original Message-----
+> From: development-process@lists.elisa.tech <development-
+> process@lists.elisa.tech> On Behalf Of Lukas Bulwahn
+> Sent: Thursday, September 17, 2020 5:44 PM
+> To: Paoloni, Gabriele <gabriele.paoloni@intel.com>
+> Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>; linux-
+> safety@lists.elisa.tech; development-process@lists.elisa.tech
+> Subject: Re: [linux-safety] [ELISA Development Process WG] [PATCH] mm:
+> vmscan: provide a change to the development-process group
+>=20
+>=20
+>=20
+> On Thu, 17 Sep 2020, Paoloni, Gabriele wrote:
+>=20
+> > > -----Original Message-----
+> > > From: development-process@lists.elisa.tech <development-
+> > > process@lists.elisa.tech> On Behalf Of Lukas Bulwahn
+> > > Sent: Thursday, September 17, 2020 10:44 AM
+> > > To: linux-safety@lists.elisa.tech
+> > > Cc: development-process@lists.elisa.tech; Lukas Bulwahn
+> > > <lukas.bulwahn@gmail.com>
+> > > Subject: [ELISA Development Process WG] [PATCH] mm: vmscan: provide
+> a
+> > > change to the development-process group
+> > >
+> > > I think this change is needed for safety, whatever that might mean t=
+o
+> you.
+> > >
+> > > I am unqualified to really make a change here, as I have no clue wha=
+t this
+> > > code does, nor what my change does, but sure, the testing and
+> verification
+> > > reference process can now point out the required next steps in the
+> > > reference process to test this code and code change.
+> > >
+> > > Good luck :)
+> > >
+> > > Not intended for distribution to the general kernel mailing lists.
+> > >
+> > > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+> > > ---
+> > > I would like to submit such a patch, what do I need to do according =
+to
+> > > the expected testing and verification recommendations for safety-
+> related
+> > > systems?
+> >
+> > Probably the problem is not just limited to submitting patches, but I =
+think it
+> > is a good starting point.
+> >
+> > >
+> > > Please help me. What do I need to compile, what test do I need to ru=
+n,
+> > > which verification tool do I need to employ for this change?
+> >
+> > Right. I have tried to reformulate the problem as "ok I am looking at =
+or I am
+> > trying to change one or more code lines, so I would like to understand=
+ if
+> such
+> > code lines are tested today and how".
+> > Right now if we had a s maintained structural coverage report we could=
+ tell
+> > if the impacted code lines are covered and by which tests...I could no=
+t find
+> it
+> > so I guess that so far we are missing it....am I wrong?
+> >
+> > As next step I went to look at the function wrapping the impacted code=
+ line
+> > that in this case is kswapd. I could not find it tested in the Kunit f=
+ramework.
+> >
+> > As next steps then I would run the available tests in
+> > https://elixir.bootlin.com/linux/latest/source/tools/testing/selftests
+> > in conjunction with GCOV trying to figure out if that line is covered =
+already
+> > somehow.
+> >
+> > There are probably smarter, better, faster ways to elaborate on this..=
+.so
+> > here I just put down what I would do in order to figure this out...
+> >
+>=20
+> Gab, these are GREAT ideas and approaches. So, do we intend to provide
+> methods, tools and documentation to really do these things you suggest?
+>=20
+> That makes the intensions more tangible to me; if we try to find out
+> how we and anyone else can get that information in some 'easy' way.
+>=20
+> You can imagine that for a single-line change, you are suggesting probab=
+ly
+> quite some few days of work of investigation to get this information,
+> right?
 
-> 
-> 
-> On 17/09/2020 16:29, Lukas Bulwahn wrote:
-> > 
-> > 
-> > On Thu, 17 Sep 2020, Sudip Mukherjee wrote:
-> > 
-> >>
-> >>
-> >> On 17/09/2020 09:44, Lukas Bulwahn wrote:
-> >>> I think this change is needed for safety, whatever that might mean to you.
-> >>>
-> >>> I am unqualified to really make a change here, as I have no clue what this
-> >>> code does, nor what my change does, but sure, the testing and verification
-> >>> reference process can now point out the required next steps in the
-> >>> reference process to test this code and code change.
-> >>>
-> >>> Good luck :)
-> >>>
-> >>> Not intended for distribution to the general kernel mailing lists.
-> >>>
-> >>> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> >>> ---
-> >>> I would like to submit such a patch, what do I need to do according to
-> >>> the expected testing and verification recommendations for safety-related
-> >>> systems?
-> >>>
-> >>> Please help me. What do I need to compile, what test do I need to run,
-> >>> which verification tool do I need to employ for this change?
-> >>
-> >> The change looks valid, 'reclaim_order' has not been used anywhere after
-> >> READ_ONCE(), and its  So, it looks like a harmless change, you will only
-> >> need a good commit message detailing why its harmless.
-> >>
-> > 
-> > Thanks, Sudip. Yes, I also conclude it is harmless but I really cannot say 
-> > as I did not even compile it :) and I guess you did not either :)
-> > 
-> > I would actually want to argue that I compiled it for all available (and 
-> > relevant) kernel configurations and the binary is identical before and 
-> > after the change.
-> 
-> That, I dont think is possible. The maintainers will receive thousands
-> of patch in a day. If they have to compile each for all available
-> configuration (and arch), then they might spend the full day just
-> checking patches. Also, many upstream contributors contribute in their
-> personal spare time, so if building in all possible configuration
-> becomes a requirement then I think that is going to discourage many
-> contributors from contributing.
->
+Unless together with the test frameworks in Linux we start maintaining a
+corresponding structural coverage report that would instantly map the
+affected code lines against the corresponding test.
 
-I am not asking the maintainer, I would only waste my own energy bill on 
-that :) if I would what to do...
+Then reading the corresponding test we can figure out if the tests are sti=
+ll
+valid (i.e. - black box - have I changed any behavior with my patch compar=
+ed
+to the expected result of the tests? or - white box - am I able to reach m=
+y
+new change using the current test suites?)
 
-But even finding out which configurations actually make a difference is an 
-unsolved challenge, right? The experts know, but how would I find out?
+My feeling is that we just need to get started putting together a more
+structured test framework and report and them the problem as presented
+by this patch would be very straightforward
 
-> > 
-> > It is a Dead Store, so I expect the compiler to detect that and just 
-> > optimize that away...
-> 
-> Which is also something I always think, we are relying on the compiler
-> to produce the code that is actually executed on the hardware. There are
-> different compilers and each compiler has different versions, so that
-> means the generated code is going to be different. Even though we say
-> Linus Kernel meets the safety requirement, can we say that the kernel
-> that is executing on the hardware meets the safety requirement? This, I
-> think is completely off-topic for this WG, but just a thought.
->
+Thanks
+Gab
 
-Yes, let us keep it simple for now; but you are right. This whole story of 
-'test and verification' fully independently quickly breaks... but let the
-group figure that out.
-  
-> > 
-> >> So, from a safety pov, is it a requirement that every submitted patch
-> >> will need to be tested based on the safety tests and all the other
-> >> defined tests?
-> >>
-> > 
-> > Well, I do not know what Roberto thinks his reference process is good for, 
-> > but I would like to know if Roberto thinks it can guide anyone on such a 
-> > question or not?
-> > 
-> > It is really just some fun for the discussion in this group... there are 
-> > thousands of commits travelling into the kernel... if we cannot provide 
-> > an answer for a single one, how to do it for thousands?
-> 
-> Lets have another example of a change.
-> 
-> diff --git a/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
-> b/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
-> index b78101afc93d..2b539335206a 100644
-> --- a/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
-> +++ b/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
-> @@ -367,7 +367,6 @@ uint oid_rt_get_scan_in_progress_hdl(struct
-> oid_par_priv *poid_par_priv)
->         return RNDIS_STATUS_SUCCESS;
->  }
-> 
-> -
->  uint oid_rt_forced_data_rate_hdl(struct oid_par_priv *poid_par_priv)
->  {
->         return RNDIS_STATUS_SUCCESS;
-> 
-> 
-> 
-> Not a formal patch, just pasted the git diff. This fixes the checkpatch
-> warning of "Please don't use multiple blank lines". What tests are
-> needed on this patch to say that the kernel development meets the safety
-> requirement?
-> 
->
+>=20
+>=20
+> Lukas
+>=20
+>=20
+>=20
+>=20
 
-Nice :) Sudip, You are making the kernel safer, Yeah! ;)
+---------------------------------------------------------------------
+INTEL CORPORATION ITALIA S.p.A. con unico socio
+Sede: Milanofiori Palazzo E 4=20
+CAP 20094 Assago (MI)
+Capitale Sociale Euro 104.000,00 interamente versato
+Partita I.V.A. e Codice Fiscale  04236760155
+Repertorio Economico Amministrativo n. 997124=20
+Registro delle Imprese di Milano nr. 183983/5281/33
+Soggetta ad attivita' di direzione e coordinamento di=20
+INTEL CORPORATION, USA
 
-Reference process, where are thou?
-
-Lukas
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
