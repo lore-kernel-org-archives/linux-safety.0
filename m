@@ -1,126 +1,131 @@
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
- by mx.groups.io with SMTP id smtpd.web11.1983.1600357449526944449
+Received: from imap3.hz.codethink.co.uk (imap3.hz.codethink.co.uk [176.9.8.87])
+ by mx.groups.io with SMTP id smtpd.web10.2181.1600357626604452126
  for <linux-safety@lists.elisa.tech>;
- Thu, 17 Sep 2020 08:44:10 -0700
+ Thu, 17 Sep 2020 08:47:07 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=euZQM4xv;
- spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wm1-f65.google.com with SMTP id k18so2524917wmj.5;
-        Thu, 17 Sep 2020 08:44:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=4N8LFqPmEAIbhbAVVSje7WFF8Wyg6vikrrAsxJIwvSI=;
-        b=euZQM4xvvvLPdywpnpffukX1AMNvRo5e9UN/BewcTl/MNbi8LywThXyIiYT9bn24Pz
-         715/djAVAN7uI6Raji8tULkm6zFQxR9DjnhfH/g9O1JB+lcOUdQ+dBMDwrb9e7v2pxdu
-         26/u72XEpcUh6cSOzTNJh42a4cxBD++eMeG/OAfdddgwzFdmiiM+BEcL/pX8GDYmnaxV
-         MPTn18ZT2Xd+ReWj4/DwNmfO0eQ10ZbeVa9v30LuJYmjccgWfjNi/dO1zH22ZlMtBTAs
-         FsEnqIHZaDCSMjD3IHGah+G8wWVR4rvN0Tlj16aRDVWdUpdxMA2EvRyAiL5XIquhRu6O
-         MD5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=4N8LFqPmEAIbhbAVVSje7WFF8Wyg6vikrrAsxJIwvSI=;
-        b=Jg1w5KOYPZH71O/RaKRLFpRTVeBQUb2UjAYcivIL8pwUm7XMxhYpXObeAdl2bOjWF4
-         wMyFAi3j0yHYsiBf9IUaKjPLnzBocNk1vcOcfeBwaJzRzNcE4/9nwEsLYdBWQlngkj1m
-         Sn1tcbmslKg9Cyz8nF1KJcbuS9ra4MiY2az7n4m90Tu5xSTPpqZv+AZhztCrND5KYqfO
-         WWPv2vAAhYi5dVWAnu3wGfnvakWOCTdiaEOaiDGqWfkB99K7OMAOeJ6pO58hPal/736z
-         D3ensEyTg8eyemvoo46DYBsLDgiSSXCR9GBzs6xkvt8EkHgbMfRyYkuoWJYM2/gLgqzV
-         MqKQ==
-X-Gm-Message-State: AOAM533fZOHTHXazKtalavAdpxhfSq55Lwwg+y2UIuxM1y7Fd3tmxW7X
-	kij+8oie1rQDoVDllwzLTcU=
-X-Google-Smtp-Source: ABdhPJxBUEMwulEcxHAOtvO4tzOTeMR+VBtcGGVo1N5tvTE5Z5jE1zgDyx5oIwAzhnodzHFVuBcizA==
-X-Received: by 2002:a1c:7508:: with SMTP id o8mr10250225wmc.127.1600357447858;
-        Thu, 17 Sep 2020 08:44:07 -0700 (PDT)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2da3:1100:dd9f:23a1:e5f6:157])
-        by smtp.gmail.com with ESMTPSA id h4sm39326782wrm.54.2020.09.17.08.44.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2020 08:44:07 -0700 (PDT)
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Thu, 17 Sep 2020 17:44:05 +0200 (CEST)
-X-X-Sender: lukas@felia
-To: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
-    "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>, 
-    "development-process@lists.elisa.tech" <development-process@lists.elisa.tech>
-Subject: Re: [linux-safety] [ELISA Development Process WG] [PATCH] mm: vmscan: provide a change to the development-process group
-In-Reply-To: <BY5PR11MB419520C95C248EFDB49A3DEA883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2009171729190.9985@felia>
-References: <20200917084409.26992-1-lukas.bulwahn@gmail.com> <BY5PR11MB419520C95C248EFDB49A3DEA883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ dkim=missing; spf=none, err=SPF record not found (domain: codethink.co.uk, ip: 176.9.8.87, mailfrom: sudip.mukherjee@codethink.co.uk)
+Received: from host-92-5-241-147.as43234.net ([92.5.241.147] helo=[192.168.1.13])
+	by imap3.hz.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+	id 1kIw7h-0000bM-Vr; Thu, 17 Sep 2020 16:47:02 +0100
+Subject: Re: [ELISA Development Process WG] [linux-safety] [PATCH] mm: vmscan: provide a change to the development-process group
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Cc: linux-safety@lists.elisa.tech, development-process@lists.elisa.tech
+References: <20200917084409.26992-1-lukas.bulwahn@gmail.com>
+ <bca08c66-cad5-aac5-865c-f9b319142af0@codethink.co.uk>
+ <alpine.DEB.2.21.2009171718090.9985@felia>
+From: "Sudip Mukherjee" <sudip.mukherjee@codethink.co.uk>
+Message-ID: <37746704-f127-1f4c-4856-9f510826bb92@codethink.co.uk>
+Date: Thu, 17 Sep 2020 16:47:01 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <alpine.DEB.2.21.2009171718090.9985@felia>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
 
 
-On Thu, 17 Sep 2020, Paoloni, Gabriele wrote:
-
-> > -----Original Message-----
-> > From: development-process@lists.elisa.tech <development-
-> > process@lists.elisa.tech> On Behalf Of Lukas Bulwahn
-> > Sent: Thursday, September 17, 2020 10:44 AM
-> > To: linux-safety@lists.elisa.tech
-> > Cc: development-process@lists.elisa.tech; Lukas Bulwahn
-> > <lukas.bulwahn@gmail.com>
-> > Subject: [ELISA Development Process WG] [PATCH] mm: vmscan: provide a
-> > change to the development-process group
-> > 
-> > I think this change is needed for safety, whatever that might mean to you.
-> > 
-> > I am unqualified to really make a change here, as I have no clue what this
-> > code does, nor what my change does, but sure, the testing and verification
-> > reference process can now point out the required next steps in the
-> > reference process to test this code and code change.
-> > 
-> > Good luck :)
-> > 
-> > Not intended for distribution to the general kernel mailing lists.
-> > 
-> > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> > ---
-> > I would like to submit such a patch, what do I need to do according to
-> > the expected testing and verification recommendations for safety-related
-> > systems?
+On 17/09/2020 16:29, Lukas Bulwahn wrote:
 > 
-> Probably the problem is not just limited to submitting patches, but I think it
-> is a good starting point.
 > 
-> > 
-> > Please help me. What do I need to compile, what test do I need to run,
-> > which verification tool do I need to employ for this change?
+> On Thu, 17 Sep 2020, Sudip Mukherjee wrote:
 > 
-> Right. I have tried to reformulate the problem as "ok I am looking at or I am
-> trying to change one or more code lines, so I would like to understand if such
-> code lines are tested today and how".
-> Right now if we had a s maintained structural coverage report we could tell
-> if the impacted code lines are covered and by which tests...I could not find it
-> so I guess that so far we are missing it....am I wrong?
+>>
+>>
+>> On 17/09/2020 09:44, Lukas Bulwahn wrote:
+>>> I think this change is needed for safety, whatever that might mean to you.
+>>>
+>>> I am unqualified to really make a change here, as I have no clue what this
+>>> code does, nor what my change does, but sure, the testing and verification
+>>> reference process can now point out the required next steps in the
+>>> reference process to test this code and code change.
+>>>
+>>> Good luck :)
+>>>
+>>> Not intended for distribution to the general kernel mailing lists.
+>>>
+>>> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+>>> ---
+>>> I would like to submit such a patch, what do I need to do according to
+>>> the expected testing and verification recommendations for safety-related
+>>> systems?
+>>>
+>>> Please help me. What do I need to compile, what test do I need to run,
+>>> which verification tool do I need to employ for this change?
+>>
+>> The change looks valid, 'reclaim_order' has not been used anywhere after
+>> READ_ONCE(), and its  So, it looks like a harmless change, you will only
+>> need a good commit message detailing why its harmless.
+>>
 > 
-> As next step I went to look at the function wrapping the impacted code line
-> that in this case is kswapd. I could not find it tested in the Kunit framework.
+> Thanks, Sudip. Yes, I also conclude it is harmless but I really cannot say 
+> as I did not even compile it :) and I guess you did not either :)
 > 
-> As next steps then I would run the available tests in
-> https://elixir.bootlin.com/linux/latest/source/tools/testing/selftests
-> in conjunction with GCOV trying to figure out if that line is covered already
-> somehow.
+> I would actually want to argue that I compiled it for all available (and 
+> relevant) kernel configurations and the binary is identical before and 
+> after the change.
+
+That, I dont think is possible. The maintainers will receive thousands
+of patch in a day. If they have to compile each for all available
+configuration (and arch), then they might spend the full day just
+checking patches. Also, many upstream contributors contribute in their
+personal spare time, so if building in all possible configuration
+becomes a requirement then I think that is going to discourage many
+contributors from contributing.
+
 > 
-> There are probably smarter, better, faster ways to elaborate on this...so
-> here I just put down what I would do in order to figure this out...
->
+> It is a Dead Store, so I expect the compiler to detect that and just 
+> optimize that away...
 
-Gab, these are GREAT ideas and approaches. So, do we intend to provide 
-methods, tools and documentation to really do these things you suggest?
+Which is also something I always think, we are relying on the compiler
+to produce the code that is actually executed on the hardware. There are
+different compilers and each compiler has different versions, so that
+means the generated code is going to be different. Even though we say
+Linus Kernel meets the safety requirement, can we say that the kernel
+that is executing on the hardware meets the safety requirement? This, I
+think is completely off-topic for this WG, but just a thought.
 
-That makes the intensions more tangible to me; if we try to find out 
-how we and anyone else can get that information in some 'easy' way.
+> 
+>> So, from a safety pov, is it a requirement that every submitted patch
+>> will need to be tested based on the safety tests and all the other
+>> defined tests?
+>>
+> 
+> Well, I do not know what Roberto thinks his reference process is good for, 
+> but I would like to know if Roberto thinks it can guide anyone on such a 
+> question or not?
+> 
+> It is really just some fun for the discussion in this group... there are 
+> thousands of commits travelling into the kernel... if we cannot provide 
+> an answer for a single one, how to do it for thousands?
 
-You can imagine that for a single-line change, you are suggesting probably 
-quite some few days of work of investigation to get this information, 
-right?
+Lets have another example of a change.
+
+diff --git a/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
+b/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
+index b78101afc93d..2b539335206a 100644
+--- a/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
++++ b/drivers/staging/rtl8712/rtl871x_ioctl_rtl.c
+@@ -367,7 +367,6 @@ uint oid_rt_get_scan_in_progress_hdl(struct
+oid_par_priv *poid_par_priv)
+        return RNDIS_STATUS_SUCCESS;
+ }
+
+-
+ uint oid_rt_forced_data_rate_hdl(struct oid_par_priv *poid_par_priv)
+ {
+        return RNDIS_STATUS_SUCCESS;
 
 
-Lukas
+
+Not a formal patch, just pasted the git diff. This fixes the checkpatch
+warning of "Please don't use multiple blank lines". What tests are
+needed on this patch to say that the kernel development meets the safety
+requirement?
+
+
+
+-- 
+Regards
+Sudip
