@@ -1,120 +1,138 @@
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by mx.groups.io with SMTP id smtpd.web12.1058.1601315975848851940
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
+ by mx.groups.io with SMTP id smtpd.web10.5070.1601325830073386713
  for <linux-safety@lists.elisa.tech>;
- Mon, 28 Sep 2020 10:59:36 -0700
+ Mon, 28 Sep 2020 13:43:50 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: intel.com, ip: 134.134.136.31, mailfrom: dave.hansen@intel.com)
-IronPort-SDR: irBdUHJHyIe5boq2jsf+OMpOug9B41yXhqX/eAjRV6E5FhmHnvqjg2l7rVKKBPPOHVLB8b4npk
- ZWmXkub5MzMw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9758"; a="223630243"
-X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; 
-   d="scan'208";a="223630243"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2020 10:59:34 -0700
-IronPort-SDR: HsqcJRes8xgY5EqzyBftcMXTFTGrqAVQ+LPkgzhDcuz/hP/Oy1nzd2sZZhX8+6NRVgtGXIOfa0
- VGcwmhg/E/SA==
-X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; 
-   d="scan'208";a="293962707"
-Received: from rcalvo1-mobl1.amr.corp.intel.com (HELO [10.209.56.88]) ([10.209.56.88])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2020 10:59:33 -0700
-Subject: Re: [PATCH] x86/mm: drop superfluous initialization
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- Nathan Chancellor <natechancellor@gmail.com>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
- linux-safety@lists.elisa.tech
-References: <20200928100004.25674-1-lukas.bulwahn@gmail.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
- z5cecg==
-Message-ID: <1d376c1f-2f14-5c29-671e-ca59853fa4a4@intel.com>
-Date: Mon, 28 Sep 2020 10:59:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=PDPtID/t;
+ spf=pass (domain: gmail.com, ip: 209.85.210.196, mailfrom: natechancellor@gmail.com)
+Received: by mail-pf1-f196.google.com with SMTP id x123so2243159pfc.7
+        for <linux-safety@lists.elisa.tech>; Mon, 28 Sep 2020 13:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=JbsSO0zP4i+4+OZXhhTK0jpolLCqQxk8S7EHJu7e4UA=;
+        b=PDPtID/tw5h9Kf0tijaIWL1aQgj5Ev/kQsnVA5MW5HyvGy6l0cEkT1QB3a80QCu0qh
+         Jkt/6VyymU2TjzCEqhV990copDeC2Xrv4NZf7bkdEZ0HqNSzH5z//DbEU8VPDldfLOYn
+         6eFqwG9+0j18a6P4krLOC0iM9hNzYMIU+p/rmiyVAG8wf4DyXyZ5pBvQRM1gZ8Qn9LFJ
+         cxLMSz+HM0cLL+ZDul71GO4p1oDe6Diepl8x/8pNYJo1OcKen34YbxcBtl5QP2oZ5g6R
+         fl3ZZIQiUt9iQy9RBWWo0+G1a/pLYhGRKgwydJM7Z46IEhfW3IbUIs0+hep9dmNm2FoU
+         sBNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=JbsSO0zP4i+4+OZXhhTK0jpolLCqQxk8S7EHJu7e4UA=;
+        b=ViDgDJ4qlvzPvaPwyuqwC/Cru2/HOq61XJOLs3NTNZWxeJmPB37JEnIosAGcjCaQPM
+         tyIMed6vyjpa3fRdTKm+A5faZK+SB0dEbEzP2CnKwQlAoRJEE3kKlMAWytCBSlytO+53
+         0F4naX8O8htF8l3ACL601OhricAD+kYVzepxABtVKUD6PIIbjjkf21YkeH3eFQ/laaQN
+         CCDUq2sOtGF6uPvNhO0RS4nA+HOYJNnLuPUUWJU2AOXZhN4COe4olUiG2TMJwB6AmcP4
+         Ij6uiBtty7OSOWZoLuHndoMzkfSYSKi2GvyR/lZj6GhUekTpSAi0lSsputHxVmGIpROr
+         Aiaw==
+X-Gm-Message-State: AOAM533p7vexxjTf95xrRXtsJDb2Jb8fSAggVIXAprLe+0DkQQOi/kwV
+	q7ARrLCyR0xLNvPJ7SfE4Dg=
+X-Google-Smtp-Source: ABdhPJxHyZb9FWYtMz92gjZ2Fxdaig+p2xmZUkcuisS3FESas0U3E0mHShr1l83UA7OpmSNGcruYmw==
+X-Received: by 2002:a62:1410:0:b029:13e:d13d:a129 with SMTP id 16-20020a6214100000b029013ed13da129mr994603pfu.17.1601325829273;
+        Mon, 28 Sep 2020 13:43:49 -0700 (PDT)
+Return-Path: <natechancellor@gmail.com>
+Received: from ubuntu-m3-large-x86 ([2604:1380:45e1:2200::1])
+        by smtp.gmail.com with ESMTPSA id i36sm2269309pgm.43.2020.09.28.13.43.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2020 13:43:48 -0700 (PDT)
+Date: Mon, 28 Sep 2020 13:43:46 -0700
+From: Nathan Chancellor <natechancellor@gmail.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Cc: Balbir Singh <sblbir@amazon.com>, Thomas Gleixner <tglx@linutronix.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
+	kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
+Subject: Re: [PATCH -next for tip:x86/pti] x86/tlb: drop unneeded local vars in enable_l1d_flush_for_task()
+Message-ID: <20200928204346.GA953199@ubuntu-m3-large-x86>
+References: <20200928124457.27289-1-lukas.bulwahn@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200928100004.25674-1-lukas.bulwahn@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200928124457.27289-1-lukas.bulwahn@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 9/28/20 3:00 AM, Lukas Bulwahn wrote:
-> diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
-> index c7a47603537f..5632f02146ca 100644
-> --- a/arch/x86/mm/init.c
-> +++ b/arch/x86/mm/init.c
-> @@ -609,7 +609,7 @@ static void __init memory_map_top_down(unsigned long map_start,
->  	step_size = PMD_SIZE;
->  	max_pfn_mapped = 0; /* will get exact value next */
->  	min_pfn_mapped = real_end >> PAGE_SHIFT;
-> -	last_start = start = real_end;
-> +	last_start = real_end;
+On Mon, Sep 28, 2020 at 02:44:57PM +0200, Lukas Bulwahn wrote:
+> Commit b6724f118d44 ("prctl: Hook L1D flushing in via prctl") checks the
+> validity for enable_l1d_flush_for_task() and introduces some superfluous
+> local variables for that implementation.
+> 
+> make clang-analyzer on x86_64 tinyconfig caught my attention with:
+> 
+>   arch/x86/mm/tlb.c:332:2: warning: Value stored to 'cpu' is never read \
+>   [clang-analyzer-deadcode.DeadStores]
+> 
+> Compilers will detect these superfluous local variables and assignment and
+> optimize this anyway. So, the resulting binary is identical before and
+> after this change.
+> 
+> Simplify the code and remove superfluous local variables to make
+> clang-analyzer happy.
+> 
+> No functional change. No change in binary with supported compilers.
+> 
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+> ---
 
-Thanks for finding this.
+Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
 
-This becomes even more obviously correct if we just move the 'start'
-declaration into the while() loop.  If we do that, it puts the three
-assignment locations right next to the definition, and its trivial to
-spot that the initialization was not missed:
-
-        while (last_start > map_start) {
-		unsigned long start;
-
-                if (last_start > step_size) {
-                        start = round_down(last_start - 1, step_size);
-                        if (start < map_start)
-                                start = map_start;
-                } else
-                        start = map_start;
-		...
-
-Either way, your patch looks correct to me:
-
-Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+> applies cleanly on next-20200925
+> 
+> Balbir, please review and ack.
+> Thomas, please pick this minor non-urgent clean-up patch into the x86/pti
+> branch of tip as follow-up to: 
+> https://lore.kernel.org/lkml/160026187842.15536.285514864386042510.tip-bot2@tip-bot2/
+> 
+> I quickly confirmed that the binary did not change with this change to the
+> source code; The hash of tlb.o remained the same before and after the change.
+> 
+> So, in my setup:
+> md5sum tlb.o
+> 7c7e096bab0fd87bd2c8437d8c7dc3fa  tlb.o
+> 
+> linux-safety, please verify and validate this change.
+> 
+>  arch/x86/mm/tlb.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+> index 6b0f4c88b07c..90515c04d90a 100644
+> --- a/arch/x86/mm/tlb.c
+> +++ b/arch/x86/mm/tlb.c
+> @@ -316,7 +316,7 @@ EXPORT_SYMBOL_GPL(leave_mm);
+>  
+>  int enable_l1d_flush_for_task(struct task_struct *tsk)
+>  {
+> -	int cpu, ret = 0, i;
+> +	int i;
+>  
+>  	/*
+>  	 * Do not enable L1D_FLUSH_OUT if
+> @@ -329,7 +329,7 @@ int enable_l1d_flush_for_task(struct task_struct *tsk)
+>  			!static_cpu_has(X86_FEATURE_FLUSH_L1D))
+>  		return -EINVAL;
+>  
+> -	cpu = get_cpu();
+> +	get_cpu();
+>  
+>  	for_each_cpu(i, &tsk->cpus_mask) {
+>  		if (cpu_data(i).smt_active == true) {
+> @@ -340,7 +340,7 @@ int enable_l1d_flush_for_task(struct task_struct *tsk)
+>  
+>  	set_ti_thread_flag(&tsk->thread_info, TIF_SPEC_L1D_FLUSH);
+>  	put_cpu();
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  int disable_l1d_flush_for_task(struct task_struct *tsk)
+> -- 
+> 2.17.1
+> 
