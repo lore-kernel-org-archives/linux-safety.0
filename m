@@ -1,170 +1,111 @@
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com [209.85.208.66])
- by mx.groups.io with SMTP id smtpd.web12.110.1600360132592493978
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com [209.85.208.67])
+ by mx.groups.io with SMTP id smtpd.web10.33050.1601287215459371617
  for <linux-safety@lists.elisa.tech>;
- Thu, 17 Sep 2020 09:28:53 -0700
+ Mon, 28 Sep 2020 03:00:15 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=P7hP83RG;
- spf=pass (domain: gmail.com, ip: 209.85.208.66, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ed1-f66.google.com with SMTP id e22so3151517edq.6;
-        Thu, 17 Sep 2020 09:28:52 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=R+pfU0To;
+ spf=pass (domain: gmail.com, ip: 209.85.208.67, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-ed1-f67.google.com with SMTP id i1so640443edv.2
+        for <linux-safety@lists.elisa.tech>; Mon, 28 Sep 2020 03:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=suo12S+NGVmFSCQAjTpPm5fuQjn2ysBoNCsUclvmktE=;
-        b=P7hP83RGm6xBdmKEIeybx9JbRJPcA9ZCi9buK7aPW4QC0FFMV0SOyGKcyUKoW7PaqX
-         lP6rG1YKUVIa0o1NzCZ442qa/i9P4IrRhX9o8JKvrvMFLYTMkxAsEx/yuc9JPcuO9941
-         namwq8wtiTj/pf5WLDXHePn2+3j+N9uqBB5+Q6nmI99JgKeO3KjryGXo8N+ugX4TQ5gJ
-         omLq2ywBUjqu0JcIujeqXaWT2cbCwuo5FjM0BWg2CP0DFpTU/C1OmUWqhGVILjQV4ox3
-         z1Yke1YDSpA8IBpb5Yv5gINPtCbv37tMB3hDW6hWvsBFdLthm75Df9Pb9VQN1dXBhIF6
-         OQfg==
+        h=from:to:cc:subject:date:message-id;
+        bh=SDDq2C7QLWNFyYFepbxAMacpxOBVCHMbzny/kHBr8TA=;
+        b=R+pfU0Towmle8RJu/D2uVB6nF3nenvlxVFjiSEvSkMiG2Jlx3yvjSATbQ8+uGNBHHC
+         /hxaVJSDGW/iXOGt0AzwAPlvP3FQWFp7uRePLRzNFXLrjI0cUmxzmB/Yo4f7rU2w/PgF
+         QZZNVcmw/iC5SfxzSz2omZ3VEyF9P6mf8kLWBPl9DmsXVXIn00jKeEf2rX03yd0uCEhx
+         cbYV3TC7vuKlE6QYK63WE8mIThW1ugvgD3GoYFnmga8LP66ybx8Bj4VvIj9Td0U8GFtB
+         Lo3a8nFWXq4UkVdkgbsrgexuhXTY65G8VOE+r0bL/pwSau4c2qfKMF3pZa37/VqccADC
+         1MIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=suo12S+NGVmFSCQAjTpPm5fuQjn2ysBoNCsUclvmktE=;
-        b=N2qagLu5EGOMKDynETej9wEczS3JoCmUuXuq64pw+I/NlIGLBYGy4tWdzLNweGyPU5
-         Q/xxoyClWx2WR/iaY+S/3jXGGvjIslPiIyk/KEY2SdyNT95HGMNwJBdW/OrYp5Pxivj6
-         9R5EOe0AjIHrNQrOXQQNwuLJX86Gu8pIaCNs5uh+tnojcTvaAWH5d166HyyeIJ3xpGNh
-         LBrHZK/5Hvl4gprZ1BrUKZOsJyz1NctYyDYrTx7F1DdRtVkD/4QSvTh1vKWerpM/iYls
-         8sq3JSdGNPiR3Xt80fJToUPS6SrlJFjPDpkrcDk4iz7gO+QhbwkaRWUYrL6B4oQpufcf
-         3b6g==
-X-Gm-Message-State: AOAM531Gcw568DbYg44q/79fwUyjsVRsJ3cbBplc8nFzOVYXnDOp2Q5I
-	Afwq/1PiuuHtY0WmXWCKkb4=
-X-Google-Smtp-Source: ABdhPJworcBSu8bdjeLT+C3J9sOgOUvh+6JFYNfV0OAKyThS3xKT9bka6yIrEowIIAvkD8+Z/5/U5Q==
-X-Received: by 2002:a50:fc83:: with SMTP id f3mr34895429edq.102.1600360130809;
-        Thu, 17 Sep 2020 09:28:50 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=SDDq2C7QLWNFyYFepbxAMacpxOBVCHMbzny/kHBr8TA=;
+        b=BJZKXzWTiy7P4FMvZ1VFwF+t8IuIH7yCv/P8QwXoFm5aZ7x6H2m4M7ZoleOpKkSEDA
+         oZ1obNaJVFahznMGtUrni6R5rVmOsS1kIGvYR/AYNInWnFud0cnvKZyvIuXBhMCPrfkp
+         EiLYmps8c1SP5ws9YK5KRFI/+n/AWamGyhjNXrtznGNPAJhYgm/ckn2FMvPZ0bVGMqbU
+         /nyJoB/dyVjK9a6/sgGKrc1bOZHx1+sIGCp3GrCfLbzb/8zMktOFc/Oy7SGDdlqn92zn
+         rVmnjtZlbmSXyImRJ3zsY32P0g/r+I9Qo7QbibQsS/AAkl98rwc3FVssbqir889Dp/f2
+         vgaw==
+X-Gm-Message-State: AOAM532wM1ia+lFmJa33h/QMEgPSzki6xATcsReXsjS2khexjzC4o2m4
+	6LTrfiSde4mG/eBHub+smOE=
+X-Google-Smtp-Source: ABdhPJzlWRLg1EMg817RKK+Ds6y/qvJKdNZ7zwAaJGbykb2KswiX5HBOGUqqOfFCatcJ6+iB3eFoOQ==
+X-Received: by 2002:a05:6402:1d93:: with SMTP id dk19mr800943edb.198.1601287213821;
+        Mon, 28 Sep 2020 03:00:13 -0700 (PDT)
 Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2da3:1100:b096:8628:b410:46b3])
-        by smtp.gmail.com with ESMTPSA id i25sm138884edt.1.2020.09.17.09.28.49
+Received: from felia.fritz.box ([2001:16b8:2d9d:5000:7872:7299:adfa:b749])
+        by smtp.gmail.com with ESMTPSA id m10sm921048edf.11.2020.09.28.03.00.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2020 09:28:50 -0700 (PDT)
+        Mon, 28 Sep 2020 03:00:13 -0700 (PDT)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Thu, 17 Sep 2020 18:28:49 +0200 (CEST)
-X-X-Sender: lukas@felia
-To: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
-    "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>, 
-    "development-process@lists.elisa.tech" <development-process@lists.elisa.tech>
-Subject: Re: [linux-safety] [ELISA Development Process WG] [PATCH] mm: vmscan: provide a change to the development-process group
-In-Reply-To: <BY5PR11MB41954AB0A7968933F7DA6314883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2009171825170.9985@felia>
-References: <20200917084409.26992-1-lukas.bulwahn@gmail.com> <BY5PR11MB419520C95C248EFDB49A3DEA883E0@BY5PR11MB4195.namprd11.prod.outlook.com> <alpine.DEB.2.21.2009171729190.9985@felia>
- <BY5PR11MB41954AB0A7968933F7DA6314883E0@BY5PR11MB4195.namprd11.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <natechancellor@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-kernel@vger.kernel.org,
+	clang-built-linux@googlegroups.com,
+	kernel-janitors@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH] x86/mm: drop superfluous initialization
+Date: Mon, 28 Sep 2020 12:00:04 +0200
+Message-Id: <20200928100004.25674-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 
+It is not required to initialize the local variable start in
+memory_map_top_down(), as the variable will be initialized in any path
+before it is used.
 
+make clang-analyzer on x86_64 tinyconfig reports:
 
-On Thu, 17 Sep 2020, Paoloni, Gabriele wrote:
+  arch/x86/mm/init.c:612:15: warning: Although the value stored to 'start' \
+  is used in the enclosing expression, the value is never actually read \
+  from 'start' [clang-analyzer-deadcode.DeadStores]
 
-> 
-> 
-> > -----Original Message-----
-> > From: development-process@lists.elisa.tech <development-
-> > process@lists.elisa.tech> On Behalf Of Lukas Bulwahn
-> > Sent: Thursday, September 17, 2020 5:44 PM
-> > To: Paoloni, Gabriele <gabriele.paoloni@intel.com>
-> > Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>; linux-
-> > safety@lists.elisa.tech; development-process@lists.elisa.tech
-> > Subject: Re: [linux-safety] [ELISA Development Process WG] [PATCH] mm:
-> > vmscan: provide a change to the development-process group
-> > 
-> > 
-> > 
-> > On Thu, 17 Sep 2020, Paoloni, Gabriele wrote:
-> > 
-> > > > -----Original Message-----
-> > > > From: development-process@lists.elisa.tech <development-
-> > > > process@lists.elisa.tech> On Behalf Of Lukas Bulwahn
-> > > > Sent: Thursday, September 17, 2020 10:44 AM
-> > > > To: linux-safety@lists.elisa.tech
-> > > > Cc: development-process@lists.elisa.tech; Lukas Bulwahn
-> > > > <lukas.bulwahn@gmail.com>
-> > > > Subject: [ELISA Development Process WG] [PATCH] mm: vmscan: provide
-> > a
-> > > > change to the development-process group
-> > > >
-> > > > I think this change is needed for safety, whatever that might mean to
-> > you.
-> > > >
-> > > > I am unqualified to really make a change here, as I have no clue what this
-> > > > code does, nor what my change does, but sure, the testing and
-> > verification
-> > > > reference process can now point out the required next steps in the
-> > > > reference process to test this code and code change.
-> > > >
-> > > > Good luck :)
-> > > >
-> > > > Not intended for distribution to the general kernel mailing lists.
-> > > >
-> > > > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> > > > ---
-> > > > I would like to submit such a patch, what do I need to do according to
-> > > > the expected testing and verification recommendations for safety-
-> > related
-> > > > systems?
-> > >
-> > > Probably the problem is not just limited to submitting patches, but I think it
-> > > is a good starting point.
-> > >
-> > > >
-> > > > Please help me. What do I need to compile, what test do I need to run,
-> > > > which verification tool do I need to employ for this change?
-> > >
-> > > Right. I have tried to reformulate the problem as "ok I am looking at or I am
-> > > trying to change one or more code lines, so I would like to understand if
-> > such
-> > > code lines are tested today and how".
-> > > Right now if we had a s maintained structural coverage report we could tell
-> > > if the impacted code lines are covered and by which tests...I could not find
-> > it
-> > > so I guess that so far we are missing it....am I wrong?
-> > >
-> > > As next step I went to look at the function wrapping the impacted code line
-> > > that in this case is kswapd. I could not find it tested in the Kunit framework.
-> > >
-> > > As next steps then I would run the available tests in
-> > > https://elixir.bootlin.com/linux/latest/source/tools/testing/selftests
-> > > in conjunction with GCOV trying to figure out if that line is covered already
-> > > somehow.
-> > >
-> > > There are probably smarter, better, faster ways to elaborate on this...so
-> > > here I just put down what I would do in order to figure this out...
-> > >
-> > 
-> > Gab, these are GREAT ideas and approaches. So, do we intend to provide
-> > methods, tools and documentation to really do these things you suggest?
-> > 
-> > That makes the intensions more tangible to me; if we try to find out
-> > how we and anyone else can get that information in some 'easy' way.
-> > 
-> > You can imagine that for a single-line change, you are suggesting probably
-> > quite some few days of work of investigation to get this information,
-> > right?
-> 
-> Unless together with the test frameworks in Linux we start maintaining a
-> corresponding structural coverage report that would instantly map the
-> affected code lines against the corresponding test.
-> 
-> Then reading the corresponding test we can figure out if the tests are still
-> valid (i.e. - black box - have I changed any behavior with my patch compared
-> to the expected result of the tests? or - white box - am I able to reach my
-> new change using the current test suites?)
-> 
-> My feeling is that we just need to get started putting together a more
-> structured test framework and report and them the problem as presented
-> by this patch would be very straightforward
-> 
+Compilers will detect this superfluous assignment and optimize that
+expression anyway. So, the resulting binary is identical before and after
+the change.
 
-Show me and I will believe you, Gab :)
+Drop this superfluous assignment to make clang-analyzer happy.
 
-If we can pull this off, we could actually impress some people in the 
-kernel community.
+No functional change.
 
-This sounds like a plan that could serve as reference for the next 
-patch to come...
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+applies cleanly on v5.9-rc7 and next-20200925
 
-Lukas
+Dave, Andy, Peter, please pick this minor non-urgent clean-up patch.
+
+I quickly confirmed that the binary did not change with this change to the
+source code; the hash of init.o remained the same before and after the change.
+
+So, in my setup:
+  md5sum arch/x86/mm/init.o
+  b26f6380760f32d2ef2c7525301eebd3  init.o
+
+linux-safety, please verify and validate this change.
+
+ arch/x86/mm/init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
+index c7a47603537f..5632f02146ca 100644
+--- a/arch/x86/mm/init.c
++++ b/arch/x86/mm/init.c
+@@ -609,7 +609,7 @@ static void __init memory_map_top_down(unsigned long map_start,
+ 	step_size = PMD_SIZE;
+ 	max_pfn_mapped = 0; /* will get exact value next */
+ 	min_pfn_mapped = real_end >> PAGE_SHIFT;
+-	last_start = start = real_end;
++	last_start = real_end;
+ 
+ 	/*
+ 	 * We start from the top (end of memory) and go to the bottom.
+-- 
+2.17.1
