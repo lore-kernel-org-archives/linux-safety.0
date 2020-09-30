@@ -1,75 +1,159 @@
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
- by mx.groups.io with SMTP id smtpd.web10.2051.1601492163856650390
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by mx.groups.io with SMTP id smtpd.web10.5676.1601501903052700864
  for <linux-safety@lists.elisa.tech>;
- Wed, 30 Sep 2020 11:56:04 -0700
+ Wed, 30 Sep 2020 14:38:23 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=b6EwAUV3;
- spf=pass (domain: gmail.com, ip: 209.85.128.68, mailfrom: sudipm.mukherjee@gmail.com)
-Received: by mail-wm1-f68.google.com with SMTP id l15so627846wmh.1
-        for <linux-safety@lists.elisa.tech>; Wed, 30 Sep 2020 11:56:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=IDr2wAtXJx0+neOn7cIZ0lFnMnpEYiTBO0RQFY8qdSQ=;
-        b=b6EwAUV3SBWbRyEjBvMGJI9Yw3atuhQNUSec5P8hjLals34oO9CFdQiRZgnkfJ1wtH
-         otRiPul539u1KKN6M8HJSdyooIa5xm8J/l4j/+asjrSuh0ASDjsUiuFpiSH7u//KrGxt
-         IpbSs3HbVIOnia45FmBky++0lyy7uRk/7PZucZreLMHDVH4Rlm3hDirzHYzD7eqktHel
-         8+y+hEbRp4TReaG6eb8EHhTvFX6w9kEDqW6+/qTvHBZvLX+tGbalBssPYao5opgjTCRW
-         hC+XXXhLZGy6pR0MeGqhjgwQvoOPRo+bflcGw1sJFWamnHCtf416BFJ/6rVGmnUMTdGv
-         1VDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=IDr2wAtXJx0+neOn7cIZ0lFnMnpEYiTBO0RQFY8qdSQ=;
-        b=YN/TlPoTze/np/9PLGJyRqcocOt57oCHLaBAtVeVbXUV9ghT7SUaApXG01LQsBgCY8
-         AlmwHs0J7PiIXIvMl/qDwEVFQfarWxwn2k95nS6fHNpsJ6iLStKNLVbHe2Asu+Ke4nZo
-         eFuL6iQw4/At7WA4UxndfJmIBMlXdupAeR1aVdgBqcCMY8E175EhSLaBQslIGoj98Jcu
-         rC6qcyivI6BqBbBDt3I09y4M9hSqKCdd5YbTIks0ZVUUNZ5pNaYaGZda9aRgSadFXSdL
-         RrMGiQ6wrjZxeEJxoClbX6gUtLj2cIJd3JKSr1tGZrR3xeFt4bKJ4TbWKnGhRI3euL18
-         cBzg==
-X-Gm-Message-State: AOAM532/XY6Wj4oaRztRLfI/gKKaSM0dEKbActJsoh9fdTeDnc9/sJMr
-	yV43LbE1SiuzDrnrvJ3Fmrk=
-X-Google-Smtp-Source: ABdhPJz6jU82fHCmCavBCON5X8sKCcNR+NtXto749V07XtSAdZscMEHkP3ri32LD70Ul2sC3h2itBQ==
-X-Received: by 2002:a7b:c750:: with SMTP id w16mr4594827wmk.16.1601492162236;
-        Wed, 30 Sep 2020 11:56:02 -0700 (PDT)
-Return-Path: <sudipm.mukherjee@gmail.com>
-Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
-        by smtp.gmail.com with ESMTPSA id u12sm4544040wrt.81.2020.09.30.11.56.00
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Sep 2020 11:56:01 -0700 (PDT)
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: Alexey Dobriyan <adobriyan@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-safety@lists.elisa.tech,
-	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Subject: [PATCH] proc: remove a pointless assignment
-Date: Wed, 30 Sep 2020 19:53:59 +0100
-Message-Id: <20200930185359.27526-1-sudipm.mukherjee@gmail.com>
-X-Mailer: git-send-email 2.11.0
+ dkim=pass header.i=@linutronix.de header.s=2020 header.b=bkS2E0y0;
+ spf=pass (domain: linutronix.de, ip: 193.142.43.55, mailfrom: tglx@linutronix.de)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1601501900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6E7rSUIBVCJugx0T9Vuji43R9ZFkmGP5/w3wntstorY=;
+	b=bkS2E0y0MlzWGA6pA28NTcdKfLABfMU71UbxP3zzVdGO7xGTup6aI/gr+R0fqRkuL8lIrM
+	rt3ebBC44vXB2Vrmk77dONx07d0GfOWarYpHFh2GrQW8WBBuypzcDIWZm8pmk3xL3HTR1S
+	FaATDutnAAXVKo3Pn8CMKUKe6+J4YcR7vO0qoiakBZjkYvoUd4pJWTTonUXeV+K389Npe/
+	MAtCzcpLDcClbtd3IqXKmy3Ig/4PCl5iQ1GxSFTimfvShTY0pY1+6ysOzrF42qQoC6G2Tv
+	iYvFBAE895gc5v99eF0xLWkRUhElVd+ilrMfVlzxY+iJ01PWOLuCbDyeoVYpJQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1601501900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6E7rSUIBVCJugx0T9Vuji43R9ZFkmGP5/w3wntstorY=;
+	b=RZNlRRxLJ9pRMXZENSVanXWmjaMV405d6WJuzxmX216yg+7seJgMuqS/CuBSmjwNKBEwOn
+	pnbSGUAKHyIl1CCg==
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, Balbir Singh <sblbir@amazon.com>, Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Nathan Chancellor <natechancellor@gmail.com>, Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
+Subject: Re: [PATCH -next for tip:x86/pti] x86/tlb: drop unneeded local vars in enable_l1d_flush_for_task()
+In-Reply-To: <20200930183552.GG2628@hirez.programming.kicks-ass.net>
+References: <20200928124457.27289-1-lukas.bulwahn@gmail.com> <20200929071211.GJ2628@hirez.programming.kicks-ass.net> <20200929083709.GC2651@hirez.programming.kicks-ass.net> <87eemji887.fsf@nanos.tec.linutronix.de> <20200930170316.GB2628@hirez.programming.kicks-ass.net> <87blhni1pg.fsf@nanos.tec.linutronix.de> <20200930183552.GG2628@hirez.programming.kicks-ass.net>
+Date: Wed, 30 Sep 2020 23:38:19 +0200
+Message-ID: <87k0wbgd2s.fsf@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-The variable 'env_start' has only been used for the if condition before
-this assignment and is never read after this.
-So, remove the assignement.
+On Wed, Sep 30 2020 at 20:35, Peter Zijlstra wrote:
+> On Wed, Sep 30, 2020 at 08:00:59PM +0200, Thomas Gleixner wrote:
+>> On Wed, Sep 30 2020 at 19:03, Peter Zijlstra wrote:
+>> > On Wed, Sep 30, 2020 at 05:40:08PM +0200, Thomas Gleixner wrote:
+>> > Also, that preempt_disable() in there doesn't actually do anything.
+>> > Worse, preempt_disable(); for_each_cpu(); is an anti-pattern. It mixes
+>> > static_cpu_has() and boot_cpu_has() in the same bloody condition and has
+>> > a pointless ret variable.
+>
+> Also, I forgot to add, it accesses ->cpus_mask without the proper
+> locking, so it could be reading intermediate state from whatever cpumask
+> operation that's in progress.
 
-Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
----
- fs/proc/base.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes. I saw that after hitting send. :(
 
-diff --git a/fs/proc/base.c b/fs/proc/base.c
-index aa69c35d904c..238925ff3a80 100644
---- a/fs/proc/base.c
-+++ b/fs/proc/base.c
-@@ -279,7 +279,7 @@ static ssize_t get_mm_cmdline(struct mm_struct *mm, char __user *buf,
- 	 * only when it overflows into the environment area.
- 	 */
- 	if (env_start != arg_end || env_end < env_start)
--		env_start = env_end = arg_end;
-+		env_end = arg_end;
- 	len = env_end - arg_start;
- 
- 	/* We're not going to care if "*ppos" has high bits set */
--- 
-2.11.0
+>> I absolutely agree and I really missed it when looking at it before
+>> merging. cpus_read_lock()/unlock() is the right thing to do if at all.
+>> 
+>> > It's shoddy code, that only works if you align the planets right. We
+>> > really shouldn't provide interfaces that are this bad.
+>> >
+>> > It's correct operation is only by accident.
+>> 
+>> True :(
+>> 
+>> I understand Balbirs problem and it makes some sense to provide a
+>> solution. We can:
+>> 
+>>     1) reject set_affinity() if the task has that flush muck enabled
+>>        and user space tries to move it to a SMT enabled core
+>> 
+>>     2) disable the muck if if detects that it is runs on a SMT enabled
+>>        core suddenly (hotplug says hello)
+>> 
+>>        This one is nasty because there is no feedback to user space
+>>        about the wreckage.
+>
+> That's and, right, not or. because 1) deals with sched_setffinity()
+> and 2) deals wit hotplug.
+
+It was meant as AND of course.
+
+> Now 1) requires an arch hook in sched_setaffinity(), something I'm not
+> keen on providing, once we provide it, who knows what strange and
+> wonderful things archs will dream up.
+
+I don't think so. We can have that magic in core:
+
+#ifdef CONFIG_HAS_PARANOID_L1D_FLUSH
+static bool paranoid_l1d_valid(struct task_struct *tsk,
+                               const struct cpumask *msk)
+{
+	if (!test_tsk_thread_flag(tsk, TIF_SPEC_L1D_FLUSH))
+        	return true;
+        /* Do magic stuff */
+        return res;
+}
+#else
+static bool paranoid_l1d_valid(struct task_struct *tsk,
+                               const struct cpumask *msk)
+{
+	return true;
+}
+#endif
+
+It's a pretty well defined problem and having the magic in core code
+prevents an arch hook which allows abuse of all sorts.
+
+And the same applies to enable_l1d_flush_for_task(). The only
+architecture specific nonsense are the checks whether the CPU bug is
+there and whether the hardware supports L1D flushing.
+
+So we can have:
+
+#ifdef CONFIG_HAS_PARANOID_L1D_FLUSH
+int paranoid_l1d_enable(struct task_struct *tsk)
+{
+        /* Do the SMT validation under the proper locks */
+        if (!res)
+        	set_task_thread_flag(tsk, TIF_SPEC_L1D_FLUSH);
+        return res;
+}
+#endif
+
+> And 2) also happens on hot-un-plug, when the task's affinity gets
+> forced because it became empty. No user feedback there either, and
+> information is lost.
+
+Of course. It's both that suddenly SMT gets enabled on a core which was
+isolated and when the last isolated core in the tasks CPU mask goes
+offline.
+
+> I suppose we can do 2) but send a signal. That would cover all cases and
+> keep it in arch code. But yes, that's pretty terrible too.
+
+Bah. I just looked at the condition to flush:
+
+        if (sched_smt_active() && !this_cpu_read(cpu_info.smt_active) &&
+                (prev_mm & LAST_USER_MM_L1D_FLUSH))
+                l1d_flush_hw();
+
+That fails to flush when SMT is disabled globally. Balbir?
+
+Of course this should be:
+
+        if (!this_cpu_read(cpu_info.smt_active) && (prev_mm & LAST_USER_MM_L1D_FLUSH))
+                l1d_flush_hw();
+
+Now we can make this:
+
+        if (unlikely(prev_mm & LAST_USER_MM_L1D_FLUSH)) {
+        	if (!this_cpu_read(cpu_info.smt_active))
+                	l1d_flush_hw();
+                else
+                	task_work_add(...);
+
+And that task work clears the flag and sends a signal. We're not going
+to send a signal from switch_mm() ....
+
+Thanks,
+
+        tglx
