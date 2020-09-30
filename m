@@ -1,34 +1,34 @@
-Received: from smtp-fw-4101.amazon.com (smtp-fw-4101.amazon.com [72.21.198.25])
- by mx.groups.io with SMTP id smtpd.web11.21.1601506804436406730
+Received: from smtp-fw-6002.amazon.com (smtp-fw-6002.amazon.com [52.95.49.90])
+ by mx.groups.io with SMTP id smtpd.web10.607.1601509780769134355
  for <linux-safety@lists.elisa.tech>;
- Wed, 30 Sep 2020 16:00:04 -0700
+ Wed, 30 Sep 2020 16:49:41 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@amazon.com header.s=amazon201209 header.b=kZ3f3KVR;
- spf=pass (domain: amazon.com, ip: 72.21.198.25, mailfrom: prvs=53595e4c7=sblbir@amazon.com)
+ dkim=pass header.i=@amazon.com header.s=amazon201209 header.b=R5Kvqf3A;
+ spf=pass (domain: amazon.com, ip: 52.95.49.90, mailfrom: prvs=53595e4c7=sblbir@amazon.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1601506805; x=1633042805;
-  h=to:cc:references:from:message-id:date:mime-version:
-   in-reply-to:content-transfer-encoding:subject;
-  bh=ERi0Pf4HQMHPa9rJT2IBPZJNeA9YKjn1VuAaepvxx8k=;
-  b=kZ3f3KVRG/ySsSu5lP3Nzn16/xkoj+VUmPH6tQWwOLxw3EjTkRzcZd4b
-   AhTArcfUpdjJ2hoRtlc1R2aYPYJ42jPpIaD9cRFDMmCCm5W/Jxv1bg7G/
-   Q/Jh/gfDD41Naw20vy+V2WOW1BW83lTKelYF0z/Y3eIWDpOGIsGFrY8zK
+  t=1601509781; x=1633045781;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=AJFpIp3jITAY2+9sf/YO0MqfUMeF7dTVt+ABEg4hfxs=;
+  b=R5Kvqf3AGMwlftkVU1goh79B4ASPq54Ks/RSUxWUykGfSyTn4yb/0SCk
+   SoSiWL6ART7K3WYkSAPyzYA170svyzOgWrdMyYOqhHdFU+XygRYzO6+I4
+   AJ9SPamyBCx9W1nTFqVWZTqunDOFxETnJ+vofD8GDy+2WfhBvcG+xlQff
    o=;
 X-IronPort-AV: E=Sophos;i="5.77,322,1596499200"; 
-   d="scan'208";a="57321998"
-Subject: Re: [PATCH -next for tip:x86/pti] x86/tlb: drop unneeded local vars in enable_l1d_flush_for_task()
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-1d-16425a8d.us-east-1.amazon.com) ([10.43.8.6])
-  by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP; 30 Sep 2020 23:00:01 +0000
-Received: from EX13MTAUWB001.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
-	by email-inbound-relay-1d-16425a8d.us-east-1.amazon.com (Postfix) with ESMTPS id 06073100F6F;
-	Wed, 30 Sep 2020 22:59:55 +0000 (UTC)
+   d="scan'208";a="57304423"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.43.8.6])
+  by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP; 30 Sep 2020 23:49:38 +0000
+Received: from EX13MTAUWB001.ant.amazon.com (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+	by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS id 9B3BEA1CF3;
+	Wed, 30 Sep 2020 23:49:36 +0000 (UTC)
 Received: from EX13D01UWB002.ant.amazon.com (10.43.161.136) by
- EX13MTAUWB001.ant.amazon.com (10.43.161.207) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 30 Sep 2020 22:59:54 +0000
-Received: from f8ffc2228008.ant.amazon.com (10.43.161.237) by
+ EX13MTAUWB001.ant.amazon.com (10.43.161.249) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 30 Sep 2020 23:49:36 +0000
+Received: from f8ffc2228008.ant.amazon.com (10.43.162.35) by
  EX13d01UWB002.ant.amazon.com (10.43.161.136) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 30 Sep 2020 22:59:51 +0000
+ id 15.0.1497.2; Wed, 30 Sep 2020 23:49:33 +0000
+Subject: Re: [PATCH -next for tip:x86/pti] x86/tlb: drop unneeded local vars in enable_l1d_flush_for_task()
 To: Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra
 	<peterz@infradead.org>
 CC: Lukas Bulwahn <lukas.bulwahn@gmail.com>, Dave Hansen
@@ -49,21 +49,21 @@ References: <20200928124457.27289-1-lukas.bulwahn@gmail.com>
  <20200930183552.GG2628@hirez.programming.kicks-ass.net>
  <87k0wbgd2s.fsf@nanos.tec.linutronix.de>
 From: "Singh, Balbir" <sblbir@amazon.com>
-Message-ID: <9b700b03-6bbd-b969-abb8-a004c813446d@amazon.com>
-Date: Thu, 1 Oct 2020 08:59:48 +1000
+Message-ID: <19f57cbe-ba33-17d5-440c-2765e670782f@amazon.com>
+Date: Thu, 1 Oct 2020 09:49:30 +1000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.1.1
 MIME-Version: 1.0
 In-Reply-To: <87k0wbgd2s.fsf@nanos.tec.linutronix.de>
-X-Originating-IP: [10.43.161.237]
-X-ClientProxiedBy: EX13D36UWB002.ant.amazon.com (10.43.161.149) To
+X-Originating-IP: [10.43.162.35]
+X-ClientProxiedBy: EX13D37UWA004.ant.amazon.com (10.43.160.23) To
  EX13d01UWB002.ant.amazon.com (10.43.161.136)
 Content-Type: text/plain; charset="utf-8"
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 On 1/10/20 7:38 am, Thomas Gleixner wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
+
 > 
 > 
 > 
@@ -169,20 +169,6 @@ On 1/10/20 7:38 am, Thomas Gleixner wrote:
 >                 l1d_flush_hw();
 > 
 > That fails to flush when SMT is disabled globally. Balbir?
-
-It should have been 
-
-!sched_smt_active() || (cond)
-
-and not
-
-sched_smt_active && (cond)
-
-I'll fix that up, but your simplification below works as well.
-
-
-
-
 > 
 > Of course this should be:
 > 
@@ -200,9 +186,77 @@ I'll fix that up, but your simplification below works as well.
 > And that task work clears the flag and sends a signal. We're not going
 > to send a signal from switch_mm() ....
 > 
+> Thanks,
+> 
 
-Yes, I see MCE handling uses a similar pattern, so SIGBUS for a task that migrates/moves
-to a SMT disabled core?
 
-Thanks,
-Balbir
+So this is the change I am playing with, I don't like the idea of killing the task, but it's better than silently not flushing, I guess system administrators will learn with time not to correctly the affinity of tasks flushing
+L1D. For the affinity bits, not being able to change the affinity is better, but not being able to provide feedback on as to why is a bit weird as well, but I wonder if there are other cases where we might want to lock the affinity of a task for it's lifetime.
+
+diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+index 6b0f4c88b07c..6b0d0a9cd447 100644
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -320,26 +320,15 @@ int enable_l1d_flush_for_task(struct task_struct *tsk)
+ 
+ 	/*
+ 	 * Do not enable L1D_FLUSH_OUT if
+-	 * b. The CPU is not affected by the L1TF bug
+-	 * c. The CPU does not have L1D FLUSH feature support
+-	 * c. The task's affinity is on cores with SMT on.
++	 * a. The CPU is not affected by the L1TF bug
++	 * b. The CPU does not have L1D FLUSH feature support
+ 	 */
+ 
+ 	if (!boot_cpu_has_bug(X86_BUG_L1TF) ||
+-			!static_cpu_has(X86_FEATURE_FLUSH_L1D))
++		!boot_cpu_has(X86_FEATURE_FLUSH_L1D))
+ 		return -EINVAL;
+ 
+-	cpu = get_cpu();
+-
+-	for_each_cpu(i, &tsk->cpus_mask) {
+-		if (cpu_data(i).smt_active == true) {
+-			put_cpu();
+-			return -EINVAL;
+-		}
+-	}
+-
+ 	set_ti_thread_flag(&tsk->thread_info, TIF_SPEC_L1D_FLUSH);
+-	put_cpu();
+ 	return ret;
+ }
+ 
+@@ -349,6 +338,12 @@ int disable_l1d_flush_for_task(struct task_struct *tsk)
+ 	return 0;
+ }
+ 
++static void l1d_flush_kill(struct callback_head *ch)
++{
++	clear_ti_thread_flag(&current->thread_info, TIF_SPEC_L1D_FLUSH);
++	force_signal(SIGBUS);
++}
++
+ void switch_mm(struct mm_struct *prev, struct mm_struct *next,
+ 	       struct task_struct *tsk)
+ {
+@@ -443,12 +438,14 @@ static void cond_mitigation(struct task_struct *next)
+ 	}
+ 
+ 	/*
+-	 * Flush only if SMT is disabled as per the contract, which is checked
+-	 * when the feature is enabled.
++	 * Flush only if SMT is disabled, if flushing is enabled
++	 * and we are on an SMT enabled core, kill the task
+ 	 */
+-	if (sched_smt_active() && !this_cpu_read(cpu_info.smt_active) &&
+-		(prev_mm & LAST_USER_MM_L1D_FLUSH))
+-		l1d_flush_hw();
++	if (unlikely(prev_mm & LAST_USER_MM_L1D_FLUSH)) {
++		if (!this_cpu_read(cpu_info.smt_active))
++			l1d_flush_hw();
++		else
++			task_work_add(prev, l1d_flush_kill, true);
+ 
+ 	this_cpu_write(cpu_tlbstate.last_user_mm_spec, next_mm);
+ }
