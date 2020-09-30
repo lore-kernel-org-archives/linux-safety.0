@@ -1,72 +1,75 @@
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
- by mx.groups.io with SMTP id smtpd.web12.1798.1601491388935554280
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
+ by mx.groups.io with SMTP id smtpd.web10.2051.1601492163856650390
  for <linux-safety@lists.elisa.tech>;
- Wed, 30 Sep 2020 11:43:09 -0700
+ Wed, 30 Sep 2020 11:56:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=Gy4xqQj0;
- spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: sudipm.mukherjee@gmail.com)
-Received: by mail-wm1-f65.google.com with SMTP id a9so550124wmm.2
-        for <linux-safety@lists.elisa.tech>; Wed, 30 Sep 2020 11:43:08 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=b6EwAUV3;
+ spf=pass (domain: gmail.com, ip: 209.85.128.68, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wm1-f68.google.com with SMTP id l15so627846wmh.1
+        for <linux-safety@lists.elisa.tech>; Wed, 30 Sep 2020 11:56:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=Hgch/OU0fUgiG3/fTy3bhBDktVyr1lWgsfs92Fqm60E=;
-        b=Gy4xqQj07MvJJi/1fgMrYLmwe96RaUqcWYCzIfzOjDedCQ54s1LDQ0WMennSf+Tvm4
-         U0mjGZGoklNdXahK1oYoGCpAQlytuhQ41jhjNdiFaAx+eH1yZVU7JCpyKJiDgKGCmCWK
-         x/eGs/YuSRHCnmRJpDh/O/h+fa+lckVhktl8SqdRkMSdxv85yZ/1jF65X88ZZBzhe6Sf
-         TfTK9i3N5qiBdV1N/wc14dn7IGbmuZA2mBA7gPZ8kHieI0ZXWhQIxYEd4lDjYraV2A83
-         NCGY5kyx88iMvrBeU2dQJ7UjQHTw6SXwP7DaJJYPEfGj9jkYW/NmbGTlQtvCn4D7jnDY
-         wiXw==
+        bh=IDr2wAtXJx0+neOn7cIZ0lFnMnpEYiTBO0RQFY8qdSQ=;
+        b=b6EwAUV3SBWbRyEjBvMGJI9Yw3atuhQNUSec5P8hjLals34oO9CFdQiRZgnkfJ1wtH
+         otRiPul539u1KKN6M8HJSdyooIa5xm8J/l4j/+asjrSuh0ASDjsUiuFpiSH7u//KrGxt
+         IpbSs3HbVIOnia45FmBky++0lyy7uRk/7PZucZreLMHDVH4Rlm3hDirzHYzD7eqktHel
+         8+y+hEbRp4TReaG6eb8EHhTvFX6w9kEDqW6+/qTvHBZvLX+tGbalBssPYao5opgjTCRW
+         hC+XXXhLZGy6pR0MeGqhjgwQvoOPRo+bflcGw1sJFWamnHCtf416BFJ/6rVGmnUMTdGv
+         1VDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=Hgch/OU0fUgiG3/fTy3bhBDktVyr1lWgsfs92Fqm60E=;
-        b=mSpIRW7cTKPi05Frwpz3m/GEDrqDO/nvDVij1QS8jF0F3gL21ynqEU5a0soPm2LxH4
-         qe4IIgCMPDe0lspnyNxPz7DKeV2RA7j5ZNqWqpywlpW+a6uHW1mdOCU6aq0CHQoLqGbU
-         ryOrZPC0wjGnINnFzPyDsDhVj9z5NrXlB7jaRmmoOiaTjcx/LctZKOIXKZrAWFtQcit3
-         8TNHrC/q625QNC11rOfOX9QE3JmqHcIz8qPo2ryySsIHo2mib23sWlWhJQeWsV8O1ZvD
-         8x+Sg4llINaq/ntAmB0FrsBLf1KydNdDicB0cEY7BRoBfmzai2663sILpqB8jFvEQ6Ki
-         O3Wg==
-X-Gm-Message-State: AOAM530QgQcQdbkvztsZjSTu4oOYBOMgo8hJXTfDvujUN7SGc/Ung4Ph
-	jCMY2cGrUbGJhupH4stJWuw=
-X-Google-Smtp-Source: ABdhPJzGABrgVbqXqM0qsgciuACgzThRniFfbVtpTIiaUkUkhZ00iFN3+fVGYavAFupDn2rREYgquA==
-X-Received: by 2002:a7b:cbcb:: with SMTP id n11mr4407645wmi.5.1601491387204;
-        Wed, 30 Sep 2020 11:43:07 -0700 (PDT)
+        bh=IDr2wAtXJx0+neOn7cIZ0lFnMnpEYiTBO0RQFY8qdSQ=;
+        b=YN/TlPoTze/np/9PLGJyRqcocOt57oCHLaBAtVeVbXUV9ghT7SUaApXG01LQsBgCY8
+         AlmwHs0J7PiIXIvMl/qDwEVFQfarWxwn2k95nS6fHNpsJ6iLStKNLVbHe2Asu+Ke4nZo
+         eFuL6iQw4/At7WA4UxndfJmIBMlXdupAeR1aVdgBqcCMY8E175EhSLaBQslIGoj98Jcu
+         rC6qcyivI6BqBbBDt3I09y4M9hSqKCdd5YbTIks0ZVUUNZ5pNaYaGZda9aRgSadFXSdL
+         RrMGiQ6wrjZxeEJxoClbX6gUtLj2cIJd3JKSr1tGZrR3xeFt4bKJ4TbWKnGhRI3euL18
+         cBzg==
+X-Gm-Message-State: AOAM532/XY6Wj4oaRztRLfI/gKKaSM0dEKbActJsoh9fdTeDnc9/sJMr
+	yV43LbE1SiuzDrnrvJ3Fmrk=
+X-Google-Smtp-Source: ABdhPJz6jU82fHCmCavBCON5X8sKCcNR+NtXto749V07XtSAdZscMEHkP3ri32LD70Ul2sC3h2itBQ==
+X-Received: by 2002:a7b:c750:: with SMTP id w16mr4594827wmk.16.1601492162236;
+        Wed, 30 Sep 2020 11:56:02 -0700 (PDT)
 Return-Path: <sudipm.mukherjee@gmail.com>
 Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
-        by smtp.gmail.com with ESMTPSA id d13sm4318214wrp.44.2020.09.30.11.43.06
+        by smtp.gmail.com with ESMTPSA id u12sm4544040wrt.81.2020.09.30.11.56.00
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Sep 2020 11:43:06 -0700 (PDT)
+        Wed, 30 Sep 2020 11:56:01 -0700 (PDT)
 From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>
+To: Alexey Dobriyan <adobriyan@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-safety@lists.elisa.tech,
 	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Subject: [PATCH] tracing: remove a pointless assignment
-Date: Wed, 30 Sep 2020 19:43:03 +0100
-Message-Id: <20200930184303.22896-1-sudipm.mukherjee@gmail.com>
+Subject: [PATCH] proc: remove a pointless assignment
+Date: Wed, 30 Sep 2020 19:53:59 +0100
+Message-Id: <20200930185359.27526-1-sudipm.mukherjee@gmail.com>
 X-Mailer: git-send-email 2.11.0
 
-The variable 'len' has been assigned a value but is not used after that.
+The variable 'env_start' has only been used for the if condition before
+this assignment and is never read after this.
 So, remove the assignement.
 
 Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 ---
- kernel/trace/trace.c | 1 -
- 1 file changed, 1 deletion(-)
+ fs/proc/base.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index d3c75aab44ad..e13cb3baeff0 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -6662,7 +6662,6 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
- 		written = -EFAULT;
- 	} else
- 		written = cnt;
--	len = cnt;
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index aa69c35d904c..238925ff3a80 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -279,7 +279,7 @@ static ssize_t get_mm_cmdline(struct mm_struct *mm, char __user *buf,
+ 	 * only when it overflows into the environment area.
+ 	 */
+ 	if (env_start != arg_end || env_end < env_start)
+-		env_start = env_end = arg_end;
++		env_end = arg_end;
+ 	len = env_end - arg_start;
  
- 	if (tr->trace_marker_file && !list_empty(&tr->trace_marker_file->triggers)) {
- 		/* do not add \n before testing triggers, but add \0 */
+ 	/* We're not going to care if "*ppos" has high bits set */
 -- 
 2.11.0
