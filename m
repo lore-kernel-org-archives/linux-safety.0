@@ -1,16 +1,16 @@
-Received: from outbound-smtp35.blacknight.com (outbound-smtp35.blacknight.com [46.22.139.218])
- by mx.groups.io with SMTP id smtpd.web12.30045.1601884574480157589
+Received: from outbound-smtp09.blacknight.com (outbound-smtp09.blacknight.com [46.22.139.14])
+ by mx.groups.io with SMTP id smtpd.web11.29735.1601884750227858749
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 00:56:15 -0700
+ Mon, 05 Oct 2020 00:59:10 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: techsingularity.net, ip: 46.22.139.218, mailfrom: mgorman@techsingularity.net)
-Received: from mail.blacknight.com (pemlinmail04.blacknight.ie [81.17.254.17])
-	by outbound-smtp35.blacknight.com (Postfix) with ESMTPS id 944692422
-	for <linux-safety@lists.elisa.tech>; Mon,  5 Oct 2020 08:56:08 +0100 (IST)
-Received: (qmail 16739 invoked from network); 5 Oct 2020 07:56:08 -0000
+ dkim=missing; spf=pass (domain: techsingularity.net, ip: 46.22.139.14, mailfrom: mgorman@techsingularity.net)
+Received: from mail.blacknight.com (pemlinmail02.blacknight.ie [81.17.254.11])
+	by outbound-smtp09.blacknight.com (Postfix) with ESMTPS id 75BE21C5115
+	for <linux-safety@lists.elisa.tech>; Mon,  5 Oct 2020 08:59:06 +0100 (IST)
+Received: (qmail 27315 invoked from network); 5 Oct 2020 07:59:06 -0000
 Received: from unknown (HELO techsingularity.net) (mgorman@techsingularity.net@[84.203.22.4])
-  by 81.17.254.9 with ESMTPSA (AES256-SHA encrypted, authenticated); 5 Oct 2020 07:56:08 -0000
-Date: Mon, 5 Oct 2020 08:56:07 +0100
+  by 81.17.254.9 with ESMTPSA (AES256-SHA encrypted, authenticated); 5 Oct 2020 07:59:06 -0000
+Date: Mon, 5 Oct 2020 08:59:03 +0100
 From: Mel Gorman <mgorman@techsingularity.net>
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
@@ -20,7 +20,7 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
 	kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
 Subject: Re: [PATCH] mm/vmscan: drop unneeded assignment in kswapd()
-Message-ID: <20201005075606.GG3227@techsingularity.net>
+Message-ID: <20201005075903.GH3227@techsingularity.net>
 References: <20201004125827.17679-1-lukas.bulwahn@gmail.com>
  <20201004192437.GF3227@techsingularity.net>
  <alpine.DEB.2.21.2010050831010.6202@felia>
@@ -77,26 +77,9 @@ On Mon, Oct 05, 2020 at 08:58:53AM +0200, Lukas Bulwahn wrote:
 > before kswap_try_to_sleep(...).
 > 
 
-After your patch, the code is
+Bah, I misread the patch because I'm an idiot.
 
-	unsigned int alloc_order, reclaim_order;
-	...
-
-	for ( ; ; ) {
-                alloc_order = READ_ONCE(pgdat->kswapd_order);
-                highest_zoneidx = kswapd_highest_zoneidx(pgdat,
-                                                        highest_zoneidx);
-
-kswapd_try_sleep:
-                kswapd_try_to_sleep(pgdat, alloc_order, reclaim_order,
-                                        highest_zoneidx);
-	...
-		reclaim_order = balance_pgdat(pgdat, alloc_order,
-                                                highest_zoneidx);
-
-reclaim_order is declared, not initialised at the start of the loop and
-passed into kswapd_try_to_sleep. There is a sequence where it is not used
-so it does not matter but it depends on the compiler figuring that out.
+Acked-by: Mel Gorman <mgorman@techsingularity.net>
 
 -- 
 Mel Gorman
