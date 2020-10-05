@@ -1,58 +1,56 @@
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
- by mx.groups.io with SMTP id smtpd.web10.1030.1601930399005992866
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
+ by mx.groups.io with SMTP id smtpd.web12.1440.1601931465668821166
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 13:39:59 -0700
+ Mon, 05 Oct 2020 13:57:46 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=K7DTrK0G;
- spf=pass (domain: gmail.com, ip: 209.85.221.66, mailfrom: sudipm.mukherjee@gmail.com)
-Received: by mail-wr1-f66.google.com with SMTP id m6so11092589wrn.0
-        for <linux-safety@lists.elisa.tech>; Mon, 05 Oct 2020 13:39:58 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=kQw3aCS/;
+ spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wm1-f65.google.com with SMTP id v12so897784wmh.3
+        for <linux-safety@lists.elisa.tech>; Mon, 05 Oct 2020 13:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=s6iDC9dUHJsp946AwvB4HqOpH0+Gyt+ZQFRpxT0XcVA=;
-        b=K7DTrK0GdYHxog7SsY1N3+Kxz2lpMsx9Ntecvkbxy7EnP7KNodDTxm4vg9KgPVRrkp
-         oERbErfELiAWgBC7sy+G9vkMbUhcOd/3Ouop8+32yTbCP+lW4XfInqX6YQsvm1jxvDw5
-         IlTOcH0P09hkLrPat1IgfcU3HXAfRyBbCAFmBWyd2y7bVPo7HwubzU0tGB2Mt6JG8PfR
-         VEAB9TSw4ahUGoA4exHQmC2laANryX350/O3xDEPJXKo3Qb+88SDbgu0swk12fDoUZv2
-         cMeCfDKbOsaKyI5Lyfw48BjpviW5aDNKQMVIkHffZYTSXAD/JchcIrEkgR4eiNCJhODJ
-         GrNA==
+        bh=0eiYnVUSZWaB7wjTbIdc+IOLA3BxLnNTNEEMhygD1Ts=;
+        b=kQw3aCS/Afak1JMHu44Vl9eOt2UZHhjFsmf0/eoMBBrhfzNwwe4z9cFieF2+muK/Xn
+         jW/6fEctYM5tOZ52kdkdFjj6CwFswNljkxUUglGD4d1sxepxX+nXDF7l7hs7gDP8v38J
+         eY3DZaVWJDg0toAapAVa9U4P/94e2YaMIz6S6KsSLBl1rY2TZcra1qZl9jQ8zemCpqb2
+         RbnB44Mmr76drR+GvahpSGXZzus56PsdwQN+2rT0lE6Leaoe2txdjGk9O9hwF8QHnLUv
+         E03HZk/oA9qbcYZMtfiZeSsh1BpgTnesYp6K/MTEIXW7i3G4mYw25B7eABjnfjVqcsWC
+         TB7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=s6iDC9dUHJsp946AwvB4HqOpH0+Gyt+ZQFRpxT0XcVA=;
-        b=LYao6D253lZxtiHn4dYVIFhNY6fLsaYHOYGwyRhZC6eijQm4y37oVSSWG1JDvYEyTv
-         lqYfUWzqM2UiclCYEXQXWjzHLd6w0uCY/L0sGUyNKCVRcIOAWstDawndzMY81beqLosP
-         ZB409i+1Om95uzlbMjsIUmVpzM9M3FG3JCDQ2Z0KBgdYRLTJlLs0/Y3sJwl/VHRUP6QF
-         uDNdeiYkOKidBG+UnSuVwuUPv2IfmYoRVIFWwLuEPxwvu/gJj8cpT5w9HM0+8al2vy0F
-         NECO3jFqrlmnX2vhlBzOTmK9rXgzNhd7SUp2o7+WTzMbD2ukuHog3YRc1zlVyywvu7Ih
-         AoGA==
-X-Gm-Message-State: AOAM532y05OysXCTHLq1QL6475yEWUQEgO7tN2nPAMqXQiQGQb8fvZ7y
-	nUKgBNZm6XNow903S/8JUPc=
-X-Google-Smtp-Source: ABdhPJzFSr8+CEKAseUSNhBRTaD/bhR4pMFdNpvhT9e1yKN0zIQNhueuD86vXnYgCViRRH7kKSF7Tg==
-X-Received: by 2002:adf:9504:: with SMTP id 4mr1207472wrs.27.1601930397364;
-        Mon, 05 Oct 2020 13:39:57 -0700 (PDT)
+        bh=0eiYnVUSZWaB7wjTbIdc+IOLA3BxLnNTNEEMhygD1Ts=;
+        b=Won7UEhAqrcgvQbXnFhx61ygdf7V99kVhH6NgbKqJrXBW/gRRRWiYYr6vAAgXYlzPs
+         nmA2WD0iHNeSTCdz+Vp/3Cr6T7eoQKJyY+gcMH6NAbFrhPfFZvGxpbpabsBGmeIDkghd
+         hJVocyaEpHYAimHEPg6QC0rmJ+nQZs7/IMPkLpaBy+I5JHfpVJ+vWiD0n/H/IXylxZTk
+         13Gk8vpbgwH1odK1jZdljcjbTpoh7LEhgTSzvhliurKAjtA2CF/bf4W+V5cT+hsKdGOw
+         +Pa0Rg6nm49il6cIYla0nwU+oaCOqSg113FK7/WBruY3r9FDyA8hf6k9Dj3iJTJPDTK4
+         AR1w==
+X-Gm-Message-State: AOAM533i3LTPEeQ9IX4ugNCe2Y1lc2+3qoWGLa8ApJL0K7FSlKQdKE0p
+	VZZDedHua454+KdWp6Q1ZSg=
+X-Google-Smtp-Source: ABdhPJyYsi9VQcnonSkp6FT2w5YczNf/fjur2N+ipdQc3Q+Ko2Ny3v6++Z2bPFWyL7yGgMvbwKlu0A==
+X-Received: by 2002:a05:600c:4108:: with SMTP id j8mr1235393wmi.116.1601931464022;
+        Mon, 05 Oct 2020 13:57:44 -0700 (PDT)
 Return-Path: <sudipm.mukherjee@gmail.com>
 Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
-        by smtp.gmail.com with ESMTPSA id t13sm882079wmj.15.2020.10.05.13.39.56
+        by smtp.gmail.com with ESMTPSA id c16sm1515319wrx.31.2020.10.05.13.57.43
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2020 13:39:56 -0700 (PDT)
+        Mon, 05 Oct 2020 13:57:43 -0700 (PDT)
 From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Kees Cook <keescook@chromium.org>,
-	Iurii Zaikin <yzaikin@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org,
 	linux-safety@lists.elisa.tech,
-	linux-fsdevel@vger.kernel.org,
 	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Subject: [PATCH] kernel/sysctl.c: drop unneeded assignment in proc_do_large_bitmap()
-Date: Mon,  5 Oct 2020 21:37:49 +0100
-Message-Id: <20201005203749.28083-1-sudipm.mukherjee@gmail.com>
+Subject: [PATCH] kernel/relay.c: drop unneeded initialization
+Date: Mon,  5 Oct 2020 21:57:27 +0100
+Message-Id: <20201005205727.1147-1-sudipm.mukherjee@gmail.com>
 X-Mailer: git-send-email 2.11.0
 
-The variable 'first' is assigned 0 inside the while loop in the if block
-but it is not used in the if block and is only used in the else block.
-So, remove the unneeded assignment.
+The variable 'consumed' is initialized with the consumed count but
+immediately after that the consumed count is updated and assigned to
+'consumed' again thus overwriting the previous value.
+So, drop the unneeded initialization.
 
 Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 ---
@@ -60,23 +58,24 @@ Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 The resultant binary stayed same after this change. Verified with
 md5sum which remained same with and without this change.
 
-$ md5sum kernel/sysctl.o 
-e9e97adbfd3f0b32f83dd35d100c0e4e  kernel/sysctl.o
+$ md5sum kernel/relay.o 
+20854215a46e241520576a5d3c523073  kernel/relay.o
 
- kernel/sysctl.c | 1 -
- 1 file changed, 1 deletion(-)
+ kernel/relay.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index ce75c67572b9..b51ebfd1ba6e 100644
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
-@@ -1508,7 +1508,6 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
- 			}
+diff --git a/kernel/relay.c b/kernel/relay.c
+index fb4e0c530c08..b08d936d5fa7 100644
+--- a/kernel/relay.c
++++ b/kernel/relay.c
+@@ -1002,7 +1002,7 @@ static int relay_file_read_avail(struct rchan_buf *buf)
+ 	size_t subbuf_size = buf->chan->subbuf_size;
+ 	size_t n_subbufs = buf->chan->n_subbufs;
+ 	size_t produced = buf->subbufs_produced;
+-	size_t consumed = buf->subbufs_consumed;
++	size_t consumed;
  
- 			bitmap_set(tmp_bitmap, val_a, val_b - val_a + 1);
--			first = 0;
- 			proc_skip_char(&p, &left, '\n');
- 		}
- 		left += skipped;
+ 	relay_file_read_consume(buf, 0, 0);
+ 
 -- 
 2.11.0
