@@ -1,95 +1,84 @@
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com [209.85.215.196])
- by mx.groups.io with SMTP id smtpd.web10.124.1601931914242164868
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
+ by mx.groups.io with SMTP id smtpd.web10.31.1601933528064505995
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 14:05:14 -0700
+ Mon, 05 Oct 2020 14:32:08 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@chromium.org header.s=google header.b=i13avUSE;
- spf=pass (domain: chromium.org, ip: 209.85.215.196, mailfrom: keescook@chromium.org)
-Received: by mail-pg1-f196.google.com with SMTP id m34so6754287pgl.9
-        for <linux-safety@lists.elisa.tech>; Mon, 05 Oct 2020 14:05:14 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=jyV5eB05;
+ spf=pass (domain: gmail.com, ip: 209.85.128.67, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wm1-f67.google.com with SMTP id z22so865357wmi.0
+        for <linux-safety@lists.elisa.tech>; Mon, 05 Oct 2020 14:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=S28irEL+s00l76Xd6JezzJDnWUqPSi/xIcPO6jGVw0k=;
-        b=i13avUSEFUfkzqcD46Nq22pgh7sreScxeo625UkqLK+daDX8lE4BFXwZCR+i0RWl4j
-         kQm9H9aDflprfWtjdjMu/szcbm39wcJ2ojG/5XrIVT5i/zqP2JxIZQoZeRQA5IF5ZQ8c
-         QofnFVvrTWOYSLWkSa8Di/OBLzw49kjy9yTGw=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=o3Ej3LavHo/S663DnWXhpENRkd1MBuaBAhHjxbMV30s=;
+        b=jyV5eB05miHoZqZ0XtU79dn4XyVWl5bBvj4y6c/qdqgb7oUCoG45AZ0/1VbwBHHDP2
+         qogvIKBEX4MeuFVH/coQvrR5GLJXRAh9RrmQg7F5OtLSQ0XkDqBZg+eN6mPN0GahEi/P
+         pIrlK8rpMeS6zHCSfaBdCWeqWSPy1917Ic2D3bvGzx7M2r3tSXWFeSfPTe7LGRqKcxEL
+         CC24abMJ0KFZ7aK2DG2WMLt1RIRWs85Z0KNaFIssjIQ33xU3VhUg4KJ/HW2lLPChYHrN
+         sEAtCg6AIPjddhnq+cTi6b2Hro/C0jh+12ngjZ6rgM3HgfVv72t5yu+9qfJ8rw5w0/A3
+         sGWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=S28irEL+s00l76Xd6JezzJDnWUqPSi/xIcPO6jGVw0k=;
-        b=Omp4VxeAlpaRUGPQQK8QW1UTgdG8NnK7e5xJz8OWwBoFiuUxheBK3DUObVlNRKVSn9
-         2vUhoAN2faOh0fN55q2KpwVqOu5nyut1/ghVcGjG9EksSA6VSH2YwC1JaWYQJv6qTaq9
-         5F2bqWlKMtBsxvj8Z2J+qrAA6uyIKkeftp5mRRihRTmgwOf3QFvvuK4H9lJ3MZQsOVYT
-         xmjqnbirJC7NDBPUUiP/MrTc4DPmO06f50c8ZOprc5ABn8Uu5/VVYsbCke+3Mo7yjQHe
-         c8nNXc/jJh5J/3MydUUbBd+4o1XbQ2xwHUmTIJjLXAke4wC6/3aj1qPjPCTZoDnTOf5S
-         Mk4A==
-X-Gm-Message-State: AOAM53086MZmUOHA+nQ2MfaYeOJ9IQBS+8a6DCo0csUyLAdJFR/bKSOK
-	qRLHSedntTctrc0HNG1pmZMH+A==
-X-Google-Smtp-Source: ABdhPJz/S0gfoJShrvVKOkjfbJx02Hws0BkXYZdBoTIGEHtSmorXowh1oXM2pwYvKWxA6ebn5AMJEw==
-X-Received: by 2002:a63:a510:: with SMTP id n16mr1283040pgf.256.1601931913748;
-        Mon, 05 Oct 2020 14:05:13 -0700 (PDT)
-Return-Path: <keescook@chromium.org>
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-        by smtp.gmail.com with ESMTPSA id q12sm478376pjd.16.2020.10.05.14.05.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2020 14:05:12 -0700 (PDT)
-Date: Mon, 5 Oct 2020 14:05:11 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Iurii Zaikin <yzaikin@google.com>,
-	linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] kernel/sysctl.c: drop unneeded assignment in proc_do_large_bitmap()
-Message-ID: <202010051404.CEE37CD617@keescook>
-References: <20201005203749.28083-1-sudipm.mukherjee@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20201005203749.28083-1-sudipm.mukherjee@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=o3Ej3LavHo/S663DnWXhpENRkd1MBuaBAhHjxbMV30s=;
+        b=WsR9Mqj+NoD1gEIulERJQpe7QBheVFBsd/zubMlcx9vBclKzh9g/GXjxSmcZd8p9Y2
+         exy4mxIKA0Zf4P07dE8U7mmVEkBDBvGoEHUWx/9JGPgHEPsHdeOA/XbEN0dq9WDTiSNT
+         YqC1sankf22DWbVuNxKsHipGn+bL9EYg+/ILAHS8Hu7wXBDkmQd3iqkQ8pVx7xOasn34
+         uNLBjMdBWAv2Xn3uMBpmo96ACbusguOtC8bMdziboRCBgl5sR68kzcEFjpVHe5nn/NIk
+         zJl0FPFtlGnzB2fWyL3jJsgNew7jXxfXTo6SlFl43HSyXBQiVcwMDeb7RuAtY4OP6WPC
+         A7mA==
+X-Gm-Message-State: AOAM533JWN4Or6JxRNUP+SZ2DLWr8Ez3wOm4GUff/gbrN2aU1wL/uMgg
+	2VQXZqejS/8fd8mkCz1MrlY=
+X-Google-Smtp-Source: ABdhPJzZRxNQ/305lZa0njFqzSW0QW0eoQM1oNffk9v2kzF6D9dfQMiMJZvwTogMHAlr2n5+uPeulQ==
+X-Received: by 2002:a1c:f214:: with SMTP id s20mr1302967wmc.84.1601933526399;
+        Mon, 05 Oct 2020 14:32:06 -0700 (PDT)
+Return-Path: <sudipm.mukherjee@gmail.com>
+Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
+        by smtp.gmail.com with ESMTPSA id q9sm1474013wrd.57.2020.10.05.14.32.05
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 05 Oct 2020 14:32:05 -0700 (PDT)
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	linux-usb@vger.kernel.org,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Subject: [PATCH] usb: host: ehci-sched: avoid possible NULL dereference
+Date: Mon,  5 Oct 2020 22:31:49 +0100
+Message-Id: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
 
-On Mon, Oct 05, 2020 at 09:37:49PM +0100, Sudip Mukherjee wrote:
-> The variable 'first' is assigned 0 inside the while loop in the if block
-> but it is not used in the if block and is only used in the else block.
-> So, remove the unneeded assignment.
+find_tt() can return NULL or the error value in ERR_PTR() and
+dereferencing the return value without checking for the error can
+lead to a possible dereference of NULL pointer or ERR_PTR().
 
-True, but in this case, please move the definition of "first" into the
-else block so it in only in scope there.
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
+ drivers/usb/host/ehci-sched.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks!
-
--Kees
-
-> 
-> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-> ---
-> 
-> The resultant binary stayed same after this change. Verified with
-> md5sum which remained same with and without this change.
-> 
-> $ md5sum kernel/sysctl.o 
-> e9e97adbfd3f0b32f83dd35d100c0e4e  kernel/sysctl.o
-> 
->  kernel/sysctl.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-> index ce75c67572b9..b51ebfd1ba6e 100644
-> --- a/kernel/sysctl.c
-> +++ b/kernel/sysctl.c
-> @@ -1508,7 +1508,6 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
->  			}
->  
->  			bitmap_set(tmp_bitmap, val_a, val_b - val_a + 1);
-> -			first = 0;
->  			proc_skip_char(&p, &left, '\n');
->  		}
->  		left += skipped;
-> -- 
-> 2.11.0
-> 
-
+diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+index 6dfb242f9a4b..f3fd7e9fe6b2 100644
+--- a/drivers/usb/host/ehci-sched.c
++++ b/drivers/usb/host/ehci-sched.c
+@@ -245,6 +245,8 @@ static void reserve_release_intr_bandwidth(struct ehci_hcd *ehci,
+ 	/* FS/LS bus bandwidth */
+ 	if (tt_usecs) {
+ 		tt = find_tt(qh->ps.udev);
++		if (IS_ERR_OR_NULL(tt))
++			return;
+ 		if (sign > 0)
+ 			list_add_tail(&qh->ps.ps_list, &tt->ps_list);
+ 		else
+@@ -1338,6 +1340,8 @@ static void reserve_release_iso_bandwidth(struct ehci_hcd *ehci,
+ 		}
+ 
+ 		tt = find_tt(stream->ps.udev);
++		if (IS_ERR_OR_NULL(tt))
++			return;
+ 		if (sign > 0)
+ 			list_add_tail(&stream->ps.ps_list, &tt->ps_list);
+ 		else
 -- 
-Kees Cook
+2.11.0
