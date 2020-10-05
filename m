@@ -1,86 +1,82 @@
-Received: from outbound-smtp09.blacknight.com (outbound-smtp09.blacknight.com [46.22.139.14])
- by mx.groups.io with SMTP id smtpd.web11.29735.1601884750227858749
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
+ by mx.groups.io with SMTP id smtpd.web10.1030.1601930399005992866
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 00:59:10 -0700
+ Mon, 05 Oct 2020 13:39:59 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: techsingularity.net, ip: 46.22.139.14, mailfrom: mgorman@techsingularity.net)
-Received: from mail.blacknight.com (pemlinmail02.blacknight.ie [81.17.254.11])
-	by outbound-smtp09.blacknight.com (Postfix) with ESMTPS id 75BE21C5115
-	for <linux-safety@lists.elisa.tech>; Mon,  5 Oct 2020 08:59:06 +0100 (IST)
-Received: (qmail 27315 invoked from network); 5 Oct 2020 07:59:06 -0000
-Received: from unknown (HELO techsingularity.net) (mgorman@techsingularity.net@[84.203.22.4])
-  by 81.17.254.9 with ESMTPSA (AES256-SHA encrypted, authenticated); 5 Oct 2020 07:59:06 -0000
-Date: Mon, 5 Oct 2020 08:59:03 +0100
-From: Mel Gorman <mgorman@techsingularity.net>
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	Vlastimil Babka <vbabka@suse.cz>, Michal Hocko <mhocko@suse.com>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
-	kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
-Subject: Re: [PATCH] mm/vmscan: drop unneeded assignment in kswapd()
-Message-ID: <20201005075903.GH3227@techsingularity.net>
-References: <20201004125827.17679-1-lukas.bulwahn@gmail.com>
- <20201004192437.GF3227@techsingularity.net>
- <alpine.DEB.2.21.2010050831010.6202@felia>
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2010050831010.6202@felia>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=K7DTrK0G;
+ spf=pass (domain: gmail.com, ip: 209.85.221.66, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wr1-f66.google.com with SMTP id m6so11092589wrn.0
+        for <linux-safety@lists.elisa.tech>; Mon, 05 Oct 2020 13:39:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=s6iDC9dUHJsp946AwvB4HqOpH0+Gyt+ZQFRpxT0XcVA=;
+        b=K7DTrK0GdYHxog7SsY1N3+Kxz2lpMsx9Ntecvkbxy7EnP7KNodDTxm4vg9KgPVRrkp
+         oERbErfELiAWgBC7sy+G9vkMbUhcOd/3Ouop8+32yTbCP+lW4XfInqX6YQsvm1jxvDw5
+         IlTOcH0P09hkLrPat1IgfcU3HXAfRyBbCAFmBWyd2y7bVPo7HwubzU0tGB2Mt6JG8PfR
+         VEAB9TSw4ahUGoA4exHQmC2laANryX350/O3xDEPJXKo3Qb+88SDbgu0swk12fDoUZv2
+         cMeCfDKbOsaKyI5Lyfw48BjpviW5aDNKQMVIkHffZYTSXAD/JchcIrEkgR4eiNCJhODJ
+         GrNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=s6iDC9dUHJsp946AwvB4HqOpH0+Gyt+ZQFRpxT0XcVA=;
+        b=LYao6D253lZxtiHn4dYVIFhNY6fLsaYHOYGwyRhZC6eijQm4y37oVSSWG1JDvYEyTv
+         lqYfUWzqM2UiclCYEXQXWjzHLd6w0uCY/L0sGUyNKCVRcIOAWstDawndzMY81beqLosP
+         ZB409i+1Om95uzlbMjsIUmVpzM9M3FG3JCDQ2Z0KBgdYRLTJlLs0/Y3sJwl/VHRUP6QF
+         uDNdeiYkOKidBG+UnSuVwuUPv2IfmYoRVIFWwLuEPxwvu/gJj8cpT5w9HM0+8al2vy0F
+         NECO3jFqrlmnX2vhlBzOTmK9rXgzNhd7SUp2o7+WTzMbD2ukuHog3YRc1zlVyywvu7Ih
+         AoGA==
+X-Gm-Message-State: AOAM532y05OysXCTHLq1QL6475yEWUQEgO7tN2nPAMqXQiQGQb8fvZ7y
+	nUKgBNZm6XNow903S/8JUPc=
+X-Google-Smtp-Source: ABdhPJzFSr8+CEKAseUSNhBRTaD/bhR4pMFdNpvhT9e1yKN0zIQNhueuD86vXnYgCViRRH7kKSF7Tg==
+X-Received: by 2002:adf:9504:: with SMTP id 4mr1207472wrs.27.1601930397364;
+        Mon, 05 Oct 2020 13:39:57 -0700 (PDT)
+Return-Path: <sudipm.mukherjee@gmail.com>
+Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
+        by smtp.gmail.com with ESMTPSA id t13sm882079wmj.15.2020.10.05.13.39.56
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 05 Oct 2020 13:39:56 -0700 (PDT)
+From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Kees Cook <keescook@chromium.org>,
+	Iurii Zaikin <yzaikin@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	linux-fsdevel@vger.kernel.org,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Subject: [PATCH] kernel/sysctl.c: drop unneeded assignment in proc_do_large_bitmap()
+Date: Mon,  5 Oct 2020 21:37:49 +0100
+Message-Id: <20201005203749.28083-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
 
-On Mon, Oct 05, 2020 at 08:58:53AM +0200, Lukas Bulwahn wrote:
-> 
-> 
-> On Sun, 4 Oct 2020, Mel Gorman wrote:
-> 
-> > On Sun, Oct 04, 2020 at 02:58:27PM +0200, Lukas Bulwahn wrote:
-> > > The refactoring to kswapd() in commit e716f2eb24de ("mm, vmscan: prevent
-> > > kswapd sleeping prematurely due to mismatched classzone_idx") turned an
-> > > assignment to reclaim_order into a dead store, as in all further paths,
-> > > reclaim_order will be assigned again before it is used.
-> > > 
-> > > make clang-analyzer on x86_64 tinyconfig caught my attention with:
-> > > 
-> > >   mm/vmscan.c: warning: Although the value stored to 'reclaim_order' is
-> > >   used in the enclosing expression, the value is never actually read from
-> > >   'reclaim_order' [clang-analyzer-deadcode.DeadStores]
-> > > 
-> > > Compilers will detect this unneeded assignment and optimize this anyway.
-> > > So, the resulting binary is identical before and after this change.
-> > > 
-> > > Simplify the code and remove unneeded assignment to make clang-analyzer
-> > > happy.
-> > > 
-> > > No functional change. No change in binary code.
-> > > 
-> > > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> > 
-> > I'm not really keen on this. With the patch, reclaim_order can be passed
-> > uninitialised to kswapd_try_to_sleep. While a sufficiently smart
-> > compiler might be able to optimise how reclaim_order is used, it's not
-> > guaranteed either. Similarly, a change in kswapd_try_to_sleep and its
-> > called functions could rely on reclaim_order being a valid value and
-> > then introduce a subtle bug.
-> >
-> 
-> Just for my own understanding:
-> 
-> How would you see reclaim_order being passed unitialised to 
-> kswapd_try_to_sleep?
-> 
-> From kswapd() entry, any path must reach the line
-> 
->   alloc_order = reclaim_order = READ_ONCE(pgdat->kswapd_order);
-> 
-> before kswap_try_to_sleep(...).
-> 
+The variable 'first' is assigned 0 inside the while loop in the if block
+but it is not used in the if block and is only used in the else block.
+So, remove the unneeded assignment.
 
-Bah, I misread the patch because I'm an idiot.
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
 
-Acked-by: Mel Gorman <mgorman@techsingularity.net>
+The resultant binary stayed same after this change. Verified with
+md5sum which remained same with and without this change.
 
+$ md5sum kernel/sysctl.o 
+e9e97adbfd3f0b32f83dd35d100c0e4e  kernel/sysctl.o
+
+ kernel/sysctl.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index ce75c67572b9..b51ebfd1ba6e 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -1508,7 +1508,6 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
+ 			}
+ 
+ 			bitmap_set(tmp_bitmap, val_a, val_b - val_a + 1);
+-			first = 0;
+ 			proc_skip_char(&p, &left, '\n');
+ 		}
+ 		left += skipped;
 -- 
-Mel Gorman
-SUSE Labs
+2.11.0
