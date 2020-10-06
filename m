@@ -1,25 +1,36 @@
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by mx.groups.io with SMTP id smtpd.web12.4414.1601947545682937276
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mx.groups.io with SMTP id smtpd.web12.8850.1601968782191629149
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 18:25:46 -0700
+ Tue, 06 Oct 2020 00:19:42 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: netrider.rowland.org, ip: 192.131.102.5, mailfrom: stern+5f748a34@netrider.rowland.org)
-Received: (qmail 399975 invoked by uid 1000); 5 Oct 2020 21:25:44 -0400
-Date: Mon, 5 Oct 2020 21:25:44 -0400
-From: "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>
+ dkim=pass header.i=@kernel.org header.s=default header.b=RudRPuqM;
+ spf=pass (domain: linuxfoundation.org, ip: 198.145.29.99, mailfrom: gregkh@linuxfoundation.org)
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id CE41F20789;
+	Tue,  6 Oct 2020 07:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1601968781;
+	bh=LNvDSp5Z7ckYp/tfBKKh/c0uKzVgBYQkEA3ApjQ/XAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RudRPuqMfeRzH2CdAdAfUeQNERc1m7eIvf8sr2VJhxUPWSJYQYbevDWycHB90JytL
+	 ZNJymQGhY6biBYvBBRCBne4bNQKcC6x3Cw7o56JWE7FWAYfdSTmM1FL2+2Rhkm/z9G
+	 pKw5CoUinzcI6T7MoKuIwJJYPaeyDMOCPxUxP9kc=
+Date: Tue, 6 Oct 2020 09:19:38 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 To: "Harley A.W. Lorenzo" <hl1998@protonmail.com>
 Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-  "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-  "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>,
-  "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"stern@rowland.harvard.edu" <stern@rowland.harvard.edu>
 Subject: Re: [PATCH] usb: host: ehci-sched: avoid possible NULL dereference
-Message-ID: <20201006012544.GB399825@rowland.harvard.edu>
+Message-ID: <20201006071938.GA5503@kroah.com>
 References: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
  <brWYeL8miTAikvEPYFNe2Kpe05OBtiD6yuS6jRg1VCX-lt7ANc1B2y7AM6ECEoG9AJwZP5_5qoGO7POvK0MtruvqG8q8kHbyHiOUIZ72Klk=@protonmail.com>
 MIME-Version: 1.0
 In-Reply-To: <brWYeL8miTAikvEPYFNe2Kpe05OBtiD6yuS6jRg1VCX-lt7ANc1B2y7AM6ECEoG9AJwZP5_5qoGO7POvK0MtruvqG8q8kHbyHiOUIZ72Klk=@protonmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -35,7 +46,8 @@ On Mon, Oct 05, 2020 at 11:19:02PM +0000, Harley A.W. Lorenzo wrote:
 > 
 > Reviewed-by: Harley A.W. Lorenzo <hl1998@protonmail.com
 
-No, this patch is wrong.  In fact, these calls to find_tt() cannot 
-return NULL or an ERR_PTR value.
+Nit, in the future, you need the trailing '>' there.
 
-Alan Stern
+thanks,
+
+greg k-h
