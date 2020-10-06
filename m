@@ -1,44 +1,70 @@
-Received: from mail-40135.protonmail.ch (mail-40135.protonmail.ch [185.70.40.135])
- by mx.groups.io with SMTP id smtpd.web11.2204.1601939949602407696
+Received: from imap3.hz.codethink.co.uk (imap3.hz.codethink.co.uk [176.9.8.87])
+ by mx.groups.io with SMTP id smtpd.web11.9754.1601973098081939640
  for <linux-safety@lists.elisa.tech>;
- Mon, 05 Oct 2020 16:19:10 -0700
+ Tue, 06 Oct 2020 01:31:38 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@protonmail.com header.s=protonmail header.b=PIRoWzXG;
- spf=pass (domain: protonmail.com, ip: 185.70.40.135, mailfrom: hl1998@protonmail.com)
-Date: Mon, 05 Oct 2020 23:19:02 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail; t=1601939947;
-	bh=HaX8EWb9AzKpVCX5JpXpeCYdTLapnazuvdbKVj8g+DA=;
-	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
-	b=PIRoWzXG/J3TnUH9sop0aloO+uU7kCnDrF6wEdYm5GdkAjipX4es9fbFJyG76L1yR
-	 6j3gQn1FUs/i3JVHGDwUpmT4BPvevZcxC6hCWCQZbwG1SbdAEvFVEt+TmP0j58dglX
-	 dMRUU9nFkEjf1WaksX2N9BL2YSKk/OvjSrGjH9dQ=
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-From: "Harley A.W. Lorenzo" <hl1998@protonmail.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>, "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>
-Reply-To: "Harley A.W. Lorenzo" <hl1998@protonmail.com>
-Subject: Re: [PATCH] usb: host: ehci-sched: avoid possible NULL dereference
-Message-ID: <brWYeL8miTAikvEPYFNe2Kpe05OBtiD6yuS6jRg1VCX-lt7ANc1B2y7AM6ECEoG9AJwZP5_5qoGO7POvK0MtruvqG8q8kHbyHiOUIZ72Klk=@protonmail.com>
-In-Reply-To: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
+ dkim=missing; spf=none, err=SPF record not found (domain: codethink.co.uk, ip: 176.9.8.87, mailfrom: sudip.mukherjee@codethink.co.uk)
+Received: from host-92-5-241-147.as43234.net ([92.5.241.147] helo=[192.168.1.13])
+	by imap3.hz.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+	id 1kPiNi-0002av-Nu; Tue, 06 Oct 2020 09:31:34 +0100
+Subject: Re: [linux-safety] [PATCH] usb: host: ehci-sched: avoid possible NULL dereference
+To: "development-process@lists.elisa.tech"
+ <development-process@lists.elisa.tech>, linux-safety@lists.elisa.tech
 References: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
+From: "Sudip Mukherjee" <sudip.mukherjee@codethink.co.uk>
+Message-ID: <3052d0a3-f482-ca91-3ad6-950c5296a92c@codethink.co.uk>
+Date: Tue, 6 Oct 2020 09:31:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.7 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FROM,FREEMAIL_REPLYTO_END_DIGIT shortcircuit=no
-	autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-	mailout.protonmail.ch
+In-Reply-To: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Monday, October 5, 2020 5:31 PM, Sudip Mukherjee <sudipm.mukherjee@gmail=
-.com> wrote:
+Hi All,
 
+I sent out this patch yesterday which I think is an obvious safety issue
+as the error was not handled. This is a change in code and the resultant
+binary will not be same. I know we are moving to pcie now, but have we
+decided yet how to validate these kinds of changes?
+
+
+-- 
+Regards
+Sudip
+
+
+On 05/10/2020 22:31, Sudip Mukherjee wrote:
 > find_tt() can return NULL or the error value in ERR_PTR() and
 > dereferencing the return value without checking for the error can
 > lead to a possible dereference of NULL pointer or ERR_PTR().
-
-Looks fine to me. There is in fact no checks of the return value
-before a dereference here, and this solves that.
-
-Reviewed-by: Harley A.W. Lorenzo <hl1998@protonmail.com
+> 
+> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+> ---
+>  drivers/usb/host/ehci-sched.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+> index 6dfb242f9a4b..f3fd7e9fe6b2 100644
+> --- a/drivers/usb/host/ehci-sched.c
+> +++ b/drivers/usb/host/ehci-sched.c
+> @@ -245,6 +245,8 @@ static void reserve_release_intr_bandwidth(struct ehci_hcd *ehci,
+>  	/* FS/LS bus bandwidth */
+>  	if (tt_usecs) {
+>  		tt = find_tt(qh->ps.udev);
+> +		if (IS_ERR_OR_NULL(tt))
+> +			return;
+>  		if (sign > 0)
+>  			list_add_tail(&qh->ps.ps_list, &tt->ps_list);
+>  		else
+> @@ -1338,6 +1340,8 @@ static void reserve_release_iso_bandwidth(struct ehci_hcd *ehci,
+>  		}
+>  
+>  		tt = find_tt(stream->ps.udev);
+> +		if (IS_ERR_OR_NULL(tt))
+> +			return;
+>  		if (sign > 0)
+>  			list_add_tail(&stream->ps.ps_list, &tt->ps_list);
+>  		else
+> 
