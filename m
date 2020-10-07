@@ -1,47 +1,98 @@
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by mx.groups.io with SMTP id smtpd.web11.203.1602007126490399343
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
+ by mx.groups.io with SMTP id smtpd.web12.3825.1602084256286392143
  for <linux-safety@lists.elisa.tech>;
- Tue, 06 Oct 2020 10:58:46 -0700
+ Wed, 07 Oct 2020 08:24:16 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: netrider.rowland.org, ip: 192.131.102.5, mailfrom: stern+5f748a34@netrider.rowland.org)
-Received: (qmail 426512 invoked by uid 1000); 6 Oct 2020 13:58:45 -0400
-Date: Tue, 6 Oct 2020 13:58:45 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: "Harley A.W. Lorenzo" <hl1998@protonmail.com>,
-  "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-  "linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>,
-  "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH] usb: host: ehci-sched: avoid possible NULL dereference
-Message-ID: <20201006175845.GC423499@rowland.harvard.edu>
-References: <20201005213149.12332-1-sudipm.mukherjee@gmail.com>
- <brWYeL8miTAikvEPYFNe2Kpe05OBtiD6yuS6jRg1VCX-lt7ANc1B2y7AM6ECEoG9AJwZP5_5qoGO7POvK0MtruvqG8q8kHbyHiOUIZ72Klk=@protonmail.com>
- <20201006012544.GB399825@rowland.harvard.edu>
-MIME-Version: 1.0
-In-Reply-To: <20201006012544.GB399825@rowland.harvard.edu>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=vK7q1RY3;
+ spf=pass (domain: gmail.com, ip: 209.85.221.65, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wr1-f65.google.com with SMTP id e17so2648692wru.12
+        for <linux-safety@lists.elisa.tech>; Wed, 07 Oct 2020 08:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=9fZtNueIKa1HonbojTUuFEHA3Qjc+wNXpiWwCGdSRok=;
+        b=vK7q1RY3f0TWa5MN6WxRKfIlZGN25DpQ5+088RPNAZbjbYhGezt/0RWRtW+0/Fg49a
+         +tOdjU+9QgwsoDG5dgzQqVAfIJTO61hiBoVNw1PJXYr6DJ8zYRknWXI6jqmdvNTBQr/Q
+         KUNST5SqMdBYYpcHRj1mH14BROSTD/HxappTUVaEbPgXTdMeqcJ4hNMphB+EUINIhXOL
+         O955hN9/O3KJowrq2KG2YUSMVHgkZOhoVnzxzFgp97vf+UB5ugI379g0ntuB3THVI3Fo
+         7XIt8BwSZPaHwCDjczD2vT2J50j4pd7jJfL6MQytVELw4TJVAhjif0ohavtCfc+4ZydV
+         qffg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=9fZtNueIKa1HonbojTUuFEHA3Qjc+wNXpiWwCGdSRok=;
+        b=o3kDbJsbziEyxa/U9D2nl8FGv0vAOXZqvulR2sW/WlQtOFfjqyJEJje4qoKJ2kN3Sq
+         Ul/rgkmmePpk7UZ5mRHSYgOk3KZPFOa6JAnxHhCSkAMYiYbqKOVQGjPjxVPa2rzrYKyo
+         qFVI7qhaU/4+dUQCVVnBJ6NBSiZZpzTbyYfy4TExBfjEA93zHTsO6PC3+f8oCdMIuUPT
+         6twdz5iLW+s2P3AsUwN9s3Mthv+bRX/YZEjsdE+gs9nv+zv6aA3XBnqCOWtn3pAr7U1I
+         Tzf8sHl8oIeVB6mQ78hNuRj8BVR+zpkqc+BI+PusR8vf5UHQUUIxl8V2FAO0tHwt6os8
+         bwqA==
+X-Gm-Message-State: AOAM531plQ9JCvyprdfKDHeyZOmn72mCzo44cdez5TJndMmyXOqEk0qk
+	Z5erx8Mc+yiRhNd4k0OsUsM=
+X-Google-Smtp-Source: ABdhPJwUld/XygEX1hTNO+qWq9Mc1WE1opsxETj+NlwHC3C1dbCijY44BsjTyuOzuBVPl4aH9Q/1mw==
+X-Received: by 2002:adf:de11:: with SMTP id b17mr4129147wrm.82.1602084254649;
+        Wed, 07 Oct 2020 08:24:14 -0700 (PDT)
+Return-Path: <sudipm.mukherjee@gmail.com>
+Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
+        by smtp.gmail.com with ESMTPSA id d30sm3562742wrc.19.2020.10.07.08.24.13
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 07 Oct 2020 08:24:13 -0700 (PDT)
+From: sudipm.mukherjee@gmail.com
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Kees Cook <keescook@chromium.org>,
+	Iurii Zaikin <yzaikin@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	linux-fsdevel@vger.kernel.org,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Subject: [PATCH v2] kernel/sysctl.c: drop unneeded assignment in proc_do_large_bitmap()
+Date: Wed,  7 Oct 2020 16:19:04 +0100
+Message-Id: <20201007151904.20415-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
 
-On Mon, Oct 05, 2020 at 09:25:44PM -0400, stern@rowland.harvard.edu wrote:
-> On Mon, Oct 05, 2020 at 11:19:02PM +0000, Harley A.W. Lorenzo wrote:
-> > On Monday, October 5, 2020 5:31 PM, Sudip Mukherjee <sudipm.mukherjee@gmail.com> wrote:
-> > 
-> > > find_tt() can return NULL or the error value in ERR_PTR() and
-> > > dereferencing the return value without checking for the error can
-> > > lead to a possible dereference of NULL pointer or ERR_PTR().
-> > 
-> > Looks fine to me. There is in fact no checks of the return value
-> > before a dereference here, and this solves that.
-> > 
-> > Reviewed-by: Harley A.W. Lorenzo <hl1998@protonmail.com
-> 
-> No, this patch is wrong.  In fact, these calls to find_tt() cannot 
-> return NULL or an ERR_PTR value.
+The variable 'first' is assigned 0 inside the while loop in the if block
+but it is not used in the if block and is only used in the else block.
+So, remove the unneeded assignment and move the variable in the else block.
 
-Sudip, if you would prefer to submit a patch that adds comments to those 
-call sites explaining that find_tt() will not return NULL or an error, 
-that would be okay.
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
 
-Alan Stern
+v1: only had the removal of assignment
+
+The resultant binary stayed same after this change. Verified with
+md5sum which remained same with and without this change.
+
+$ md5sum kernel/sysctl.o 
+77e8b8f3cd9da4446e7f117115c8ba84  kernel/sysctl.o
+
+ kernel/sysctl.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index ce75c67572b9..cc274a431d91 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -1423,7 +1423,6 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
+ 			 void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	int err = 0;
+-	bool first = 1;
+ 	size_t left = *lenp;
+ 	unsigned long bitmap_len = table->maxlen;
+ 	unsigned long *bitmap = *(unsigned long **) table->data;
+@@ -1508,12 +1507,12 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
+ 			}
+ 
+ 			bitmap_set(tmp_bitmap, val_a, val_b - val_a + 1);
+-			first = 0;
+ 			proc_skip_char(&p, &left, '\n');
+ 		}
+ 		left += skipped;
+ 	} else {
+ 		unsigned long bit_a, bit_b = 0;
++		bool first = 1;
+ 
+ 		while (left) {
+ 			bit_a = find_next_bit(bitmap, bitmap_len, bit_b);
+-- 
+2.11.0
