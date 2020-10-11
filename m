@@ -1,57 +1,91 @@
-Received: from imap3.hz.codethink.co.uk (imap3.hz.codethink.co.uk [176.9.8.87])
- by mx.groups.io with SMTP id smtpd.web12.7639.1602146696712933143
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
+ by mx.groups.io with SMTP id smtpd.web11.26151.1602449563823751497
  for <linux-safety@lists.elisa.tech>;
- Thu, 08 Oct 2020 01:44:57 -0700
+ Sun, 11 Oct 2020 13:52:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=none, err=SPF record not found (domain: codethink.co.uk, ip: 176.9.8.87, mailfrom: sudip.mukherjee@codethink.co.uk)
-Received: from host-92-5-241-147.as43234.net ([92.5.241.147] helo=[192.168.1.13])
-	by imap3.hz.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
-	id 1kQRXh-0001gI-Px; Thu, 08 Oct 2020 09:44:53 +0100
-Subject: Re: [linux-safety] ci pipeline for clang-analyzer
-To: Paul Albertella <paul.albertella@codethink.co.uk>,
- linux-safety@lists.elisa.tech
-References: <163BD2875A09B377.24414@lists.elisa.tech>
- <059a1633-85f4-3422-64ab-0b8519a5d2cf@codethink.co.uk>
- <9bb53fa2-0f87-c80d-8d11-bbb4caed9400@codethink.co.uk>
-From: "Sudip Mukherjee" <sudip.mukherjee@codethink.co.uk>
-Message-ID: <295e221e-215e-6237-3887-238deb63f419@codethink.co.uk>
-Date: Thu, 8 Oct 2020 09:44:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <9bb53fa2-0f87-c80d-8d11-bbb4caed9400@codethink.co.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=puQfLXc6;
+ spf=pass (domain: gmail.com, ip: 209.85.221.65, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wr1-f65.google.com with SMTP id y12so11410545wrp.6
+        for <linux-safety@lists.elisa.tech>; Sun, 11 Oct 2020 13:52:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=BX4Ksw8KZPsLtrPcO58GtjEV3POmqSDp6KnUeCMIM/A=;
+        b=puQfLXc6z9+ETjKkL3Ql8/IIvJrtTJ7yoOUQFZYaK56Am2Of/0p/QIkXYIls5tL0in
+         sXD5MPMLKThYYDrcVtkjjdlNAfW1niIOCYs7z/EoBXfIhtZNd9+XCReGNYD6psFnvVrS
+         zqYHwPJadWzCPZpMBOZRbMwKtBpVFa6VSc9dhZr6e8m6WhztVaOYRgrkpck8yjBPXthL
+         FOVItwA6bhlnlUR28E12jFRSEeCRtF5tT8FXxRyQ/nt+iKEfxjmNUqQijUGOw7EfXxHs
+         +4eSg9SAVBP2ey197ffk+f8U9ynPg7NsY7XU6oU5ssGeBPDX9LXDIAzIX3VuxlXDsm7B
+         23lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=BX4Ksw8KZPsLtrPcO58GtjEV3POmqSDp6KnUeCMIM/A=;
+        b=AwGFQks8I8OhYMbwVrin16MW2D4KRlf45+040Lxi+UUuPzGJ8GZyeTnKyISt7Z/ChO
+         OXPL4O4GJkUkaJecY7pBYbcrUx+JWzT70WbS4tsnLLIjwN7dIsRYjFBSBjPSr5v0+SgN
+         XSscADWPnLBlxFcbSNRUFknrjod4qZB+KWWCfYisOGb2TXYUVtk+UadiS77LDv6bJxvF
+         BFDHBvG21Px7RhE14INBn/EWpg9wPhbCp54TfwPLiXXKBy8oc8Gqb/Su7OMjMg4vTsQS
+         YnFBJrQm/ItiwP0jZrV2IkBxU9X1l2Wf+/wwdfigMIoEcaPcuNlfgSv/P6b2l3mYjqK3
+         lJwA==
+X-Gm-Message-State: AOAM533CN23QkhJjuO0RkzdqDx3ZOm4jh+uAU+xZIO7MTAUQYGpZ4ETM
+	QODyDhazE96SN6KWyiu63E0=
+X-Google-Smtp-Source: ABdhPJykx39k7lJpZgr3XUsTS9T3knOzW1oWqFZE6F2SU3I+AdRkgJbZGCoEbfMtNLTjpzWHHhv0NQ==
+X-Received: by 2002:a5d:6a51:: with SMTP id t17mr9957357wrw.80.1602449562207;
+        Sun, 11 Oct 2020 13:52:42 -0700 (PDT)
+Return-Path: <sudipm.mukherjee@gmail.com>
+Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
+        by smtp.gmail.com with ESMTPSA id y66sm4070595wmd.14.2020.10.11.13.52.41
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 11 Oct 2020 13:52:41 -0700 (PDT)
+From: "Sudip Mukherjee" <sudipm.mukherjee@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	linux-usb@vger.kernel.org,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Subject: [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
+Date: Sun, 11 Oct 2020 21:50:08 +0100
+Message-Id: <20201011205008.24369-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
 
-Hi Paul,
+Add a comment explaining why find_tt() will not return error even though
+find_tt() is checking for NULL and other errors.
 
-On 08/10/2020 09:15, Paul Albertella wrote:
-> This is great Sudip!
-> 
-> I see that Travis CI has a max duration of 120 minutes for jobs. If we
-> continue tinyconfig, then I'm guessing that should be enough, but we
-> will want to explore other options for when we work on more
-> representative configs, which I think Elana is planning to define as
-> part of the Dev Process WG's work this quarter.
-Travis actually has 50 minutes timeout. I have an extended 120 minutes
-because of something else I used to do earlier. Actually, going through
-my old mails I can see that I should have 180 minutes. Need to check
-with them today.
-I have also tried with gitlab shared runners which had a 180 minutes
-timeout but that has also failed.
-https://gitlab.com/sudipm/linux-next/-/jobs/777289423
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+---
+ drivers/usb/host/ehci-sched.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-> 
-> Another alternative would be to use Github Actions, which doesn't seem
-> to have a maximum job duration, but does limit job runtime to 2000 hours
-> per month for a free account.
-
-I will have a look at it today after adding the report generator to my
-scripts. If it is 2000 hours per month then we get around 100 hours per
-day, which should be more than enough.
-
-
+diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+index 6dfb242f9a4b..0f85aa9b2fb1 100644
+--- a/drivers/usb/host/ehci-sched.c
++++ b/drivers/usb/host/ehci-sched.c
+@@ -244,6 +244,12 @@ static void reserve_release_intr_bandwidth(struct ehci_hcd *ehci,
+ 
+ 	/* FS/LS bus bandwidth */
+ 	if (tt_usecs) {
++		/*
++		 * find_tt() will not return any error here as we have
++		 * already called find_tt() before calling this function
++		 * and checked for any error return. The previous call
++		 * would have created the data structure.
++		 */
+ 		tt = find_tt(qh->ps.udev);
+ 		if (sign > 0)
+ 			list_add_tail(&qh->ps.ps_list, &tt->ps_list);
+@@ -1337,6 +1343,12 @@ static void reserve_release_iso_bandwidth(struct ehci_hcd *ehci,
+ 			}
+ 		}
+ 
++		/*
++		 * find_tt() will not return any error here as we have
++		 * already called find_tt() before calling this function
++		 * and checked for any error return. The previous call
++		 * would have created the data structure.
++		 */
+ 		tt = find_tt(stream->ps.udev);
+ 		if (sign > 0)
+ 			list_add_tail(&stream->ps.ps_list, &tt->ps_list);
 -- 
-Regards
-Sudip
+2.11.0
