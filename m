@@ -1,63 +1,68 @@
 Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by mx.groups.io with SMTP id smtpd.web11.29852.1602462431058180474
+ by mx.groups.io with SMTP id smtpd.web12.386.1602514631230678316
  for <linux-safety@lists.elisa.tech>;
- Sun, 11 Oct 2020 17:27:11 -0700
+ Mon, 12 Oct 2020 07:57:11 -0700
 Authentication-Results: mx.groups.io;
  dkim=missing; spf=pass (domain: netrider.rowland.org, ip: 192.131.102.5, mailfrom: stern+5f965aec@netrider.rowland.org)
-Received: (qmail 615163 invoked by uid 1000); 11 Oct 2020 20:27:09 -0400
-Date: Sun, 11 Oct 2020 20:27:09 -0400
+Received: (qmail 632421 invoked by uid 1000); 12 Oct 2020 10:57:10 -0400
+Date: Mon, 12 Oct 2020 10:57:10 -0400
 From: Alan Stern <stern@rowland.harvard.edu>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
   linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
   linux-usb@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
-Message-ID: <20201012002709.GA614913@rowland.harvard.edu>
+Subject: Re: [linux-safety] [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
+Message-ID: <20201012145710.GA631710@rowland.harvard.edu>
 References: <20201011205008.24369-1-sudipm.mukherjee@gmail.com>
+ <alpine.DEB.2.21.2010121550300.6487@felia>
 MIME-Version: 1.0
-In-Reply-To: <20201011205008.24369-1-sudipm.mukherjee@gmail.com>
+In-Reply-To: <alpine.DEB.2.21.2010121550300.6487@felia>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sun, Oct 11, 2020 at 09:50:08PM +0100, Sudip Mukherjee wrote:
-> Add a comment explaining why find_tt() will not return error even though
-> find_tt() is checking for NULL and other errors.
+On Mon, Oct 12, 2020 at 04:11:38PM +0200, Lukas Bulwahn wrote:
 > 
-> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-> ---
->  drivers/usb/host/ehci-sched.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
 > 
-> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-> index 6dfb242f9a4b..0f85aa9b2fb1 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -244,6 +244,12 @@ static void reserve_release_intr_bandwidth(struct ehci_hcd *ehci,
->  
->  	/* FS/LS bus bandwidth */
->  	if (tt_usecs) {
-> +		/*
-> +		 * find_tt() will not return any error here as we have
-> +		 * already called find_tt() before calling this function
-> +		 * and checked for any error return. The previous call
-> +		 * would have created the data structure.
-> +		 */
->  		tt = find_tt(qh->ps.udev);
->  		if (sign > 0)
->  			list_add_tail(&qh->ps.ps_list, &tt->ps_list);
-> @@ -1337,6 +1343,12 @@ static void reserve_release_iso_bandwidth(struct ehci_hcd *ehci,
->  			}
->  		}
->  
-> +		/*
-> +		 * find_tt() will not return any error here as we have
-> +		 * already called find_tt() before calling this function
-> +		 * and checked for any error return. The previous call
-> +		 * would have created the data structure.
-> +		 */
->  		tt = find_tt(stream->ps.udev);
->  		if (sign > 0)
->  			list_add_tail(&stream->ps.ps_list, &tt->ps_list);
+> On Sun, 11 Oct 2020, Sudip Mukherjee wrote:
+> 
+> > Add a comment explaining why find_tt() will not return error even though
+> > find_tt() is checking for NULL and other errors.
+> > 
+> > Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+> 
+> I get the intent of the comment but there is a large risk that somebody 
+> could remove the find_tt() call before the calling the function and there 
+> is no chance to then see later that the comment is actually wrong.
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Why would anybody do that?  Who would deliberately go change a driver in 
+a way that is obviously wrong and would break it?  Especially when such 
+changes are likely to cause compile errors?
+
+There are tons of changes one might make to any program that will leave 
+it syntactically valid but will cause it to fail.  What's special about 
+removing the early calls to find_tt()?
+
+> I guess you want to link this comment here to a code line above and
+> request anyone touching the line above to reconsider the comment then.
+
+That really seems unnecessary.
+
+> But there is no 'concept' for such kind of requests to changes and 
+> comments.
+> 
+> So, the comment is true now, but might be true or wrong later.
+> 
+> I am wondering if such comment deserves to be included if we cannot check 
+> its validity later...
+> 
+> I would prefer a simple tool that could check that your basic assumption 
+> on the code is valid and if it the basic assumption is still valid, 
+> just shut up any stupid tool that simply does not get that these calls 
+> here cannot return any error.
+
+Real code contains so many assumptions, especially if you include ones 
+which are obvious to everybody, that such a tool seems impractical.
+
+Alan Stern
