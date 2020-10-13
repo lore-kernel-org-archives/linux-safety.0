@@ -1,30 +1,30 @@
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga14.intel.com (mga14.intel.com [])
  by mx.groups.io with SMTP id smtpd.web10.8229.1602582614818797112
  for <linux-safety@lists.elisa.tech>;
- Tue, 13 Oct 2020 02:50:14 -0700
+ Tue, 13 Oct 2020 02:50:15 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: intel.com, ip: 192.55.52.115, mailfrom: gabriele.paoloni@intel.com)
-IronPort-SDR: hc5jZzK9bRo2mCqhtKNDmOgrTTDrmJRbhW0a5zMrRA/Kf3Vtyr/Tt5MST4iAwyZhqQcdcIsDBo
- igMkZRvxAGdA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="165093417"
+ dkim=missing; spf=fail (domain: intel.com, ip: <nil>, mailfrom: gabriele.paoloni@intel.com)
+IronPort-SDR: 7YE3OhZH19cHbHKaIg6ceyeq5wJRDhx8I6Bl1Y9cSvJLUjBk7jnUCRamjmtX0aBanRU3pA8sIh
+ WkUh9w43figg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="165093423"
 X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; 
-   d="scan'208";a="165093417"
+   d="scan'208";a="165093423"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 02:50:00 -0700
-IronPort-SDR: /jCbjjDSsDRSjyGfB1MqqRNntspMoj2Yl5HqvxpZDGdEaiyb0U+s4dgGNFugVtb2N6HEDwpF9j
- 6us67uzDkxrQ==
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 02:50:02 -0700
+IronPort-SDR: /ztbp2kr8ZOHXgrgY4G413bnBkrCkuvat5Z3qDqmuNfs8d+CFfrNnVr9lyzRooGb2unzhwkuHx
+ qs/zWpIq6MfQ==
 X-IronPort-AV: E=Sophos;i="5.77,369,1596524400"; 
-   d="scan'208";a="463427609"
+   d="scan'208";a="463427624"
 Received: from paolonig001.ir.intel.com ([163.33.183.93])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 02:49:59 -0700
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 02:50:02 -0700
 From: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
 To: linux-safety@lists.elisa.tech
 Cc: gabriele.paoloni@intel.com
-Subject: [RFC PATCH 1/2] bust_spinlocks: add kernel-doc format doc
-Date: Tue, 13 Oct 2020 10:49:37 +0100
-Message-Id: <20201013094938.356837-2-gabriele.paoloni@intel.com>
+Subject: [RFC PATCH 2/2] bust_spinlocks: do not decrement oops_in_progress unconditionally
+Date: Tue, 13 Oct 2020 10:49:38 +0100
+Message-Id: <20201013094938.356837-3-gabriele.paoloni@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201013094938.356837-1-gabriele.paoloni@intel.com>
 References: <20201013094938.356837-1-gabriele.paoloni@intel.com>
@@ -32,50 +32,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In the ELISA Linux Foundation project we are trying to
-improve the functions' documentation to make it more suitable
-to derive functions' specs and write unit tests. This is needed
-to make Linux more usable in functional safety systems.
-So I am adding a proper kernel-doc format for bust_spinlocks.
+In the current implementation if the input flag is 0
+oops_in_progress is unconditionally decremented, thus allowing
+to become a negative number. Since right now oops_in_progress
+is a global variable used in the kernel as a conditional flag
+to check if oops, panic(), BUG() or die() is in progress the
+current unconditional decrement may lead to unexpected behavior
+in the Kernel paths conditionally executing over this flag.
+
+This patch only decrement oops_in_progress if it is non zero
 
 Signed-off-by: Gabriele Paoloni <gabriele.paoloni@intel.com>
 ---
-With respect to this patch I have a question on how to set
-the function context; i.e. I don't know if it can be executed
-in any context or if it has limitations.
----
- lib/bust_spinlocks.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ lib/bust_spinlocks.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/lib/bust_spinlocks.c b/lib/bust_spinlocks.c
-index 8be59f84eaea..594b270161d9 100644
+index 594b270161d9..842633ac9130 100644
 --- a/lib/bust_spinlocks.c
 +++ b/lib/bust_spinlocks.c
-@@ -5,8 +5,6 @@
-  * Provides a minimal bust_spinlocks for architectures which don't
-  * have one of their own.
+@@ -23,6 +23,9 @@
+  * @yes: input flag; if zero decreases oops_in_progress,
+  * otherwise increases it.
   *
-- * bust_spinlocks() clears any spinlocks which would prevent oops, die(), BUG()
-- * and panic() information from reaching the user.
-  */
- 
- #include <linux/kernel.h>
-@@ -17,6 +15,15 @@
- #include <linux/vt_kern.h>
- #include <linux/console.h>
- 
-+/**
-+ * bust_spinlocks - increases or decreases oops_in_progress.
-+ * if oops_in_progress != 0 spinlocks which would prevent
-+ * oops, die(), BUG() and panic() information from reaching
-+ * the user are busted.
-+ * @yes: input flag; if zero decreases oops_in_progress,
-+ * otherwise increases it.
++ * Note: if oops_in_progress is already 0 it will not
++ * be decreased
 + *
-+ */
+  */
  void bust_spinlocks(int yes)
  {
- 	if (yes) {
+@@ -33,7 +36,9 @@ void bust_spinlocks(int yes)
+ 		unblank_screen();
+ #endif
+ 		console_unblank();
+-		if (--oops_in_progress == 0)
++		if (oops_in_progress)
++			oops_in_progress--;
++		if (!oops_in_progress)
+ 			wake_up_klogd();
+ 	}
+ }
 -- 
 2.25.1
 
