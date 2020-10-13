@@ -1,77 +1,193 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mx.groups.io with SMTP id smtpd.web12.6594.1602574487503417006
+Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com [67.219.250.112])
+ by mx.groups.io with SMTP id smtpd.web11.11606.1602594716535294515
  for <linux-safety@lists.elisa.tech>;
- Tue, 13 Oct 2020 00:34:47 -0700
+ Tue, 13 Oct 2020 06:11:57 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kernel.org header.s=default header.b=fGAqznVb;
- spf=pass (domain: linuxfoundation.org, ip: 198.145.29.99, mailfrom: gregkh@linuxfoundation.org)
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 5DEAC205CA;
-	Tue, 13 Oct 2020 07:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1602574486;
-	bh=GhAG0J+vJgd9zGq/7S2yLWnSWEl+GQ9Gt6oedI60JpA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fGAqznVbGa+EmEekK8WeEnc/qlcLTCEzLJHirBZmtROeXU6ZOm8ndMqttj1tdD0YG
-	 w8bEdAiGO/UBFmrTsjaItMERglAGVSIu69KkiKj6OZUoW2W6fj7Nqpa9BG+pM5+j02
-	 ZkXvbV2FlUwjBQXdI4kFAY/OfKMbDQnAZnRHfmnM=
-Date: Tue, 13 Oct 2020 09:35:24 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
-	linux-usb@vger.kernel.org
-Subject: Re: [linux-safety] [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
-Message-ID: <20201013073524.GA1674118@kroah.com>
-References: <20201011205008.24369-1-sudipm.mukherjee@gmail.com>
- <alpine.DEB.2.21.2010121550300.6487@felia>
- <20201012145710.GA631710@rowland.harvard.edu>
- <alpine.DEB.2.21.2010121659040.6487@felia>
- <20201012151816.GA1559916@kroah.com>
- <alpine.DEB.2.21.2010122022250.17866@felia>
- <20201013052317.GB330398@kroah.com>
- <alpine.DEB.2.21.2010130725370.14590@felia>
- <20201013063636.GA1663576@kroah.com>
- <alpine.DEB.2.21.2010130850410.14590@felia>
+ dkim=missing; spf=none, err=SPF record not found (domain: aisin-aw.co.jp, ip: 67.219.250.112, mailfrom: i33399_yamaguchi@aisin-aw.co.jp)
+Return-Path: <I33399_YAMAGUCHI@aisin-aw.co.jp>
+Received: from [100.112.135.1] (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256 bits))
+	by server-1.bemta.az-b.us-west-2.aws.symcld.net id 1B/D9-45035-B97A58F5; Tue, 13 Oct 2020 13:11:55 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrHKsWRWlGSWpSXmKPExsXC6xeTo3ttWWu
+  8QdcyEYvtP8Qs9s/5wmpx4s9UFgdmj8V7XjJ5nF74kC2AKYo1My8pvyKBNWPD8c/sBVfUKjpv
+  X2VuYFyn2MXIwSEkUCexrcGri5ELyJzHKNHV3ckI4bQwSTzdtJAFwtnDKNG36xxQhpODTUBd4
+  unrdnYQW0TAUeLRuRMsIDazgJbEjc4HYDXCAr2MEmc/W4A0iwj0MUqsf/OaBaLBSuLRnqtsIK
+  tZBFQlPk1iAwnzCsRIHN18hQnEFhLYyyjRdqQUxOYUiJW41dLFCmIzCshKTN7VyASxS1zi0uR
+  FYL0SAgISS/acZ4awRSVePv7HCmErSax53QpVry+xZ+IpqDu1JZYtfM0MsVdQ4uTMJywTGMVm
+  IRk7C0nLLCQts5C0LGBkWcVokVSUmZ5RkpuYmaNraGCga2hopGtobKpraG6kl1ilm6RXWqxbn
+  lpcogvklhfrFVfmJuek6OWllmxiBEZhSkH7mh2MO9580DvEKMnBpCTK29neGi/El5SfUpmRWJ
+  wRX1Sak1p8iFGGg0NJgjd5KVBOsCg1PbUiLTMHmBBg0hIcPEoivPeXAKV5iwsSc4sz0yFSpxh
+  dOa6uWrKImePmexC55i+IPNn1Aki29OxfyizEkpeflyolzusIMlsApDmjNA9uNCyZXWKUlRLm
+  ZWRgYBDiKUgtys0sQZV/xSjOwagkzHsDZApPZl4J3AWvgI5jAjrOfkkLyHEliQgpqQamRRKhh
+  RUP3Rbd+X36mtQzl2XnRNJMjs5iTfNPaPdsKJ8+t23ZFQ7pZ6uFj/0S/dbD2xf3+KGSlOjiyI
+  hPSe9Kmdl/nBKWLfaY2n0ir5Tr/EeWG9PrV21pzJ3vKrj+7A8Zzandd9dLflncI/fowcbNFxZ
+  d5FcK3x1SN2/vdi934XuZZqbiWcnyGR7bmcySC4NkCy5cXLDmZkef2WOpXX6zZn46mvAgwaww
+  KSfeffXhTOvvpreTLy3c5qiUv1NAiLPe5Udx58vqr5f+C91JPTX9sfqFSSsSM73iC2bu5DnY8
+  GXThueVp4J/6xXeVV+Wc9T3/Gn2eZpNhsJmDzY0yHdcOBO45bEX70q/m54ecdW8SizFGYmGWs
+  xFxYkAj04r2eEDAAA=
+X-Env-Sender: I33399_YAMAGUCHI@AISIN-AW.CO.JP
+X-Msg-Ref: server-23.tower-340.messagelabs.com!1602594515!2889!1
+X-Originating-IP: [13.78.92.108]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.60.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 30909 invoked from network); 13 Oct 2020 13:08:37 -0000
+Received: from aigcc-gw-gw.japaneast.cloudapp.azure.com (HELO aigcc-gw02.aisin.co.jp) (13.78.92.108)
+  by server-23.tower-340.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 13 Oct 2020 13:08:37 -0000
+Received: (from root@localhost)
+	by aigcc-gw02.aisin.co.jp (8.14.7/8.14.7) id 09DD7P5t075511;
+	Tue, 13 Oct 2020 22:07:25 +0900
+Received: from aigcc-gw-mta.japaneast.cloudapp.azure.com [13.78.87.215] 
+	 by aigcc-gw02.aisin.co.jp with ESMTP id YAA75509;
+	 Tue, 13 Oct 2020 22:07:25 +0900
+Received: from SMAIL-JP-HC03.intra.aisin-aw.co.jp (red.aisin-aw.co.jp [203.180.223.130])
+	by aigcc-gw-mta01.aisin.co.jp (8.14.7/8.14.7) with ESMTP id 09DD7OwH123891
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 13 Oct 2020 22:07:24 +0900
+Received: from SMAIL-JP-MBX02.intra.aisin-aw.co.jp ([172.16.135.52]) by
+ SMAIL-JP-HC03.intra.aisin-aw.co.jp ([172.16.136.154]) with mapi id
+ 14.03.0210.002; Tue, 13 Oct 2020 22:07:24 +0900
+From: <I33399_YAMAGUCHI@AISIN-AW.CO.JP>
+To: <gabriele.paoloni@intel.com>, <linux-safety@lists.elisa.tech>
+CC: <safety-architecture@lists.elisa.tech>
+Subject: Re: [ELISA Safety Architecture WG] [linux-safety] [RFC PATCH 2/2] bust_spinlocks: do not decrement oops_in_progress unconditionally
+Thread-Topic: [ELISA Safety Architecture WG] [linux-safety] [RFC PATCH 2/2]
+ bust_spinlocks: do not decrement oops_in_progress unconditionally
+Thread-Index: AQHWoUZU/WqT/Dj8t0+JYIno0AEOYKmVbZxggAANdcA=
+Date: Tue, 13 Oct 2020 13:07:23 +0000
+Message-ID: <B5A52225FE7FBE4EA743EA87175029980128AA18D9@SMAIL-JP-MBX02.intra.aisin-aw.co.jp>
+References: <20201013094938.356837-1-gabriele.paoloni@intel.com>
+ <163D8465D1668B95.25724@lists.elisa.tech>
+ <MN2PR11MB41582F55CDBF50A053DF233788040@MN2PR11MB4158.namprd11.prod.outlook.com>
+In-Reply-To: <MN2PR11MB41582F55CDBF50A053DF233788040@MN2PR11MB4158.namprd11.prod.outlook.com>
+Accept-Language: ja-JP, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.29.179.155]
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2010130850410.14590@felia>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Language: ja-JP
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2020 at 09:16:27AM +0200, Lukas Bulwahn wrote:
-> Some others actually believe that the use of static analysis tools 
-> increase software quality and ONLY IF a static analysis tool is used, a 
-> specific level of software quality is achieved and they want to prove 
-> that the software reaches a certain level that way. (I do not 
-> understand that argument but some have been repeating it quite often 
-> around me. This argument seems to come from a specific interpretation of 
-> safety standards that claim to have methods to predict the absense of 
-> bugs up to a certain confidence.)
+Hi Gab
 
-So do those others also audit the static analysis tools to ensure that
-they actually work as they "think" they do?  If not, then their
-requirement is pretty pointless :)
+I think so, this patch is good.
+If you agree to my opinion, please more improve.
+In a very rare case, the oops_in_progress could be a negative value.  Beca=
+use this decrement/increment is a read-modified statement.  On the other ha=
+nd, shouldn't take exclusions such as spin lock with this function.
 
-> I am doing it for the fun and learning about tools, and I am not such a 
-> believer but those others would be forced by their beliefs until they 
-> understand what static analysis tools and their janitors really already 
-> contribute to the kernel development and where the real gaps might be.
-> 
-> I hope that helps to get a bit of the motivation. Consider us 
-> kernel newbies :)
+if (!oops_in_progress)
+change to=20
+if (oops_in_progress <=3D 0)
 
-Watch out, sending patches to subsystems to "fix" issues that really
-are not real problems is a sure way to get your patches rejected and
-make maintainers grumpy.
+How about?
 
-I recommend starting out with code that we all "know" needs help, in
-drivers/staging/ for stuff like this, so you can learn the process
-better, as well as start to understand the limitations of your tools
-better.
+Best,
+/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+Doctor of Informatics, Specialist
+Software Fundamental Technology Group
+Application Development Department
+Connected & Sharing Solutions Division
+AISIN AW CO.,LTD.
+YAMAGUCHI Naoto
+E-mail=1B$B!'=1B(B i33399_YAMAGUCHI@aisin-aw.co.jp
+/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+-----Original Message-----
+From: safety-architecture@lists.elisa.tech <safety-architecture@lists.elis=
+a.tech> On Behalf Of Paoloni, Gabriele
+Sent: Tuesday, October 13, 2020 8:58 PM
+To: Paoloni, Gabriele <gabriele.paoloni@intel.com>; linux-safety@lists.eli=
+sa.tech
+Cc: safety-architecture@lists.elisa.tech
+Subject: Re: [ELISA Safety Architecture WG] [linux-safety] [RFC PATCH 2/2]=
+ bust_spinlocks: do not decrement oops_in_progress unconditionally
 
-good luck!
++CC safety arch mailing list
 
-greg k-h
+> -----Original Message-----
+> From: linux-safety@lists.elisa.tech <linux-safety@lists.elisa.tech> On=
+=20
+> Behalf Of Paoloni, Gabriele
+> Sent: Tuesday, October 13, 2020 11:50 AM
+> To: linux-safety@lists.elisa.tech
+> Cc: Paoloni, Gabriele <gabriele.paoloni@intel.com>
+> Subject: [linux-safety] [RFC PATCH 2/2] bust_spinlocks: do not=20
+> decrement oops_in_progress unconditionally
+>=20
+> In the current implementation if the input flag is 0 oops_in_progress=20
+> is unconditionally decremented, thus allowing to become a negative=20
+> number. Since right now oops_in_progress is a global variable used in=20
+> the kernel as a conditional flag to check if oops, panic(), BUG() or=20
+> die() is in progress the current unconditional decrement may lead to=20
+> unexpected behavior in the Kernel paths conditionally executing over=20
+> this flag.
+>=20
+> This patch only decrement oops_in_progress if it is non zero
+>=20
+> Signed-off-by: Gabriele Paoloni <gabriele.paoloni@intel.com>
+> ---
+>  lib/bust_spinlocks.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/lib/bust_spinlocks.c b/lib/bust_spinlocks.c index=20
+> 594b270161d9..842633ac9130 100644
+> --- a/lib/bust_spinlocks.c
+> +++ b/lib/bust_spinlocks.c
+> @@ -23,6 +23,9 @@
+>   * @yes: input flag; if zero decreases oops_in_progress,
+>   * otherwise increases it.
+>   *
+> + * Note: if oops_in_progress is already 0 it will not
+> + * be decreased
+> + *
+>   */
+>  void bust_spinlocks(int yes)
+>  {
+> @@ -33,7 +36,9 @@ void bust_spinlocks(int yes)
+>  	=09unblank_screen();
+>  #endif
+>  	=09console_unblank();
+> -	=09if (--oops_in_progress =3D=3D 0)
+> +	=09if (oops_in_progress)
+> +	=09	oops_in_progress--;
+> +	=09if (!oops_in_progress)
+>  	=09	wake_up_klogd();
+>  	}
+>  }
+> --
+> 2.25.1
+>=20
+> ---------------------------------------------------------------------
+> INTEL CORPORATION ITALIA S.p.A. con unico socio
+> Sede: Milanofiori Palazzo E 4
+> CAP 20094 Assago (MI)
+> Capitale Sociale Euro 104.000,00 interamente versato Partita I.V.A. e=20
+> Codice Fiscale  04236760155 Repertorio Economico Amministrativo n.=20
+> 997124 Registro delle Imprese di Milano nr. 183983/5281/33 Soggetta ad=
+=20
+> attivita' di direzione e coordinamento di INTEL CORPORATION, USA
+>=20
+> This e-mail and any attachments may contain confidential material for=20
+> the sole use of the intended recipient(s). Any review or distribution=20
+> by others is strictly prohibited. If you are not the intended=20
+> recipient, please contact the sender and delete all copies.
+>=20
+>=20
+>=20
+>=20
+>=20
+
+---------------------------------------------------------------------
+INTEL CORPORATION ITALIA S.p.A. con unico socio
+Sede: Milanofiori Palazzo E 4
+CAP 20094 Assago (MI)
+Capitale Sociale Euro 104.000,00 interamente versato Partita I.V.A. e Codi=
+ce Fiscale  04236760155 Repertorio Economico Amministrativo n. 997124 Regis=
+tro delle Imprese di Milano nr. 183983/5281/33 Soggetta ad attivita' di dir=
+ezione e coordinamento di INTEL CORPORATION, USA
+
+This e-mail and any attachments may contain confidential material for the =
+sole use of the intended recipient(s). Any review or distribution by others=
+ is strictly prohibited. If you are not the intended recipient, please cont=
+act the sender and delete all copies.
