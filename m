@@ -1,76 +1,76 @@
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by mx.groups.io with SMTP id smtpd.web11.10221.1602590274874717560
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by mx.groups.io with SMTP id smtpd.web10.10097.1602590292543640779
  for <linux-safety@lists.elisa.tech>;
- Tue, 13 Oct 2020 04:57:55 -0700
+ Tue, 13 Oct 2020 04:58:12 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@intel.onmicrosoft.com header.s=selector2-intel-onmicrosoft-com header.b=NRIfiIBo;
- spf=pass (domain: intel.com, ip: 134.134.136.100, mailfrom: gabriele.paoloni@intel.com)
-IronPort-SDR: Yhu9WA/5r9va4fZF9WIokqmfftVi91N56pJVe9WX0tjhUYnGixERtbfRRltQQztYIRwjmb65Gb
- uDf7KQtxSz2A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="230074337"
+ dkim=fail reason="body hash did not verify" header.i=@intel.onmicrosoft.com header.s=selector2-intel-onmicrosoft-com header.b=q8VclyEu;
+ spf=pass (domain: intel.com, ip: 134.134.136.126, mailfrom: gabriele.paoloni@intel.com)
+IronPort-SDR: 4zLGMfNDa858c3Uzk1WyuOTTF3ZARpN2kvaMHFYG/e1jlT9JrJ02BhGChSyYoVyVc9tHulmxUX
+ 136aN2g8ELQQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="153726343"
 X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; 
-   d="scan'208";a="230074337"
+   d="scan'208";a="153726343"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 04:57:52 -0700
-IronPort-SDR: Hq3iclxoa1Dc6lypn6xS1SbWReePuVruD3PcqNIK5W15KkZAGywaPeKSGIuIK513iRl3XHm/98
- V+7pAY7dm7rA==
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2020 04:58:12 -0700
+IronPort-SDR: LscWRzah06j+JFZocJnpWHMtXo9MKPF3CtGY0qr/STvWzx3BhAt7FZdhnRKNqMHv5beVpDQgLU
+ 2WYGiTpT2KiQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; 
-   d="scan'208";a="299581397"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
-  by fmsmga008.fm.intel.com with ESMTP; 13 Oct 2020 04:57:51 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
+   d="scan'208";a="351086696"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+  by fmsmga002.fm.intel.com with ESMTP; 13 Oct 2020 04:58:11 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 13 Oct 2020 04:57:51 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.1.1713.5; Tue, 13 Oct 2020 04:58:11 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Tue, 13 Oct 2020 04:57:51 -0700
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.47) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ via Frontend Transport; Tue, 13 Oct 2020 04:58:11 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.174)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Tue, 13 Oct 2020 04:57:51 -0700
+ 15.1.1713.5; Tue, 13 Oct 2020 04:58:07 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ecWpYGyHasRHl4Ha1k68hxYNCp1cZOTpJyUSTmpPxQJdPNAGnrb2qNR9EllTEq/IBwF2oxeazgshexuP1NYj2uYIZmCDHaWiTKB9wWCrnW2QGvvY9jrPU+VWioKD/1F+MPoEddufKE1UK06krQA9l0aQzAEXNLYPb8LtVuJAR5zYbcsWaaYKXFbjNcphGV3/r06QKByA96gx77X0jcwMDq06GFsuc/6vpsWWGDW2AIhc1ztABauLM+qIVN1tUfs/WlZZPqS7ZegCeo3zoBj5WL12k9eCjlRxrpQte3Kw3WgfeCiRYzqfmiqeVMKAH6P7Ec706FqkfXNTjEE+gfRzsw==
+ b=oUulrhrfcE0oY3g+2oLjRkr/sSBMaZ8fD/u7ulgcfT0cumSxNOUIJdhR80l1y/S9FSxbm8/G07hPb0B1UmN9cAFmrY08ulrXPN/tJ1KMnVpMgEDo/G3tyLzBeNM5eB4AUFXQM3k+V803OlBQF9DAtTaMTZw8foHUS4GhsH225y13wGhrGZpParUMFH6mUtG6Rdp5aNVYAxI7P7UIO4UTKb6NKxZbRy6TiM/+KpvLfAygFiFsK47mslEFa8cVA2LLULcZhu9S54Iry75/h48H3G1WIEt2ChK10DSMdMu3ejOLje8bj9i7L+z1smuYn9JILB4E1lVETiLG+WwpkOVfsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Uotm5tWDuLvV7AkGXKuQTOx5PnYvFgqY70iBzJXN48=;
- b=XwOygyamokQyndQlzaGtZoCZUcj/rSrYiLb5vB+aXf11NDBerSF5seEmQfOUaSIRHNiVulzAsUDzqDyXQRliH01Se7ikq5YwUJF8VrTQabU9FG6mBPCbOVJJ6sMCmact22xGM6sQCROag6eGS/kjdV26ZPZ4A5DMWTwrRKE8lFx9CyjVn0jsOo4V1N987Xbx3wtqdMLH2W46dFeZzfIZxPJs/UQ4aS8B+K5MTp9D8gcwT/LMw84DJjj1UXz61YPH7/oBM959dNGmIjUS84B4CaTNs19wk6JdvYpiHIbbQ+L6RIUawEvSfG/PoZN9KXHGfw0sSdrOQJoCnKmAmOsTKg==
+ bh=QitbMxQJV+Pke+kGfmxEsdmN7h8rRokIJ63n48XZBVs=;
+ b=gcDTN6RCoNdR62MTpYLaqvEFJJ0hsqOOSOVzgf3syOUoYfBnAi2mYG0nh6kfonHdNMOeNXOwqyyhriDWCI2VBhMbst8qZH8t2mqVk9D9CaLhMddBorXP4KEju+ypcbnYUPUPDYwWADlY9KgIEP+ClScA0URQYzpeKAKqRDcKlGZzWNDbhbXc11LFZHuV3MA+aeJ4kqvr7TXZcoQyVn4vs6YX8wun/HbtUWJyB1OyTKcTkzJ9zgQwkUr/LCHWSiG1YGGtOQ4jrtWzMX4ukAD98f0fODct+tKUgFI3aKIXy0aRlkeWO9bpK8J9UawjyG/WuvGY2QqQZ+OA/CAztflEvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
  s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Uotm5tWDuLvV7AkGXKuQTOx5PnYvFgqY70iBzJXN48=;
- b=NRIfiIBojIWbpkWH5DOmBeImQ8Ga6ANb6RVcFAScCqTpHPN2Q4gpY/12vF2jkLxzv7R+MSzR3y1+4WWdyTapdtLvRK73j40fhCr0NcqanLmSwo78LXpQxFqlblvRiVKv0Q6CAea0scU1FKYbuTQ2OjyNDePYPNOvNPCZsOkBET8=
+ bh=QitbMxQJV+Pke+kGfmxEsdmN7h8rRokIJ63n48XZBVs=;
+ b=q8VclyEuczgXj+geYhH8B0qZQmaVlrbmOfOiDp/eG+DCC3hvpICIUyfoWzM50i4NRsmL1Q3zS4mMcS1YYfW7+uvJI6ZKgn2OH7Q1JhXsCLzSIbh7z2fh8sEwG+Kpj8rOg9JJAcAFtsOU2pikDGPOy9fSkHZtOVXDIt7/qVRHPZU=
 Received: from MN2PR11MB4158.namprd11.prod.outlook.com (2603:10b6:208:155::14)
  by MN2PR11MB3968.namprd11.prod.outlook.com (2603:10b6:208:151::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.24; Tue, 13 Oct
- 2020 11:57:50 +0000
+ 2020 11:58:06 +0000
 Received: from MN2PR11MB4158.namprd11.prod.outlook.com
  ([fe80::fccb:7677:5020:533b]) by MN2PR11MB4158.namprd11.prod.outlook.com
  ([fe80::fccb:7677:5020:533b%6]) with mapi id 15.20.3455.031; Tue, 13 Oct 2020
- 11:57:50 +0000
+ 11:58:06 +0000
 From: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
 To: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>,
 	"linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>
 CC: "safety-architecture@lists.elisa.tech"
 	<safety-architecture@lists.elisa.tech>
-Subject: Re: [linux-safety] [RFC PATCH 1/2] bust_spinlocks: add kernel-doc format doc
-Thread-Topic: [linux-safety] [RFC PATCH 1/2] bust_spinlocks: add kernel-doc
- format doc
-Thread-Index: AQHWoUZTrE3jiFOV4kqlKZVL1POLCqmVbYZg
-Date: Tue, 13 Oct 2020 11:57:50 +0000
-Message-ID: <MN2PR11MB4158BBC589A2141F5114244688040@MN2PR11MB4158.namprd11.prod.outlook.com>
+Subject: Re: [linux-safety] [RFC PATCH 2/2] bust_spinlocks: do not decrement oops_in_progress unconditionally
+Thread-Topic: [linux-safety] [RFC PATCH 2/2] bust_spinlocks: do not decrement
+ oops_in_progress unconditionally
+Thread-Index: AQHWoUZU/WqT/Dj8t0+JYIno0AEOYKmVbZxg
+Date: Tue, 13 Oct 2020 11:58:06 +0000
+Message-ID: <MN2PR11MB41582F55CDBF50A053DF233788040@MN2PR11MB4158.namprd11.prod.outlook.com>
 References: <20201013094938.356837-1-gabriele.paoloni@intel.com>
- <163D8465C352C96E.25724@lists.elisa.tech>
-In-Reply-To: <163D8465C352C96E.25724@lists.elisa.tech>
+ <163D8465D1668B95.25724@lists.elisa.tech>
+In-Reply-To: <163D8465D1668B95.25724@lists.elisa.tech>
 Accept-Language: en-GB, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -81,26 +81,26 @@ authentication-results: intel.com; dkim=none (message not signed)
  header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
 x-originating-ip: [93.57.250.116]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5782bfd7-80f6-4153-d9db-08d86f6f3582
+x-ms-office365-filtering-correlation-id: ca7c8136-dc8b-4459-d93d-08d86f6f3f39
 x-ms-traffictypediagnostic: MN2PR11MB3968:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR11MB396864AA65FD7B366061B82388040@MN2PR11MB3968.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1013;
+x-microsoft-antispam-prvs: <MN2PR11MB3968BE712471AAE3E0A2BE6E88040@MN2PR11MB3968.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:568;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5YiIeArbPTQroCrzsRTRwYtD5+nej4gs+oGhBJClojPD+aensNh08aYaOLxkmOEf/Lf6v69ToSWZ2gIKrRe1yWyone5YXiiV7RMM56pw0VZGgd9IF4P1YQ1oygcs7+TF+SVu5MYTpX0+X4QyFl7EAWwiwCCXrHn/G18kFdyHtXVLn7u2bq+7S3T5ZGwBpoj75PF0/ARgHdkykQUlmk+OPQR3IF0ozuxyKCcVre6rdGLj2b/Ht29ycJt11k8rEA//Y2uvbfut/py+UevZdqAtXVhdQYl46tdaHvP9MDPZbiSYlMIepRs3O5GWeEPW+WSI0FWJvVxkLzc7wKEvmpX2AU+cLG2QKoIpFufC+3+o0NO87wFj9niUmqqyq7v+KeEF+Nk8AqwY9TC6PJ/UrBJYPg==
+x-microsoft-antispam-message-info: XfzNXGZG1x/3z015XPdfZAUkyQIa/r7Qf5FzvqeBcOQClqgEpzaKdn5f10Z3wY8HBfs0jKE9p4ouRDmIv2Noc/yuH470xofL9kixJxzBldvaYZjfdJDo7mWef1ADTf0fbuni947RaPs81ACwC8yMwDl+cuJXgT4h8NI7UBCj5ti+7jYVsJeoGykWbqi42fuCK30cRG4nqr6FLknEePMTykMDejGo54UUSp6SRbQk+XwQ42zP2ZTNHM9AJ9L77k8dHYC/s2HUUfwXXzCOCLruwWm/bgdYpD3AztLMdmKmUx5Jmmu9cCtuqYW8helZVWW9aD0U/omypFlD0pVwKRcmbye+1AyD23+6ElruoR84Rf5nTVKazjtj4WonN3x0d96aBbyXkvXsdxbQEcrcGboWSA==
 x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR11MB4158.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(376002)(39860400002)(136003)(396003)(366004)(86362001)(966005)(8676002)(6506007)(53546011)(83380400001)(450100002)(478600001)(2906002)(33656002)(4326008)(9686003)(83080400001)(64756008)(316002)(26005)(186003)(110136005)(52536014)(66946007)(76116006)(66446008)(71200400001)(5660300002)(7696005)(55016002)(66476007)(66556008)(8936002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: wK1aP1ixbQaYvVzI6dYDpUoB7Ynv6YBQBPHmZalxluIda7vLsjExRZpOhEgGVmYwEDg7h7tAT+6tSOBMMGa5MMDWnv4N6d3PxUn6cfrfudwlzljjD57MoXH3f5zh7VnBq7NekHZmClxwE70uZtntYkHPF4H5Z1uagIQC5DJzcIvAE1pp8GIjE7ZEk1xJrXm8ursI9lmH6onl83CD9sKQKEN9u5m/oSqATfj4NcbzbJsOK0RO2OhRKQzRoL+p2g+RCy69B/qTf5c3t/iLC3nnP+HMMAhNEUrDptCjz06opsmBZIBYsBb8e4Yx45YDBZyBq2tKoF06lGok7x5NUfWcfAPK8uHA7YjMVMGUAghoMSxen5X4skorTO/XeujLDkAvJSO7NxhJ8K3HepoIw1I4FNW9PeLDuSq/+vfoEMKKNreyf8Axg4txmDiUGYHeWd/MniTq18ZZiwAABjN/Zs1Gkavz7TIlyFCLV3KYK8QvZXB53UpLJXVqHKWVI9ze9i5RzmJFuMY49AODRa8Fs9lhxuXiBmG+iUq8znRLXJMga+tyaQjkiLyZP9YKZ0ol3LHOnGE1+rm6DthXZJxmnTpxC0Bw2Wp+OUKTMU6+XU639XMBUGO6MCcZRRLj5AvBspgOeJaojwA1d8iNpkPqR6UUvA==
+x-ms-exchange-antispam-messagedata: rXBFqBxDzjgO70tjfyzyMzoOo6YnITCNRmyA+x/eXJF2efhh0u94yUYneKQHgK8ZPEJ2HZvaGklZZWcwjNmuD+DzYJyE2oillETERK99Di5dmk/jYAysm9YX+btvAf5j5J9m/Va6RNF7b/WTPhrn+2NIGmh4UGsQVOrxivVVgHVe5sttP0rF6iiLOWB2h8TLWo+9nFBqrIq44b0Jw5H5m4aPQJd0aT3hQHbiGMWlAj1r+xyJpx5qR4KU4sDwZfe3vI+uBR9cRuwUuZ+OrMVgQia7m0Zb+D9PR2QWenunVGQ1j+XZ4pThFoI0robpnLpxxgQmASathrzTPcxY6M07lnWSRyOXguTRuNmz4YB9PxR2SMj7oyU6IZNs8IVFneeyfNlEHYu6YY8e/JjnVEZiFEywUWyiZRia3/g0/0pAQIA57THRS4hL/oENDxdIA6eb1p/73gvX7lZpC0ybsfYZjaHOtvv94noZKTSLOdPPMLZlITHVW0PPUcIwOndGUdyUXIb6boVVOaPQBG2y+TO9DwSUoIoNJ5LJxxM8gSUwB80988fHMz2IB68UlHY+DV9myzNd6+cRA5kER8gd8tNa9iRCQEyLwivdvFm+a4W+C8CDEmF0J40mdKkoElxLuu+faml6wHp9axNhR4CvTjj4lQ==
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR11MB4158.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5782bfd7-80f6-4153-d9db-08d86f6f3582
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2020 11:57:50.1836
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca7c8136-dc8b-4459-d93d-08d86f6f3f39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2020 11:58:06.4604
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2DyLC8veds0XeVUUN8ED7SohbQteNU7cD6FaCI0pdkDPPRIyKQq4pyVoxLJbyRk0btPw8OSkslb5CbrXs79JuZChlPmIbA9CzqW3/y+SKYw=
+X-MS-Exchange-CrossTenant-userprincipalname: Wv2bOA6b6l6+8l7OrxIhyccClxlTyaJu97Rr7bu9jmJh3K737/Zg9XgNdyogssolh4FNjYrctivHYdZf456waNfpP7DFTzncwcU+OJ5tU64=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB3968
 Return-Path: gabriele.paoloni@intel.com
 X-OriginatorOrg: intel.com
@@ -117,55 +117,49 @@ ehalf
 > Sent: Tuesday, October 13, 2020 11:50 AM
 > To: linux-safety@lists.elisa.tech
 > Cc: Paoloni, Gabriele <gabriele.paoloni@intel.com>
-> Subject: [linux-safety] [RFC PATCH 1/2] bust_spinlocks: add kernel-doc
-> format doc
+> Subject: [linux-safety] [RFC PATCH 2/2] bust_spinlocks: do not decrement
+> oops_in_progress unconditionally
 >=20
-> In the ELISA Linux Foundation project we are trying to
-> improve the functions' documentation to make it more suitable
-> to derive functions' specs and write unit tests. This is needed
-> to make Linux more usable in functional safety systems.
-> So I am adding a proper kernel-doc format for bust_spinlocks.
+> In the current implementation if the input flag is 0
+> oops_in_progress is unconditionally decremented, thus allowing
+> to become a negative number. Since right now oops_in_progress
+> is a global variable used in the kernel as a conditional flag
+> to check if oops, panic(), BUG() or die() is in progress the
+> current unconditional decrement may lead to unexpected behavior
+> in the Kernel paths conditionally executing over this flag.
+>=20
+> This patch only decrement oops_in_progress if it is non zero
 >=20
 > Signed-off-by: Gabriele Paoloni <gabriele.paoloni@intel.com>
 > ---
-> With respect to this patch I have a question on how to set
-> the function context; i.e. I don't know if it can be executed
-> in any context or if it has limitations.
-> ---
->  lib/bust_spinlocks.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
+>  lib/bust_spinlocks.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/lib/bust_spinlocks.c b/lib/bust_spinlocks.c
-> index 8be59f84eaea..594b270161d9 100644
+> index 594b270161d9..842633ac9130 100644
 > --- a/lib/bust_spinlocks.c
 > +++ b/lib/bust_spinlocks.c
-> @@ -5,8 +5,6 @@
->   * Provides a minimal bust_spinlocks for architectures which don't
->   * have one of their own.
+> @@ -23,6 +23,9 @@
+>   * @yes: input flag; if zero decreases oops_in_progress,
+>   * otherwise increases it.
 >   *
-> - * bust_spinlocks() clears any spinlocks which would prevent oops, die(=
-),
-> BUG()
-> - * and panic() information from reaching the user.
->   */
->=20
->  #include <linux/kernel.h>
-> @@ -17,6 +15,15 @@
->  #include <linux/vt_kern.h>
->  #include <linux/console.h>
->=20
-> +/**
-> + * bust_spinlocks - increases or decreases oops_in_progress.
-> + * if oops_in_progress !=3D 0 spinlocks which would prevent
-> + * oops, die(), BUG() and panic() information from reaching
-> + * the user are busted.
-> + * @yes: input flag; if zero decreases oops_in_progress,
-> + * otherwise increases it.
+> + * Note: if oops_in_progress is already 0 it will not
+> + * be decreased
 > + *
-> + */
+>   */
 >  void bust_spinlocks(int yes)
 >  {
->  	if (yes) {
+> @@ -33,7 +36,9 @@ void bust_spinlocks(int yes)
+>  	=09unblank_screen();
+>  #endif
+>  	=09console_unblank();
+> -	=09if (--oops_in_progress =3D=3D 0)
+> +	=09if (oops_in_progress)
+> +	=09	oops_in_progress--;
+> +	=09if (!oops_in_progress)
+>  	=09	wake_up_klogd();
+>  	}
+>  }
 > --
 > 2.25.1
 >=20
