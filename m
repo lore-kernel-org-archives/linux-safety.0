@@ -1,129 +1,100 @@
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com [209.85.208.68])
- by mx.groups.io with SMTP id smtpd.web11.6043.1602528582875681865
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
+ by mx.groups.io with SMTP id smtpd.web11.5348.1602567457639670110
  for <linux-safety@lists.elisa.tech>;
- Mon, 12 Oct 2020 11:49:43 -0700
+ Mon, 12 Oct 2020 22:37:38 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=LFfnQoCW;
- spf=pass (domain: gmail.com, ip: 209.85.208.68, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ed1-f68.google.com with SMTP id l16so18136972eds.3
-        for <linux-safety@lists.elisa.tech>; Mon, 12 Oct 2020 11:49:42 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=Qj5hb2nQ;
+ spf=pass (domain: gmail.com, ip: 209.85.218.68, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-ej1-f68.google.com with SMTP id u21so26478131eja.2
+        for <linux-safety@lists.elisa.tech>; Mon, 12 Oct 2020 22:37:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:date:to:cc:subject:in-reply-to:message-id:references
          :user-agent:mime-version;
-        bh=p/SLGlk8lpqhdtCEqGLGbSpvvJMdiNWjXO67jUFOW3U=;
-        b=LFfnQoCWtE324d4apS2LWKLw1cOKxdfiM6I3RIdlp+Vkk8XlI/wcYIP4v1oWaaFH19
-         6pmGEUnx3lXXVbDsMaXe+gaFEJX+V6a4e0DPr8SSYUkN+WsI5LNbSkBoO+IK7GB/diqm
-         YkbJkdZ/lLSDxbNCdcvVVOtV3F446e4TAPsnU7cFTkzBGKQyItBHHiHUGwsYnufgQmD/
-         33Wsqao1mevtYUYZ5gNa4Nk0y9VrRQR7BEGUdemKDMJohm48DC2y1ezq/WZsXK17Y5EU
-         N6w/LbsROveFBWrITbN86yMHdsySNCquvcLCXKrP/ewHaF00/BBwBYKiue2B1oJLZ/SB
-         cm3g==
+        bh=gYLREbCBt05MLq9RuSN82ybwnKTixZybY8CU73x+FQs=;
+        b=Qj5hb2nQfetMWun2C/7FkWH/es32ZatL0Cnqp2RbrfMMx2+/EUqr7C0gkirXAeggO3
+         hoDYYnE+Sm2z6HT+A9GSfYXnxlvwrdUCsDLYHuUlc/l9kxKmQ7x30fINVAgDDG3S+553
+         CWPp4Wnv7RY9HcOUwxZeY78/pXcHTV48C8SuTMLM4ZYvw27y0HHf6ubgET/Qq7epT5Yj
+         HOe18eTQG/UUu1gTJUJR0wKnpdpivHucUjDUjRnF2G427S28lH17hMoDnFOsIKsQO5GW
+         +SR35piZ/dGrNDeSAhFglF9tzDGGJlmj0G1C3M6TG1q/dMtWtyBjMhX5zdTv9EBIooLf
+         Jl0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
          :references:user-agent:mime-version;
-        bh=p/SLGlk8lpqhdtCEqGLGbSpvvJMdiNWjXO67jUFOW3U=;
-        b=qhq1fV+7DA5HprjFjAEphCAUaxY7hTadVGvUd343W8sZIN4KLBF+PnC2XL+ZdnvP+D
-         22AZdqDUHMqZKpZ0xyeF98VrfQ7gP4tewWiPQuOYgw815bW5rNLQYenEbpCsblaKdUyK
-         Mpko7olIwUXxjWp4YsRRTJpcWaCzEAF6h98BdysrkKOzpBEK+zhgJjH1si8jyqj9nrdf
-         wbKQf6RHjWwe35qAYv8idsEcQ2bFJpMMKw8XCkTdMNrMBquTWyl+XNuDIeVITPIDRJxn
-         GyLMS3UFbml0t5dzH8MPwcQTno2Fh0G2Ftv3cFrPBxV5f9aQwfk4SemT/cQuRmkZItMe
-         X1oQ==
-X-Gm-Message-State: AOAM532NFDkOwrdK8kISHJSSwAdhRx0CwyKg6X1h+4Q1brYA7zgXVF/d
-	AYDuq5eAEYqarebgqvQgUEw=
-X-Google-Smtp-Source: ABdhPJwkJnoYwh3Om3ZAoSvCcGzT1tSzp2LzOg9nL0NkfoOs4imbU5bBRWWBKyPxnhYuVPYXjo3lEg==
-X-Received: by 2002:a05:6402:220f:: with SMTP id cq15mr16134446edb.24.1602528581256;
-        Mon, 12 Oct 2020 11:49:41 -0700 (PDT)
+        bh=gYLREbCBt05MLq9RuSN82ybwnKTixZybY8CU73x+FQs=;
+        b=KJUMB/+dOffT+48HemjfZZ900hCDDSkHMGPoScMOHu54YHqAcKGZHwwVgKwgEOsuvB
+         olM339/k+PNHEQQh7v2VvW1tVOXWpmFan2466HlTfYI+17Uy6lLUSi+HseNtrFePvqxV
+         e3+dZkSfTU+v0KrhkJvR3L7/zkyIaNCiom8ZUY0kfYRtDkDJkvOzl7zgUO5wQZcPU/6l
+         nydA6qURyndSKdXonzlzB1vdd4LEIqeAUY+7YRA24QRzNJuAJPS38qcCfG4eK+6EoST4
+         Q3wbgvcY+t8kH4rubQChSUk6pzfIWznjppMYpePWcdugOXD5PuYN9rIAGFW1K58rus0P
+         fN8w==
+X-Gm-Message-State: AOAM533bpeqxcx3mNtzTjRsdrTRntvTQZGErN1uTSEP847XAacw5qnMv
+	jVGQitaQVDeA2j5RbFpgSQE=
+X-Google-Smtp-Source: ABdhPJw2++YSQXSV41iMkqWKkxe5lVcRBwcMikf48LjMGn6E+J5mnrnZBd3TBovbyjrhv3ZLRImhqQ==
+X-Received: by 2002:a17:907:33d2:: with SMTP id zk18mr32207994ejb.145.1602567456047;
+        Mon, 12 Oct 2020 22:37:36 -0700 (PDT)
 Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2d57:fc00:a1bd:911e:26f6:597])
-        by smtp.gmail.com with ESMTPSA id j5sm11114662ejt.52.2020.10.12.11.49.40
+Received: from felia ([2001:16b8:2d05:8100:95ae:bd1a:3e4e:4242])
+        by smtp.gmail.com with ESMTPSA id k1sm11772846edl.0.2020.10.12.22.37.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2020 11:49:40 -0700 (PDT)
+        Mon, 12 Oct 2020 22:37:35 -0700 (PDT)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
 X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Mon, 12 Oct 2020 20:49:39 +0200 (CEST)
+Date: Tue, 13 Oct 2020 07:37:34 +0200 (CEST)
 X-X-Sender: lukas@felia
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
     Alan Stern <stern@rowland.harvard.edu>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    linux-kernel <linux-kernel@vger.kernel.org>, linux-safety@lists.elisa.tech, 
-    linux-usb@vger.kernel.org
+    Sudip Mukherjee <sudipm.mukherjee@gmail.com>, linux-kernel@vger.kernel.org, 
+    linux-safety@lists.elisa.tech, linux-usb@vger.kernel.org
 Subject: Re: [linux-safety] [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
-In-Reply-To: <CADVatmN7d+Oy5iHTUK=azHsvFq9+s0rdcjUTz5m_K4Xrf+JvZA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2010122029540.17866@felia>
-References: <20201011205008.24369-1-sudipm.mukherjee@gmail.com> <alpine.DEB.2.21.2010121550300.6487@felia> <CADVatmN7d+Oy5iHTUK=azHsvFq9+s0rdcjUTz5m_K4Xrf+JvZA@mail.gmail.com>
+In-Reply-To: <20201013052317.GB330398@kroah.com>
+Message-ID: <alpine.DEB.2.21.2010130725370.14590@felia>
+References: <20201011205008.24369-1-sudipm.mukherjee@gmail.com> <alpine.DEB.2.21.2010121550300.6487@felia> <20201012145710.GA631710@rowland.harvard.edu> <alpine.DEB.2.21.2010121659040.6487@felia> <20201012151816.GA1559916@kroah.com> <alpine.DEB.2.21.2010122022250.17866@felia>
+ <20201013052317.GB330398@kroah.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 
 
-On Mon, 12 Oct 2020, Sudip Mukherjee wrote:
+On Tue, 13 Oct 2020, Greg Kroah-Hartman wrote:
 
+> On Mon, Oct 12, 2020 at 08:25:30PM +0200, Lukas Bulwahn wrote:
+> > 
+> > 
+> > On Mon, 12 Oct 2020, Greg Kroah-Hartman wrote:
+> > 
+> > > On Mon, Oct 12, 2020 at 05:10:21PM +0200, Lukas Bulwahn wrote:
+> > > > And for the static analysis finding, we need to find a way to ignore this 
+> > > > finding without simply ignoring all findings or new findings that just 
+> > > > look very similar to the original finding, but which are valid.
+> > > 
+> > > Then I suggest you fix the tool that "flagged" this, surely this is not
+> > > the only thing it detected with a test like this, right?
+> > > 
+> > > What tool reported this?
+> > >
+> > 
+> > Sudip and I are following on clang analyzer findings.
+> > 
+> > On linux-next, there is new build target 'make clang-analyzer' that 
+> > outputs a bunch of warnings, just as you would expect from such static 
+> > analysis tools.
 > 
-> >
-> > I am wondering if such comment deserves to be included if we cannot check
-> > its validity later...
-> 
-> I am failing to understand why will you not be able to check its
-> validity later. You just need to read the code to check it.
+> Why not fix the things that it finds that are actually issues?  If there
+> are no actual issues found, then perhaps you should use a better tool?  :)
 >
 
-Well, I meant automatically checking the validity with some tool, like a 
-tool (code analyzer, model checker, ...) that can check if a certain 
-annotation holds.
+Completely agree. That is why I was against adding comments here and 
+elsewhere just to have the "good feeling of doing something" after the 
+tool reported a warning and we spend some time understanding the code to 
+conclude that we now understand the code better than the tool.
 
-> >
-> > I would prefer a simple tool that could check that your basic assumption
-> > on the code is valid and if it the basic assumption is still valid,
-> > just shut up any stupid tool that simply does not get that these calls
-> > here cannot return any error.
-> >
-> > We encountered this issue because of clang analyzer complaining, but it is
-> > clear that it is a false positive of that (smart but) incomplete tool.
-> 
-> I dont think it is a false positive. The error return value is not
-> checked and that is true. Only that it is not applicable because of
-> the way the coding is done.
->
+If you know a better tool, we will use it :) unfortunately, there is no 
+easy way of finding out that a tool just reports false positives and not a 
+single true positive among 1000 reports...
 
-Maybe we have different understandings of a false positive reported by a 
-tool...
-
-My definitions are in the LPC 2020 presentation, Maintaining results from 
-static analysis collaboratively, slide 4:
- 
-https://linuxplumbersconf.org/event/7/contributions/700/attachments/606/1088/LPC2020-Static-Analysis.pdf
-
-So, for me, what you wrote above is exactly the definition of a
-"False Tool Finding (False Positive, Type A)".
-
-Given that Alan will accept to add a comment in the code, it is a "True 
-Tool-Induced Change (True Positive, Type B)" because we can actually 
-provide a reasonable patch based on what the tool reported (even though it 
-is just supportive documentation, no change in the code).
- 
-> >
-> > Do you intend to add comment for all false positives from all tools or are
-> > we going to find a better solution than that?
-> 
-> I think tools will always give you some false positives and you will
-> need to read the code to know if its false positive or not. I dont
-> think there is any tool yet which will only give true positives.
->
-
-Well, given humans provide some annotations to initially false positives, 
-there is a fair chance that a tool only gives true positives after the 
-annotations.
-
-With 'just comments', the tool will continue to complain and we will need 
-to read the code once again every time we did not know that that case was 
-a false positive. That going to happen often, namely every time, a new 
-developer looks at the tool report.
-
-Let us check if an annotation can help beyond the current comment. This 
-annotation can of course be provided later independently with another 
-patch.
 
 Lukas
