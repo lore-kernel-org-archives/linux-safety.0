@@ -1,78 +1,57 @@
-Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
- by mx.groups.io with SMTP id smtpd.web12.1906.1602518416044947214
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mx.groups.io with SMTP id smtpd.web10.5147.1602566515131941211
  for <linux-safety@lists.elisa.tech>;
- Mon, 12 Oct 2020 09:00:16 -0700
+ Mon, 12 Oct 2020 22:21:55 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: netrider.rowland.org, ip: 192.131.102.5, mailfrom: stern+5f965aec@netrider.rowland.org)
-Received: (qmail 634439 invoked by uid 1000); 12 Oct 2020 12:00:13 -0400
-Date: Mon, 12 Oct 2020 12:00:13 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
+ dkim=pass header.i=@kernel.org header.s=default header.b=deU+CRa4;
+ spf=pass (domain: linuxfoundation.org, ip: 198.145.29.99, mailfrom: gregkh@linuxfoundation.org)
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id C4C4020872;
+	Tue, 13 Oct 2020 05:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1602566514;
+	bh=OwXE0mUrRwYdSzEBDK6eQZjP0OakM/fXBcxny4Xq+7k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=deU+CRa4uzH8T+zyXk7acVOs8sL0fHLlYQBijZGWwn5C6mWkwygTdPaqY1h6KEIt4
+	 sYsHg5rqB23ZQ6tL5O1rlczJc+yEOYaDtowSPqG14ZAonH8p6pP3Xx2tWfDukOJsM1
+	 RNt/BV220toadS89VgomzvXmjXQRT/l5bOBS/75g=
+Date: Tue, 13 Oct 2020 07:21:50 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-  linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
-  linux-usb@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
+	linux-usb@vger.kernel.org
 Subject: Re: [linux-safety] [PATCH] usb: host: ehci-sched: add comment about find_tt() not returning error
-Message-ID: <20201012160013.GA632789@rowland.harvard.edu>
+Message-ID: <20201013052150.GA330398@kroah.com>
 References: <20201011205008.24369-1-sudipm.mukherjee@gmail.com>
  <alpine.DEB.2.21.2010121550300.6487@felia>
  <20201012145710.GA631710@rowland.harvard.edu>
  <alpine.DEB.2.21.2010121659040.6487@felia>
+ <20201012160013.GA632789@rowland.harvard.edu>
+ <alpine.DEB.2.21.2010122008370.17866@felia>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2010121659040.6487@felia>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <alpine.DEB.2.21.2010122008370.17866@felia>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Oct 12, 2020 at 05:10:21PM +0200, Lukas Bulwahn wrote:
+On Mon, Oct 12, 2020 at 08:17:34PM +0200, Lukas Bulwahn wrote:
+> > If you are suggesting some sort of special code annotation that the tool 
+> > would understand, I am open to that.  But I'm not aware of any even 
+> > vaguely standard way of marking up a particular function call to 
+> > indicate it will not return an error.
 > 
+> I cannot yet say if some annotation would work, we, Sudip and me, need to 
+> investigate. It could be that something like, assert(!IS_ERR(tt)), is 
+> sufficient to let the tools know that they can safely assume that the 
+> path they are complaining about is not possible.
 > 
-> On Mon, 12 Oct 2020, Alan Stern wrote:
-> > Real code contains so many assumptions, especially if you include ones 
-> > which are obvious to everybody, that such a tool seems impractical.
-> >
-> 
-> I fear that problem applies to all static code analysis tools I have seen; 
-> at some point, the remaining findings are simply obviously wrong to 
-> everybody but the tool does not get those assumptions and continues 
-> complaining, making the tool seem impractical.
+> We could make the assert() a nop, so it would not effect the resulting 
+> object code in any way.
 
-Indeed, it is well known that the problem of finding all errors or bugs 
-by static code analysis is Turing complete.
+Things like assert() have been rejected numberous times in the past in
+the kernel, good luck with that :)
 
-> Alan, so would you be willing to take patches where _anyone_ simply adds 
-> comments on what functions returns, depending on what this person might 
-> consider just not obvious enough?
-
-No.  I would take such patches from anyone, but depending on what _I_ 
-consider not obvious enough.
-
-> Or are you going to simply reject this 'added a comment' patch here?
-
-I have already accepted it.  In fact, the patch was my suggestion in the 
-first place.
-
-When I originally wrote this code, I was aware that it was somewhat 
-subtle, but at the time it didn't seem to warrant a comment or 
-explanation.  Sudip's patch has changed my mind.
-
-> I am not arguing either way, it is just that it is unclear to me what the 
-> added value of the comment really is here.
-
-As with many other comments, its purpose is to explain a somewhat 
-obscure aspect of the code -- something which is there by design but 
-isn't immediately obvious to the reader.  That is the added value.
-
-> And for the static analysis finding, we need to find a way to ignore this 
-> finding without simply ignoring all findings or new findings that just 
-> look very similar to the original finding, but which are valid.
-
-Agreed.  In this case, the new comment does a pretty good job of telling 
-people using the tool that the finding is unjustified.
-
-If you are suggesting some sort of special code annotation that the tool 
-would understand, I am open to that.  But I'm not aware of any even 
-vaguely standard way of marking up a particular function call to 
-indicate it will not return an error.
-
-Alan Stern
+greg k-h
