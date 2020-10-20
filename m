@@ -1,87 +1,95 @@
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
- by mx.groups.io with SMTP id smtpd.web10.1121.1603126451055590530
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
+ by mx.groups.io with SMTP id smtpd.web12.1991.1603178426128331770
  for <linux-safety@lists.elisa.tech>;
- Mon, 19 Oct 2020 09:54:11 -0700
+ Tue, 20 Oct 2020 00:20:26 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=X8N+ONqS;
- spf=pass (domain: gmail.com, ip: 209.85.221.65, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wr1-f65.google.com with SMTP id t9so470375wrq.11
-        for <linux-safety@lists.elisa.tech>; Mon, 19 Oct 2020 09:54:10 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=jDO+X2D4;
+ spf=pass (domain: gmail.com, ip: 209.85.218.66, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-ej1-f66.google.com with SMTP id lw21so1158103ejb.6
+        for <linux-safety@lists.elisa.tech>; Tue, 20 Oct 2020 00:20:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=4lmFMYOZxcRqgHCoYqscVc1IJsvYhukG6eGMZy0DSbI=;
-        b=X8N+ONqS1GbBuyAersXr8O8qsgMNOSB61u4wF73H4J7eb0Mx+bqT7iNmXU7pGaYA7B
-         tyihFo9AtClzMCTQsSfAZ6Wp88Jh6bKhNx+fufjB5X45oBrdZPshMscNtNfvOj2ePlo2
-         BUE+d0lXip0xZxPyFgkJkAsUtq7RJb9X2mA17L39PXv/Rrc/wEBh3pDcAahvEFR8XOdk
-         SfqrNCDjmLMnQI/LDuFcM8DckS0nxCOU74a0BM94Om02yIDp8qZJyVoQ5ol2K91l4rST
-         6ChBfwAyoTaxtr9M+bviRuP2ZNuM7yC2VgLRP59hbY9IU/NUjTVbKvnqz3/AhmTEvISQ
-         pq+A==
+        bh=8jXuAr65DOhRuAMPpbzy3By/T0TDDihkpH2lnQObzKk=;
+        b=jDO+X2D4vgLQkDBVtujN1xiac4FtJPsg7OY+E8pSepAInZNT1ip+2LbG/cCryPpu/l
+         xGKQ4Dy8M0vs/rGNePtgHorT/KizYRi/9VxnwMUx7DFCxWPohWaDoP5hQQeUHE1GcM5e
+         5jqaUiQysiBPGvAzqXKV2WIQhSeGYmyXbWafQ283HDgHbGstAe9404BbKT+pA+5Fjyjl
+         elGE4JH2c/57He6IkNu21HginNhEfdxlVm2/OKxeVDDg6A7TMzENkgSvhogOdw8TUH8l
+         kREeYnBGCXbJRAQoqvcoAEzPbMi72K4rvHFhZHk/EElwdBVissS5CdmNj2I32w0HRtaa
+         DViA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=4lmFMYOZxcRqgHCoYqscVc1IJsvYhukG6eGMZy0DSbI=;
-        b=FmPkj9TT1oy2x+99dlnOW61ZDE2TRattYe1KWdNOJo4aZ7qc9KYbkKQ0OWadqSRRu6
-         XJ/x+YHH8UjCGmogk/5T9WfoFozt83RkXOa1JQMxFsOZ3rvT5F9kZRrZ4KJjf4Oulzdn
-         +Vv+g5ZsY1JsB4ZinmYDiZOKXSAO2tdt0oWspRNFlRKzTrqDnNgE0EvIfT2tPpbRoIyt
-         Cp9gtpq4rJW+CcMdG/o/CL/j7eS3ar9y+P5dNOxHwaj2y0Ob+VM1IOFscRUgqnsrFDEV
-         CMVdIn8ZETlOiIC+Fp05nxQMlvffjplHLMrIyo5swzkCQQ6VxpzccaNg5J1+PrAGI2XJ
-         5bfQ==
-X-Gm-Message-State: AOAM531wfDT9XDK3itnzt9+TiSrVTLLee7vxTTQc4bxeobtXWrLsmCXZ
-	eGlz2sFaRSuQgx0fMABJziBlWPd/WXs2eg==
-X-Google-Smtp-Source: ABdhPJzz1tw+tlF9YXyGpI5YTYn6qrFFreWMowAEDuRlpOJHH75ycXo3sv5hkErByH/yksGbAzXDWw==
-X-Received: by 2002:adf:fb8b:: with SMTP id a11mr104865wrr.407.1603126449283;
-        Mon, 19 Oct 2020 09:54:09 -0700 (PDT)
+        bh=8jXuAr65DOhRuAMPpbzy3By/T0TDDihkpH2lnQObzKk=;
+        b=eILrhWKKR/zqhDdNQrEw9qtiPHasVJoZN4FOOmiAMhdS9HOQrAFc7wL3oA4LdmDEIm
+         4yWxCO8CUCI3c2+7wZj8NhrT9CcVkf+AOkb989tG3ScZXfaJJeogvq0Q94p9NAURuV8A
+         rO+K8FBBNmsHF7seRvLFgx3cB9jWIRcvCR/D9V6qzz+YDbB1C3i1G0d0EpIZBZhZJj6X
+         MYG/6PyQ7otR7YhS5YEhMOkTMp111SdfkqzZAHZb7WoLOBgaXXHj75SSrCavqlj6nT7g
+         VdQzAUSBNXgYXwjQUTpa8Tt/4eGWSN+VR4WIGZGJY0169E/hH7uUI4XRIT+KIMII0vkc
+         dbIA==
+X-Gm-Message-State: AOAM531hHk9mDoiIEnBflbsKVc6WWo9CXUAbuSEIUXyf1MZa8bTCV/8G
+	/8fKR6vz5XsbsNJNNMAVMhvo4KRX8/Mxqw==
+X-Google-Smtp-Source: ABdhPJydqzfgN5EO32TY0mYzI2xBrpydyBlUUTGVrQalc0nN7Y5ym1xTfho8/SFBzatKvvcjJg0HOw==
+X-Received: by 2002:a17:906:53d7:: with SMTP id p23mr1754116ejo.232.1603178424292;
+        Tue, 20 Oct 2020 00:20:24 -0700 (PDT)
 Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia.fritz.box ([2001:16b8:2df7:1800:3c8f:878f:cc06:9a83])
-        by smtp.gmail.com with ESMTPSA id a3sm340660wrh.94.2020.10.19.09.54.08
+Received: from felia.fritz.box ([2001:16b8:2dd3:b700:c155:8ea0:c27b:610a])
+        by smtp.gmail.com with ESMTPSA id qq10sm1391999ejb.31.2020.10.20.00.20.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2020 09:54:08 -0700 (PDT)
+        Tue, 20 Oct 2020 00:20:23 -0700 (PDT)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
 To: linux-safety@lists.elisa.tech
 Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] ipv6: mcast: make annotations ip6_mc_msfget() consistent
-Date: Mon, 19 Oct 2020 18:53:58 +0200
-Message-Id: <20201019165358.28391-1-lukas.bulwahn@gmail.com>
+Subject: [PATCH] x86/unwind: remove unneeded initialization
+Date: Tue, 20 Oct 2020 09:19:52 +0200
+Message-Id: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
 X-Mailer: git-send-email 2.17.1
 
-Commit 931ca7ab7fe8 ("ip*_mc_gsfget(): lift copyout of struct group_filter
-into callers") adjusted the type annotations of ip6_mc_msfget() at its
-declaration, but missed the type annotations at its definition.
+make clang-analyzer on x86_64 defconfig caught my attention with:
 
-Hence, sparse complains on ./net/ipv6/mcast.c:
+  arch/x86/kernel/unwind_orc.c:38:7: warning: Value stored to 'mid' during
+  its initialization is never read [clang-analyzer-deadcode.DeadStores]
+          int *mid = first, *found = first;
+               ^
 
-  mcast.c:550:5: error: symbol 'ip6_mc_msfget' redeclared with different type \
-  (incompatible argument 3 (different address spaces))
+Commit ee9f8fce9964 ("x86/unwind: Add the ORC unwinder") introduced
+__orc_find() with this unneeded dead-store initialization.
 
-Make ip6_mc_msfget() annotations consistent, which also resolves this
-warning from sparse:
+Put the variable in local scope and initialize only once the value is
+needed to make clang-analyzer happy.
 
-  mcast.c:607:34: warning: incorrect type in argument 1 (different address spaces)
-  mcast.c:607:34:    expected void [noderef] __user *to
-  mcast.c:607:34:    got struct __kernel_sockaddr_storage *p
+As compilers will detect these unneeded assignments and optimize this
+anyway, the resulting object code is effectively identical before and
+after this change.
 
-No functional change. No change in object code.
+No functional change. Effectively, no change to object code.
 
 Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 ---
-linux-safety developers, please review, test and confirm. Thanks.
+ arch/x86/kernel/unwind_orc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- net/ipv6/mcast.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index 8cd2782a31e4..6c8604390266 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -548,7 +548,7 @@ int ip6_mc_msfilter(struct sock *sk, struct group_filter *gsf,
- }
- 
- int ip6_mc_msfget(struct sock *sk, struct group_filter *gsf,
--	struct sockaddr_storage *p)
-+		  struct sockaddr_storage __user *p)
+diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
+index 6a339ce328e0..5c64eed08257 100644
+--- a/arch/x86/kernel/unwind_orc.c
++++ b/arch/x86/kernel/unwind_orc.c
+@@ -35,7 +35,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
  {
- 	int err, i, count, copycount;
- 	const struct in6_addr *group;
+ 	int *first = ip_table;
+ 	int *last = ip_table + num_entries - 1;
+-	int *mid = first, *found = first;
++	int *found = first;
+ 
+ 	if (!num_entries)
+ 		return NULL;
+@@ -47,7 +47,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
+ 	 * ignored when they conflict with a real entry.
+ 	 */
+ 	while (first <= last) {
+-		mid = first + ((last - first) / 2);
++		int *mid = first + ((last - first) / 2);
+ 
+ 		if (orc_ip(mid) <= ip) {
+ 			found = mid;
 -- 
 2.17.1
