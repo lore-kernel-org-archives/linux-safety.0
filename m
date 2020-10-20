@@ -1,95 +1,104 @@
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
- by mx.groups.io with SMTP id smtpd.web12.1991.1603178426128331770
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com [209.85.166.193])
+ by mx.groups.io with SMTP id smtpd.web11.1969.1603178550861443700
  for <linux-safety@lists.elisa.tech>;
- Tue, 20 Oct 2020 00:20:26 -0700
+ Tue, 20 Oct 2020 00:22:31 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=jDO+X2D4;
- spf=pass (domain: gmail.com, ip: 209.85.218.66, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ej1-f66.google.com with SMTP id lw21so1158103ejb.6
-        for <linux-safety@lists.elisa.tech>; Tue, 20 Oct 2020 00:20:25 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=mWISbwIM;
+ spf=pass (domain: gmail.com, ip: 209.85.166.193, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-il1-f193.google.com with SMTP id l16so984212ilj.9
+        for <linux-safety@lists.elisa.tech>; Tue, 20 Oct 2020 00:22:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=8jXuAr65DOhRuAMPpbzy3By/T0TDDihkpH2lnQObzKk=;
-        b=jDO+X2D4vgLQkDBVtujN1xiac4FtJPsg7OY+E8pSepAInZNT1ip+2LbG/cCryPpu/l
-         xGKQ4Dy8M0vs/rGNePtgHorT/KizYRi/9VxnwMUx7DFCxWPohWaDoP5hQQeUHE1GcM5e
-         5jqaUiQysiBPGvAzqXKV2WIQhSeGYmyXbWafQ283HDgHbGstAe9404BbKT+pA+5Fjyjl
-         elGE4JH2c/57He6IkNu21HginNhEfdxlVm2/OKxeVDDg6A7TMzENkgSvhogOdw8TUH8l
-         kREeYnBGCXbJRAQoqvcoAEzPbMi72K4rvHFhZHk/EElwdBVissS5CdmNj2I32w0HRtaa
-         DViA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=JBzsHTfVPGpoI4rxyRDcv+FuB1OjcaPyDZ9LUIT3nRQ=;
+        b=mWISbwIMq49k7l9ndlO0bRXENk8b9KUXnYVIEQ0mAMMixFi7JaLAkbzQCK+QTQk//U
+         LlkbrabGPPZ0p/4JVkrQUX3d4DCLwKuZs2OijH4q/FvZ95hYOSugfwqjcCjhju3RY9SA
+         JExPjbWlhwt60t1sPtqA1/8xJ7IkgZBnVp7O3vx342p+dveoHOfUtFPlyRaS0XL4mIG5
+         nEoV+QXSAEa7YxLhRvLqO9y8UO0s8nj5wx7DSsZt1xlZ2EKp3LypEz3BTw9ww2hCUceE
+         40B8Gq4XcBxpJrIwIe9avZZxK9vh5azZcEsHbZWWweInjf0ob7B18PmfvVRyC/wIvOC3
+         2KPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=8jXuAr65DOhRuAMPpbzy3By/T0TDDihkpH2lnQObzKk=;
-        b=eILrhWKKR/zqhDdNQrEw9qtiPHasVJoZN4FOOmiAMhdS9HOQrAFc7wL3oA4LdmDEIm
-         4yWxCO8CUCI3c2+7wZj8NhrT9CcVkf+AOkb989tG3ScZXfaJJeogvq0Q94p9NAURuV8A
-         rO+K8FBBNmsHF7seRvLFgx3cB9jWIRcvCR/D9V6qzz+YDbB1C3i1G0d0EpIZBZhZJj6X
-         MYG/6PyQ7otR7YhS5YEhMOkTMp111SdfkqzZAHZb7WoLOBgaXXHj75SSrCavqlj6nT7g
-         VdQzAUSBNXgYXwjQUTpa8Tt/4eGWSN+VR4WIGZGJY0169E/hH7uUI4XRIT+KIMII0vkc
-         dbIA==
-X-Gm-Message-State: AOAM531hHk9mDoiIEnBflbsKVc6WWo9CXUAbuSEIUXyf1MZa8bTCV/8G
-	/8fKR6vz5XsbsNJNNMAVMhvo4KRX8/Mxqw==
-X-Google-Smtp-Source: ABdhPJydqzfgN5EO32TY0mYzI2xBrpydyBlUUTGVrQalc0nN7Y5ym1xTfho8/SFBzatKvvcjJg0HOw==
-X-Received: by 2002:a17:906:53d7:: with SMTP id p23mr1754116ejo.232.1603178424292;
-        Tue, 20 Oct 2020 00:20:24 -0700 (PDT)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia.fritz.box ([2001:16b8:2dd3:b700:c155:8ea0:c27b:610a])
-        by smtp.gmail.com with ESMTPSA id qq10sm1391999ejb.31.2020.10.20.00.20.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2020 00:20:23 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=JBzsHTfVPGpoI4rxyRDcv+FuB1OjcaPyDZ9LUIT3nRQ=;
+        b=pcQCkylyDADHDvr6fDiqXhJ9AK+j5xKtCb/criu4pFDxEBp7EnmcAiwagun5gPwDRv
+         3NwNBrPigt/gQy9hDpptnVk2mAoGcug4vd2+tBItjKWFMU3IasqZoMFjwJmYHLxe+oXT
+         OzHvVGKNUZnHCTxck/AMM8nqT2i9c+bUS66Kj9Dfjcvp5y6F3/apYdhFhF0j3XuwT8ta
+         wmP8LBhl1H/IfJJHEQaAhIfgyr2oHLY2X0HAs8sxzikhw8gxaAB6fMpHO9cWB+DqPqfM
+         CNWVLxEIwj8SCbemqkQN8XP3jFH/eITYbQRuFfQs+mBwKN8hsEcESW0/yhcOfLaMPNlt
+         ubyQ==
+X-Gm-Message-State: AOAM530Vxqf5PZbF+WiZl8uJFxh0dgwoM/DaT+8XvaJlgAKDNgIhggpZ
+	qC7AwDHvI6MrjH/Oj6SVgbyxkMqrqeG2Gnhcqtlt47Pr4ZY=
+X-Google-Smtp-Source: ABdhPJycrB8UiPBFXZGBJohidWZPS4kH1bocBqTZaYrK6G7Ugc2UnjyVYhbY2B0k0b05cG5AeksjNC8bBK0NTGmVqFo=
+X-Received: by 2002:a92:c946:: with SMTP id i6mr994311ilq.199.1603178550000;
+ Tue, 20 Oct 2020 00:22:30 -0700 (PDT)
+MIME-Version: 1.0
+References: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
+In-Reply-To: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
+Date: Tue, 20 Oct 2020 09:22:19 +0200
+Message-ID: <CAKXUXMwKn=cP_1DBjnQP8V+8XcHAx+HgEouwqtvHQs1RW2EvSA@mail.gmail.com>
+Subject: Re: [PATCH] x86/unwind: remove unneeded initialization
 To: linux-safety@lists.elisa.tech
-Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] x86/unwind: remove unneeded initialization
-Date: Tue, 20 Oct 2020 09:19:52 +0200
-Message-Id: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
-X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain; charset="UTF-8"
 
-make clang-analyzer on x86_64 defconfig caught my attention with:
+On Tue, Oct 20, 2020 at 9:20 AM Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
+>
+> make clang-analyzer on x86_64 defconfig caught my attention with:
+>
+>   arch/x86/kernel/unwind_orc.c:38:7: warning: Value stored to 'mid' during
+>   its initialization is never read [clang-analyzer-deadcode.DeadStores]
+>           int *mid = first, *found = first;
+>                ^
+>
+> Commit ee9f8fce9964 ("x86/unwind: Add the ORC unwinder") introduced
+> __orc_find() with this unneeded dead-store initialization.
+>
+> Put the variable in local scope and initialize only once the value is
+> needed to make clang-analyzer happy.
+>
+> As compilers will detect these unneeded assignments and optimize this
+> anyway, the resulting object code is effectively identical before and
+> after this change.
+>
+> No functional change. Effectively, no change to object code.
+>
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+> ---
 
-  arch/x86/kernel/unwind_orc.c:38:7: warning: Value stored to 'mid' during
-  its initialization is never read [clang-analyzer-deadcode.DeadStores]
-          int *mid = first, *found = first;
-               ^
 
-Commit ee9f8fce9964 ("x86/unwind: Add the ORC unwinder") introduced
-__orc_find() with this unneeded dead-store initialization.
+Please help me with your review.
 
-Put the variable in local scope and initialize only once the value is
-needed to make clang-analyzer happy.
+Also help by compiling and comparing the disassembly before and after
+with your compiler.
 
-As compilers will detect these unneeded assignments and optimize this
-anyway, the resulting object code is effectively identical before and
-after this change.
 
-No functional change. Effectively, no change to object code.
-
-Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
----
- arch/x86/kernel/unwind_orc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
-index 6a339ce328e0..5c64eed08257 100644
---- a/arch/x86/kernel/unwind_orc.c
-+++ b/arch/x86/kernel/unwind_orc.c
-@@ -35,7 +35,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
- {
- 	int *first = ip_table;
- 	int *last = ip_table + num_entries - 1;
--	int *mid = first, *found = first;
-+	int *found = first;
- 
- 	if (!num_entries)
- 		return NULL;
-@@ -47,7 +47,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
- 	 * ignored when they conflict with a real entry.
- 	 */
- 	while (first <= last) {
--		mid = first + ((last - first) / 2);
-+		int *mid = first + ((last - first) / 2);
- 
- 		if (orc_ip(mid) <= ip) {
- 			found = mid;
--- 
-2.17.1
+>  arch/x86/kernel/unwind_orc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
+> index 6a339ce328e0..5c64eed08257 100644
+> --- a/arch/x86/kernel/unwind_orc.c
+> +++ b/arch/x86/kernel/unwind_orc.c
+> @@ -35,7 +35,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
+>  {
+>         int *first = ip_table;
+>         int *last = ip_table + num_entries - 1;
+> -       int *mid = first, *found = first;
+> +       int *found = first;
+>
+>         if (!num_entries)
+>                 return NULL;
+> @@ -47,7 +47,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
+>          * ignored when they conflict with a real entry.
+>          */
+>         while (first <= last) {
+> -               mid = first + ((last - first) / 2);
+> +               int *mid = first + ((last - first) / 2);
+>
+>                 if (orc_ip(mid) <= ip) {
+>                         found = mid;
+> --
+> 2.17.1
+>
