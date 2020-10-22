@@ -1,104 +1,94 @@
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com [209.85.166.193])
- by mx.groups.io with SMTP id smtpd.web11.1969.1603178550861443700
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
+ by mx.groups.io with SMTP id smtpd.web12.9649.1603369155757195404
  for <linux-safety@lists.elisa.tech>;
- Tue, 20 Oct 2020 00:22:31 -0700
+ Thu, 22 Oct 2020 05:19:16 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=mWISbwIM;
- spf=pass (domain: gmail.com, ip: 209.85.166.193, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-il1-f193.google.com with SMTP id l16so984212ilj.9
-        for <linux-safety@lists.elisa.tech>; Tue, 20 Oct 2020 00:22:30 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=XrWl3BsB;
+ spf=pass (domain: gmail.com, ip: 209.85.221.66, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-wr1-f66.google.com with SMTP id n18so2099556wrs.5
+        for <linux-safety@lists.elisa.tech>; Thu, 22 Oct 2020 05:19:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=JBzsHTfVPGpoI4rxyRDcv+FuB1OjcaPyDZ9LUIT3nRQ=;
-        b=mWISbwIMq49k7l9ndlO0bRXENk8b9KUXnYVIEQ0mAMMixFi7JaLAkbzQCK+QTQk//U
-         LlkbrabGPPZ0p/4JVkrQUX3d4DCLwKuZs2OijH4q/FvZ95hYOSugfwqjcCjhju3RY9SA
-         JExPjbWlhwt60t1sPtqA1/8xJ7IkgZBnVp7O3vx342p+dveoHOfUtFPlyRaS0XL4mIG5
-         nEoV+QXSAEa7YxLhRvLqO9y8UO0s8nj5wx7DSsZt1xlZ2EKp3LypEz3BTw9ww2hCUceE
-         40B8Gq4XcBxpJrIwIe9avZZxK9vh5azZcEsHbZWWweInjf0ob7B18PmfvVRyC/wIvOC3
-         2KPA==
+        h=from:to:cc:subject:date:message-id;
+        bh=R5XsbNT2+v4PMPJ6Orq+zbKWSsCFMYz0hTLkHCIJRjs=;
+        b=XrWl3BsBSgtE/cg6RPM+RkAFYxNxYyuo2hEetPXA+IFQDP2b1Lj0FErjwIWZtJkO9z
+         INKgCmY+6KG2w+lc/5+oaO5CBC6IKxsyvIqCEDHvETVVvf3jD9J8YyiG6U847NeKvKen
+         zSTKd7pb48z/Fo/F2oGeUBeYJzeCXaQRVxrPMqyXgL8pWsw5+UP827F6uHOsYdMnWolL
+         1edSTtZxX+ioZAa2WCx2E761VsohE3kKVsqD8x2E0oI1yHEvC4/DeiUMSe8QPwdgWJM/
+         dJetaID6MVA9lDMggSHlnt3ujsL8QIEmMj8qKd0JdDW5Z/ElCQfwCCg7RYK6+YERrPWb
+         KQZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=JBzsHTfVPGpoI4rxyRDcv+FuB1OjcaPyDZ9LUIT3nRQ=;
-        b=pcQCkylyDADHDvr6fDiqXhJ9AK+j5xKtCb/criu4pFDxEBp7EnmcAiwagun5gPwDRv
-         3NwNBrPigt/gQy9hDpptnVk2mAoGcug4vd2+tBItjKWFMU3IasqZoMFjwJmYHLxe+oXT
-         OzHvVGKNUZnHCTxck/AMM8nqT2i9c+bUS66Kj9Dfjcvp5y6F3/apYdhFhF0j3XuwT8ta
-         wmP8LBhl1H/IfJJHEQaAhIfgyr2oHLY2X0HAs8sxzikhw8gxaAB6fMpHO9cWB+DqPqfM
-         CNWVLxEIwj8SCbemqkQN8XP3jFH/eITYbQRuFfQs+mBwKN8hsEcESW0/yhcOfLaMPNlt
-         ubyQ==
-X-Gm-Message-State: AOAM530Vxqf5PZbF+WiZl8uJFxh0dgwoM/DaT+8XvaJlgAKDNgIhggpZ
-	qC7AwDHvI6MrjH/Oj6SVgbyxkMqrqeG2Gnhcqtlt47Pr4ZY=
-X-Google-Smtp-Source: ABdhPJycrB8UiPBFXZGBJohidWZPS4kH1bocBqTZaYrK6G7Ugc2UnjyVYhbY2B0k0b05cG5AeksjNC8bBK0NTGmVqFo=
-X-Received: by 2002:a92:c946:: with SMTP id i6mr994311ilq.199.1603178550000;
- Tue, 20 Oct 2020 00:22:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
-In-Reply-To: <20201020071952.23794-1-lukas.bulwahn@gmail.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=R5XsbNT2+v4PMPJ6Orq+zbKWSsCFMYz0hTLkHCIJRjs=;
+        b=EpsBkHXVb3mboUXnyrPc3kQCXfjr7qNkyrwDjB9fEb4tPnjm2Gh+QAYqofUUv8mlRO
+         oxqgBLj2TSkNWmp71cTByf8nh9P96DGhY9s6oc6Y+tJVkEAhBIsg4RnLcsgmu2cz/XFy
+         zhYwBK9XO9n5nYOkyRhYnWdUl3pGBDycXKqkz2rvKGVdQ13XO36UtkppVRaIUQAsabnl
+         0ZvZjgYbi1SBOp3xmTTsOS/+dfaMlCFtk1GA5NShbZswqVLvMygqxUyBulMoRYfI3rLC
+         Hf8Rn4aubXS1Z6mc25Z8Rl3E7ErtAPtZ7RzLtM7M+Dl87ydwAmpOU9p9wWepeKsB1bVO
+         92aw==
+X-Gm-Message-State: AOAM532RyZBpM5Qpz6+MpHHkAleCh1JFSQ+NsfGaUTHb2Qm6KYNB2SlJ
+	FdNUkvbW9esIY0WsB24EBEw9lJqrxv8=
+X-Google-Smtp-Source: ABdhPJzNs5XukkCPM2LOfmZswQ8XSG3PN0ndM1Y/modAX3S19GnGQ/Jgu0qz0MrNmBwwrarBzUmDfQ==
+X-Received: by 2002:adf:9d81:: with SMTP id p1mr2358072wre.13.1603369153873;
+        Thu, 22 Oct 2020 05:19:13 -0700 (PDT)
+Return-Path: <lukas.bulwahn@gmail.com>
+Received: from felia.fritz.box ([2001:16b8:2d01:7e00:2ced:5fc0:fc3e:a67f])
+        by smtp.gmail.com with ESMTPSA id e13sm3525807wrt.57.2020.10.22.05.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2020 05:19:13 -0700 (PDT)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-Date: Tue, 20 Oct 2020 09:22:19 +0200
-Message-ID: <CAKXUXMwKn=cP_1DBjnQP8V+8XcHAx+HgEouwqtvHQs1RW2EvSA@mail.gmail.com>
-Subject: Re: [PATCH] x86/unwind: remove unneeded initialization
 To: linux-safety@lists.elisa.tech
-Content-Type: text/plain; charset="UTF-8"
+Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH] kernel/hung_task.c: make type annotations consistent
+Date: Thu, 22 Oct 2020 14:19:03 +0200
+Message-Id: <20201022121903.18673-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 
-On Tue, Oct 20, 2020 at 9:20 AM Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
->
-> make clang-analyzer on x86_64 defconfig caught my attention with:
->
->   arch/x86/kernel/unwind_orc.c:38:7: warning: Value stored to 'mid' during
->   its initialization is never read [clang-analyzer-deadcode.DeadStores]
->           int *mid = first, *found = first;
->                ^
->
-> Commit ee9f8fce9964 ("x86/unwind: Add the ORC unwinder") introduced
-> __orc_find() with this unneeded dead-store initialization.
->
-> Put the variable in local scope and initialize only once the value is
-> needed to make clang-analyzer happy.
->
-> As compilers will detect these unneeded assignments and optimize this
-> anyway, the resulting object code is effectively identical before and
-> after this change.
->
-> No functional change. Effectively, no change to object code.
->
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> ---
+Commit 32927393dc1c ("sysctl: pass kernel pointers to ->proc_handler")
+removed various __user annotations from function signatures as part of its
+refactoring.
 
+It also removed the __user annotation from proc_dohung_task_timeout_secs()
+at its declaration in ./sched/sysctl.h, but not at its definition in
+./kernel/hung_task.c.
 
-Please help me with your review.
+Hence, sparse complains:
 
-Also help by compiling and comparing the disassembly before and after
-with your compiler.
+  kernel/hung_task.c:271:5: error: \
+  symbol 'proc_dohung_task_timeout_secs' redeclared with different type \
+  (incompatible argument 3 (different address spaces))
 
+Adjust the annotation at the definition fitting to that refactoring to make
+sparse happy again, which also resolves this warning from sparse:
 
->  arch/x86/kernel/unwind_orc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
-> index 6a339ce328e0..5c64eed08257 100644
-> --- a/arch/x86/kernel/unwind_orc.c
-> +++ b/arch/x86/kernel/unwind_orc.c
-> @@ -35,7 +35,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
->  {
->         int *first = ip_table;
->         int *last = ip_table + num_entries - 1;
-> -       int *mid = first, *found = first;
-> +       int *found = first;
->
->         if (!num_entries)
->                 return NULL;
-> @@ -47,7 +47,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct orc_entry *u_table,
->          * ignored when they conflict with a real entry.
->          */
->         while (first <= last) {
-> -               mid = first + ((last - first) / 2);
-> +               int *mid = first + ((last - first) / 2);
->
->                 if (orc_ip(mid) <= ip) {
->                         found = mid;
-> --
-> 2.17.1
->
+  kernel/hung_task.c:277:52: warning: incorrect type in argument 3 \
+    (different address spaces)
+  kernel/hung_task.c:277:52:    expected void *
+  kernel/hung_task.c:277:52:    got void [noderef] __user *buffer
+
+No functional change. No change in object code.
+
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+ kernel/hung_task.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+please review, test and confirm that the object code does not change.
+
+diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+index a672db830a94..bb2e3e15c84c 100644
+--- a/kernel/hung_task.c
++++ b/kernel/hung_task.c
+@@ -269,8 +269,7 @@ static long hung_timeout_jiffies(unsigned long last_checked,
+  * Process updating of timeout sysctl
+  */
+ int proc_dohung_task_timeout_secs(struct ctl_table *table, int write,
+-				  void __user *buffer,
+-				  size_t *lenp, loff_t *ppos)
++				  void *buffer, size_t *lenp, loff_t *ppos)
+ {
+ 	int ret;
+ 
+-- 
+2.17.1
