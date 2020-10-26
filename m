@@ -1,84 +1,78 @@
 Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com [209.85.221.68])
- by mx.groups.io with SMTP id smtpd.web08.2569.1603484829654615385
+ by mx.groups.io with SMTP id smtpd.web11.1211.1603735357184355691
  for <linux-safety@lists.elisa.tech>;
- Fri, 23 Oct 2020 13:27:09 -0700
+ Mon, 26 Oct 2020 11:02:37 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=Ru2WmXXr;
- spf=pass (domain: gmail.com, ip: 209.85.221.68, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wr1-f68.google.com with SMTP id h5so3635900wrv.7
-        for <linux-safety@lists.elisa.tech>; Fri, 23 Oct 2020 13:27:09 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=akulYrwl;
+ spf=pass (domain: gmail.com, ip: 209.85.221.68, mailfrom: sudipm.mukherjee@gmail.com)
+Received: by mail-wr1-f68.google.com with SMTP id x7so13760939wrl.3
+        for <linux-safety@lists.elisa.tech>; Mon, 26 Oct 2020 11:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=Xtrn75nR84HkAz060+uU5QF9Ur8eI5hya7PCx1sILkk=;
-        b=Ru2WmXXrzsf/Sz2noXOssWTOlBTFTYWpaXGV3E5qQ+6UOiOIoUCxDcpuJGpZDNb3dU
-         xXIGk/cQpUnRREbuQzbLrqylJPAx8TMjYG1ltmSUURrIvsPtJL/CgN9AUse1D/VsCsUH
-         FBImQWcMQoVqacpm42aTwUgHsIdX1gFtRv6ShGgB2DechT6MHVcGjJtZdrAb4fW8uGjl
-         EcqkEVH5UT1qtGeYHgku/iJtZD4jIjWewMlt7yIv16YSsb7YLzAWkhorcJQYpLHeDDmd
-         FLVgCVohlUwg/jktEGM8P7Rbxhv/LwPuRT5423V3WgMhjvAKluXTslaqPbZyCzugB57S
-         TYFA==
+        bh=dr/M5m284ccLeNOnUZwOiheVtoOaVvfBzrCmSiaeimE=;
+        b=akulYrwlVSGJpPDC77vrNk+/ekLvFK7m9ZYXW18qFiVTxqz71UQD4kL34+wANlmTVv
+         AEB34pClXCQubR8meZl1EWal3gpTwjpHWc2Py4ypB2QtxS+yy9sealpLbbu2FF8Jnl0+
+         2+3nbJrORnVzZWi5pglb8E85aXluq/GZkhZ072/GAu0J4wnj3c90JbnN6WVg11WZ/jFr
+         iWC9+ljZvMqkDtPVJlQdcCkmYLsNoDjjvTXdaMAlkBnGq+H/acQ+lYXejcXMJdnd2ko6
+         VjxQqpHN9OXq77dI8p8ags+eJ2ixfImHotPQoNSY4/EKPBEFPwr2OyZCupD8u8zgmVOm
+         JOTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=Xtrn75nR84HkAz060+uU5QF9Ur8eI5hya7PCx1sILkk=;
-        b=UlwM0DQPlJ5ClUgXr0xIKbTuWeqWdwM2DrD3jJWS3tGDy6jyj+nLiDiEMEZcvPD17J
-         ++0Q6IJVn4wAhFCj8djeTwa4J8GnGfsXRoCi9pM5ASwkGvzNdwBaUWsgtgC4nvImrltJ
-         qYHjhVHlrGp2RvOIzqrB9pDiSeDBZCkE0nPKVL9bzuTkzXkUcMCBeFKLXN5bU9O9GhcF
-         gaaqdc1kJ0/FzrIJzbnvm/vnPCdQxWHPPvRvRjsjN1RchXnROgPDt411JDkCbKBPscJT
-         hteguXWGYiujnCfl0B7i2P64sUKVotFu5S9itnu+vB1u5BLYSdJSz1cJPPcSu4o1RoU/
-         IqNQ==
-X-Gm-Message-State: AOAM532dpuIDtNCEx4yQJC06a8AAktu/r7/7kcPBdoieqCaA2+GlFzpD
-	1yVAspD0yCte/4w/88b4Wf0sjky9EoSYEQ==
-X-Google-Smtp-Source: ABdhPJyttmPUYZWfEcUUJwQQK0/KN/H49rNBfGHAbmmQcJHQPgDvFAdo8DDry+TCCMwWLQ3fjvYGig==
-X-Received: by 2002:adf:ef02:: with SMTP id e2mr4170705wro.381.1603484827730;
-        Fri, 23 Oct 2020 13:27:07 -0700 (PDT)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia.fritz.box ([2001:16b8:2d20:a600:91f0:3b46:85c0:ebc7])
-        by smtp.gmail.com with ESMTPSA id j13sm5316811wru.86.2020.10.23.13.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2020 13:27:07 -0700 (PDT)
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-To: linux-safety@lists.elisa.tech
-Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] agp: amd64: remove unneeded initialization
-Date: Fri, 23 Oct 2020 22:26:58 +0200
-Message-Id: <20201023202658.11205-1-lukas.bulwahn@gmail.com>
-X-Mailer: git-send-email 2.17.1
+        bh=dr/M5m284ccLeNOnUZwOiheVtoOaVvfBzrCmSiaeimE=;
+        b=ixiNtblsIg0WjD+7pPUDjEobRUygjnQA03fc7aV8bshVkDtVfuY4JA2MuEnb8K3i5O
+         oj0rJ/zkCMvuEWnK0qgLx2uQyzXESD2U7tgDIRghOoKJGGurCN3q67Mppr3w4M5lFlhC
+         XpFvfcOdTAN4kiBIp3wI0PLLtoHQ5p2zOnX9CPbQw9xgljPhbI+KpfSnsz+vnq4xBonY
+         7irGAro5eNSxiMDVA/A2fh9G48Azo7ETxHLE9n5oUAWCfPU7rFH78YBl8fUaDcPbmosy
+         OW4Nho5N3vFc46rLG3vWjCk8Fl4ojJWOSSXaW0F6Pec99hOuX6Ok7+CwfRSv5dJKwsXS
+         lpzg==
+X-Gm-Message-State: AOAM533vDpXYg4Qgs8ypHG3QDQM0bMdNbxqlJWz3DUOwYtgWjr+HiKzs
+	ziKR88GVyNMrbIlUBewSOrM=
+X-Google-Smtp-Source: ABdhPJy3v17H0nndO/wow3Iyw/sF1O6Mqems54hgdg6CPu8vTLvCzEuv3AXub44dapk3cnvbMC+Kiw==
+X-Received: by 2002:adf:e849:: with SMTP id d9mr20693375wrn.25.1603735355389;
+        Mon, 26 Oct 2020 11:02:35 -0700 (PDT)
+Return-Path: <sudipm.mukherjee@gmail.com>
+Received: from localhost.localdomain (host-92-5-241-147.as43234.net. [92.5.241.147])
+        by smtp.gmail.com with ESMTPSA id r1sm25575100wro.18.2020.10.26.11.02.34
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2020 11:02:34 -0700 (PDT)
+From: "Sudip Mukherjee" <sudipm.mukherjee@gmail.com>
+To: John Stultz <john.stultz@linaro.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Subject: [PATCH] misc: hisi_hikey_usb: use PTR_ERR_OR_ZERO
+Date: Mon, 26 Oct 2020 18:00:26 +0000
+Message-Id: <20201026180026.3350-1-sudipm.mukherjee@gmail.com>
+X-Mailer: git-send-email 2.11.0
 
-make clang-analyzer on x86_64 defconfig caught my attention with:
+Coccinelle suggested using PTR_ERR_OR_ZERO() and looking at the code,
+we can use PTR_ERR_OR_ZERO() instead of checking IS_ERR() and then
+doing 'return 0'.
 
-  drivers/char/agp/amd64-agp.c:336:2: warning: \
-  Value stored to 'i' is never read [clang-analyzer-deadcode.DeadStores]
-          i = 0;
-          ^
-
-Remove this unneeded initialization to make clang-analyzer happy.
-
-Commit a32073bffc65 ("x86_64: Clean and enhance up K8 northbridge access
-code") refactored cache_nbs() and introduced this unneeded dead-store
-initialization.
-
-As compilers will detect this unneeded assignment and optimize this anyway,
-the resulting binary is identical before and after this change.
-
-No functional change. No change in binary code.
-
-Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 ---
- drivers/char/agp/amd64-agp.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/misc/hisi_hikey_usb.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
-index b40edae32817..0413b3136541 100644
---- a/drivers/char/agp/amd64-agp.c
-+++ b/drivers/char/agp/amd64-agp.c
-@@ -333,7 +333,6 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
- 	if (!amd_nb_has_feature(AMD_NB_GART))
- 		return -ENODEV;
+diff --git a/drivers/misc/hisi_hikey_usb.c b/drivers/misc/hisi_hikey_usb.c
+index cc93569e601c..989d7d129469 100644
+--- a/drivers/misc/hisi_hikey_usb.c
++++ b/drivers/misc/hisi_hikey_usb.c
+@@ -168,10 +168,7 @@ static int hisi_hikey_usb_parse_kirin970(struct platform_device *pdev,
  
--	i = 0;
- 	for (i = 0; i < amd_nb_num(); i++) {
- 		struct pci_dev *dev = node_to_amd_nb(i)->misc;
- 		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
+ 	hisi_hikey_usb->reset = devm_gpiod_get(&pdev->dev, "hub_reset_en_gpio",
+ 					       GPIOD_OUT_HIGH);
+-	if (IS_ERR(hisi_hikey_usb->reset))
+-		return PTR_ERR(hisi_hikey_usb->reset);
+-
+-	return 0;
++	return PTR_ERR_OR_ZERO(hisi_hikey_usb->reset);
+ }
+ 
+ static int hisi_hikey_usb_probe(struct platform_device *pdev)
 -- 
-2.17.1
+2.11.0
