@@ -1,115 +1,175 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by mx.groups.io with SMTP id smtpd.web08.9309.1603893764737027149
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
+ by mx.groups.io with SMTP id smtpd.web12.11112.1603900257045281879
  for <linux-safety@lists.elisa.tech>;
- Wed, 28 Oct 2020 07:02:44 -0700
+ Wed, 28 Oct 2020 08:50:57 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=T8+TCB1o;
- spf=pass (domain: redhat.com, ip: 216.205.24.124, mailfrom: trix@redhat.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1603893763;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pA/ijsR6wL+A44Ymsd37c8yCOb9K4D0s+LLkBgVrjUk=;
-	b=T8+TCB1oVhrAi5Ja+ulW2hugDjWOu3gJSpGsKcnvNHXX8w4T5Vaj8fmKHSiUlCkTyW+R1I
-	h1o/SisSy2W8VjIU7kz45jejMTtT1OW7Vc57PGjDu7AGkMMlGKQ/0Ca/x7k4wS/2SuZLl0
-	h3LY/ealRwY8LouwCI19zV8DrZw8yO8=
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-537-emOnHhCFNsKCmlR9TSkrBQ-1; Wed, 28 Oct 2020 10:02:40 -0400
-X-MC-Unique: emOnHhCFNsKCmlR9TSkrBQ-1
-Received: by mail-oo1-f72.google.com with SMTP id t9so2386300oon.9
-        for <linux-safety@lists.elisa.tech>; Wed, 28 Oct 2020 07:02:39 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=hPhWjar2;
+ spf=pass (domain: gmail.com, ip: 209.85.128.67, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-wm1-f67.google.com with SMTP id w23so24427wmi.4
+        for <linux-safety@lists.elisa.tech>; Wed, 28 Oct 2020 08:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:date:to:cc:subject:in-reply-to:message-id:references
+         :user-agent:mime-version;
+        bh=gSinsdGE53PZSUfpITJI0G/Gp3pGnKuptRZHm83+NWc=;
+        b=hPhWjar2E1DbmCivm6BkyxqN4b1jH6FmDKwoAPyqO7O1MJjOZq8dLEgW16C9k49w/U
+         +P9Epg6GL0aFChxyMUj/huH8MqStylRiEsZNa4BhJWpAnHtT0VlakjmrFrffwaMI9UvT
+         GFoKBXlDrGLxDnqqTF5ALV3EZy+w8A1tNfifwED3QgsScHAetFPcUaf/mjZdKr4W/lm9
+         sGcJ0lqyPqL0+P7N63phTngA9qd2ECPzrzltzEszEb6h2rk+7C/nT27rZb6VpGEr492q
+         FsUqZckyW6IDk8q3zJjAknHRqBNLMbtN8Qcub92hFywnDAw9EUfTt/9OYjG366gpyIHM
+         kaAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=pA/ijsR6wL+A44Ymsd37c8yCOb9K4D0s+LLkBgVrjUk=;
-        b=DaBZyhb9rlTF+b0rNNNBFYHZfdhwqLVaUjMlkPDuiausADAYINMgsVr28nF5CXZmcJ
-         SC9zfODfXtYOpigSzVAKK2esJPXEVDQJRpL+nx/pWKd563/eIo2dPxYqwEJs2e+OX4ok
-         IfmRETZjUlUrELFdWQ6s1hgg5zI7qnG54x4BNnqv9K/pPC9D/qSCVRu0KsSMFXbQK9hS
-         Rb1zhwJuWmHX+juUYmtDd2O6FyGV3lo3Yk3TGGVPwEOUrW7TaefAUkqCh7uK5Gofkbt9
-         O4bF0JKjS6Ynx3wdaY8e/Xy6mEaqrsgIZrAIiOIdq+qMkSDj8PfKcP31zgnd6ElUXhEy
-         S5pA==
-X-Gm-Message-State: AOAM533gAXcjcj09FM5D06QQsxwSvnIeXwSKySMTicsvE5L4uFDk3UVz
-	1KPS5mt3sTXJ7ICE3m+QV5kIuVGONEn2jua5/vV0dlvLDYGOaY54r4rrBO5L0XsRAPDRsvMrQhP
-	jmydUBg867gdhQdGxP4E2LCWjZA==
-X-Received: by 2002:aca:bc89:: with SMTP id m131mr5038506oif.48.1603893758576;
-        Wed, 28 Oct 2020 07:02:38 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxK8HVad9mubt69p9XV0Zovu/5ZN2GiKzorEFq6aLJFRbquF2hpuRfMn0Pgaxfxph4ok5FPqw==
-X-Received: by 2002:aca:bc89:: with SMTP id m131mr5038471oif.48.1603893758162;
-        Wed, 28 Oct 2020 07:02:38 -0700 (PDT)
-Return-Path: <trix@redhat.com>
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
-        by smtp.gmail.com with ESMTPSA id b125sm2656559oii.19.2020.10.28.07.02.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2020 07:02:37 -0700 (PDT)
-Subject: Re: [PATCH] agp: amd64: remove unneeded initialization
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>, David Airlie <airlied@linux.ie>
-Cc: Nathan Chancellor <natechancellor@gmail.com>,
- Nick Desaulniers <ndesaulniers@google.com>,
- clang-built-linux@googlegroups.com, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
-References: <20201028133106.5420-1-lukas.bulwahn@gmail.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <37c4192a-2757-574c-85e1-1df05c6a7a31@redhat.com>
-Date: Wed, 28 Oct 2020 07:02:35 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
+         :references:user-agent:mime-version;
+        bh=gSinsdGE53PZSUfpITJI0G/Gp3pGnKuptRZHm83+NWc=;
+        b=eNnv7G4StZh7sUlKCY7EVP/v5jxKWhfCpNzG8352SzNFZVFUKawOu27rfc3QVKUsC7
+         Y1IdvNs8DfJVjCzDOJaWwwvNeB6P4gKlaAbr4M/+Gj/EZYp+CpCteFqiSfm0Qavy00Bx
+         PqZqd6N4kfPdH+pydlRpoQlfirENP21ry6ZHNnSGK1jdXcYLUMCTioKoD9XVixYSH/zz
+         tcs6rsC/vOeNUFBAEsmeEhKW31/V6zZOsxyj/b9FpPMQM98toWsBfxbq40w5VCo5wX6K
+         Xgho3DxUp6UoKzL0eEEhKtYF1NScUEXDJd+Ukc4uXo6oVm1ix5J3/76A1N/vSL17Zhmu
+         ILiQ==
+X-Gm-Message-State: AOAM5309vWkQCkObvGzmXRUpZBeZ289VIopF19mzehvDHou9t8eABE7e
+	xtP/y2XqAPSSSHlSlGA96CU=
+X-Google-Smtp-Source: ABdhPJzs79OLsV5qMv3xUW93dQUTDQEI1mMHLJGWKDV9GMjJTQT019Of+rQdfnXHUsurQeFxaEdYDQ==
+X-Received: by 2002:a7b:ce8f:: with SMTP id q15mr56820wmj.88.1603900255413;
+        Wed, 28 Oct 2020 08:50:55 -0700 (PDT)
+Return-Path: <lukas.bulwahn@gmail.com>
+Received: from felia ([2001:16b8:2d7a:200:a915:6596:e9b0:4f60])
+        by smtp.gmail.com with ESMTPSA id f5sm18509wmh.16.2020.10.28.08.50.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2020 08:50:54 -0700 (PDT)
+From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
+X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
+Date: Wed, 28 Oct 2020 16:50:53 +0100 (CET)
+X-X-Sender: lukas@felia
+To: Tom Rix <trix@redhat.com>
+cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
+    Jamal Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>, 
+    Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, 
+    Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, 
+    Nathan Chancellor <natechancellor@gmail.com>, 
+    Nick Desaulniers <ndesaulniers@google.com>, 
+    clang-built-linux@googlegroups.com, linux-kernel@vger.kernel.org, 
+    kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
+Subject: Re: [PATCH] net: cls_api: remove unneeded local variable in tc_dump_chain()
+In-Reply-To: <d956a5a5-c064-3fd4-5e78-809638ba14ef@redhat.com>
+Message-ID: <alpine.DEB.2.21.2010281629030.13040@felia>
+References: <20201028113533.26160-1-lukas.bulwahn@gmail.com> <d956a5a5-c064-3fd4-5e78-809638ba14ef@redhat.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20201028133106.5420-1-lukas.bulwahn@gmail.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
 
 
-On 10/28/20 6:31 AM, Lukas Bulwahn wrote:
-> make clang-analyzer on x86_64 defconfig caught my attention with:
->
->   drivers/char/agp/amd64-agp.c:336:2: warning: \
->   Value stored to 'i' is never read [clang-analyzer-deadcode.DeadStores]
->           i = 0;
->           ^
->
-> Remove this unneeded initialization to make clang-analyzer happy.
->
-> Commit a32073bffc65 ("x86_64: Clean and enhance up K8 northbridge access
-> code") refactored cache_nbs() and introduced this unneeded dead-store
-> initialization.
->
-> As compilers will detect this unneeded assignment and optimize this anyway,
-> the resulting binary is identical before and after this change.
->
-> No functional change. No change in binary code.
->
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> ---
-> applies cleanly on current master and next-20201028
->
-> David, please pick this minor non-urgent clean-up patch.
->
->  drivers/char/agp/amd64-agp.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
-> index b40edae32817..0413b3136541 100644
-> --- a/drivers/char/agp/amd64-agp.c
-> +++ b/drivers/char/agp/amd64-agp.c
-> @@ -333,7 +333,6 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
->  	if (!amd_nb_has_feature(AMD_NB_GART))
->  		return -ENODEV;
->  
-> -	i = 0;
->  	for (i = 0; i < amd_nb_num(); i++) {
->  		struct pci_dev *dev = node_to_amd_nb(i)->misc;
->  		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
 
-Looks ok to me.
+On Wed, 28 Oct 2020, Tom Rix wrote:
 
-Reviewed-by: Tom Rix <trix@redhat.com>
+> 
+> On 10/28/20 4:35 AM, Lukas Bulwahn wrote:
+> > make clang-analyzer on x86_64 defconfig caught my attention with:
+> >
+> > net/sched/cls_api.c:2964:3: warning: Value stored to 'parent' is never read
+> >   [clang-analyzer-deadcode.DeadStores]
+> >                 parent = 0;
+> >                 ^
+> >
+> > net/sched/cls_api.c:2977:4: warning: Value stored to 'parent' is never read
+> >   [clang-analyzer-deadcode.DeadStores]
+> >                         parent = q->handle;
+> >                         ^
+> >
+> > Commit 32a4f5ecd738 ("net: sched: introduce chain object to uapi")
+> > introduced tc_dump_chain() and this initial implementation already
+> > contained these unneeded dead stores.
+> >
+> > Simplify the code to make clang-analyzer happy.
+> >
+> > As compilers will detect these unneeded assignments and optimize this
+> > anyway, the resulting binary is identical before and after this change.
+> >
+> > No functional change. No change in object code.
+> >
+> > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+> > ---
+> > applies cleanly on current master and next-20201028
+> >
+> > Jamal, Cong, Jiri, please ack.
+> > David, Jakub, please pick this minor non-urgent clean-up patch.
+> >
+> >  net/sched/cls_api.c | 16 +++-------------
+> >  1 file changed, 3 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+> > index faeabff283a2..8ce830ca5f92 100644
+> > --- a/net/sched/cls_api.c
+> > +++ b/net/sched/cls_api.c
+> > @@ -2940,7 +2940,6 @@ static int tc_dump_chain(struct sk_buff *skb, struct netlink_callback *cb)
+> >  	struct tcf_chain *chain;
+> >  	long index_start;
+> >  	long index;
+> > -	u32 parent;
+> >  	int err;
+> >  
+> >  	if (nlmsg_len(cb->nlh) < sizeof(*tcm))
+> > @@ -2955,13 +2954,6 @@ static int tc_dump_chain(struct sk_buff *skb, struct netlink_callback *cb)
+> >  		block = tcf_block_refcnt_get(net, tcm->tcm_block_index);
+> >  		if (!block)
+> >  			goto out;
+> > -		/* If we work with block index, q is NULL and parent value
+> > -		 * will never be used in the following code. The check
+> > -		 * in tcf_fill_node prevents it. However, compiler does not
+> > -		 * see that far, so set parent to zero to silence the warning
+> > -		 * about parent being uninitialized.
+> > -		 */
+> > -		parent = 0;
+> >  	} else {
+> >  		const struct Qdisc_class_ops *cops;
+> >  		struct net_device *dev;
+> > @@ -2971,13 +2963,11 @@ static int tc_dump_chain(struct sk_buff *skb, struct netlink_callback *cb)
+> >  		if (!dev)
+> >  			return skb->len;
+> >  
+> > -		parent = tcm->tcm_parent;
+> > -		if (!parent) {
+> > +		if (!tcm->tcm_parent)
+> >  			q = dev->qdisc;
+> > -			parent = q->handle;
+> 
+> This looks like a an unused error handler.
+> 
+> and the later call to
+> 
+> if (TC_H_MIN(tcm->tcm_parent)
+> 
+> maybe should be
+> 
+> if (TC_H_MIN(parent))
+> 
+> so I am skeptical that this change is ok because the code around it looks buggy.
+>
+
+Maybe that is the case.
+
+Certainly the comment above about being uninitialized is outdated as 
+parent is not used in tc_chain_fill_node().
+
+I had another look and I noticed a copy of this same pattern (with the 
+same comment) in tc_dump_tfilter(), but it seems that the two copies have 
+somehow diverged over time. Certainly, something is fishy here.
+
+I guess it needs some more digging in the code...
+
+Lukas
+
+> Tom
+> 
+> > -		} else {
+> > +		else
+> >  			q = qdisc_lookup(dev, TC_H_MAJ(tcm->tcm_parent));
+> > -		}
+> > +
+> >  		if (!q)
+> >  			goto out;
+> >  		cops = q->ops->cl_ops;
+> 
+> 
