@@ -1,104 +1,95 @@
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
- by mx.groups.io with SMTP id smtpd.web10.8589.1603890364484836155
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
+ by mx.groups.io with SMTP id smtpd.web09.8916.1603891880819667457
  for <linux-safety@lists.elisa.tech>;
- Wed, 28 Oct 2020 06:06:04 -0700
+ Wed, 28 Oct 2020 06:31:21 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=pqGwKkpk;
- spf=pass (domain: gmail.com, ip: 209.85.218.66, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ej1-f66.google.com with SMTP id za3so3037136ejb.5
-        for <linux-safety@lists.elisa.tech>; Wed, 28 Oct 2020 06:06:04 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=mg0c3Trr;
+ spf=pass (domain: gmail.com, ip: 209.85.218.68, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-ej1-f68.google.com with SMTP id gs25so7239173ejb.1
+        for <linux-safety@lists.elisa.tech>; Wed, 28 Oct 2020 06:31:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=tFcezZaUjVtB4OlYd/0j5lQJ4Uiz++vw/9S3zS/Ui5Y=;
-        b=pqGwKkpki+kIC7fupDyAg9eTU8i8Kg6eOdm5GLTOMRyO+4ZIGSl13nwOvLixydxc1e
-         eE6NNNKcbGASf/tlYMCr99mEkavE/kiXcME8PFK7W+Rz7vK2mIaqtzCBqqbeglAsK+LU
-         fZnMFOAhutiZR4w7RekLQt6WRSA+KZ9u9XvnVgd4ZuT4nTyGoBxivs4Dbck6ECImMkja
-         qT6qk7PncQkEr3IsES0Z0SdEYrGM1yiK6YiIh/TrzzDBlGY2MpTgsx6ZmGZKP9AaNqCB
-         PM1hNo6C6pUZ8dBLQvF3uUcoyrWr5Em8Ik/JTLn9PGQu2m0Uptij8WW0vpFNQlDeEMoP
-         XSMA==
+        bh=5BWRuAigFz9km9p6yXg2RqfU876ueFRRadA3U73oXM0=;
+        b=mg0c3Trr7UnelD/TS7jZb3IcNYeg9PUNHKBgqgm2EOd5jhChVWzR7Apqj6AK9Q1KcM
+         tMxe2Td1CttKGmKE3XNu4yHzvYGc2d/3FPBr1E7Y33kuY17IGo9E+HePbnXDW1qhbzZf
+         Mo2K88bcLPkj3qUuqSOJ62RsHUgRuZDO1xsh0Op1D/JeaiG4MEZ+W4Rm513htVXedB0b
+         /NHjMeVlr8JNFxof3gbATzlE+7fDvqAm0BEIS8KcqBQ+MXPy4XkLAtJHm74dq5PgUmbr
+         T5a2ETgU0vHk9mdGPq6gyauAO/i7Z60Hxli1OIslYELpFfZqe5XIgX2ZOsYacCET9rfi
+         xfYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=tFcezZaUjVtB4OlYd/0j5lQJ4Uiz++vw/9S3zS/Ui5Y=;
-        b=KW+Jvxk7Oy+0TGfkJpiJrNK29hLEhfb0/uCJdHwave3v0IbMQlWTh/Ra+uahkqAw5p
-         cBw0JKmn+bsX0fMAsLPRtgABSS2MdVvdjgeYMPqZZvbH01Me05tXBjBr66FKg/g1zWXW
-         9z6DIBbVrd27PH5I3f33QA5xU6ZXhkD+3JIKhlxRYCWebeqcPbvw5dy3pba3RezdCuDT
-         hJr2HdjV9PaUa63Viw2pG9tTxbJ8E8AuqmeUDTPWyESZfSwV6u/Y+ZXhK//6wfibHJQo
-         aWXAdnU5hzneIWISUs9Oj5KnI6aRTL/nLlQ+Jt0gctdI3jPxV5AfF30ypofKplHM1jg8
-         asIw==
-X-Gm-Message-State: AOAM531t40VUqHO6fNWQCK5o3hrdMjySUNRNagtcMbegqKBmVrPiBgN/
-	J/1p77xrUYFLk0aXQiCcs/8=
-X-Google-Smtp-Source: ABdhPJxSuYssdPMtBWkuONYEQ4ri3P/nvlWFvD8Nuuh8fE+81I5PE3HVmES2M3wcpNv0Nxewlr9mPw==
-X-Received: by 2002:a17:907:40eb:: with SMTP id nn19mr7715572ejb.240.1603890362912;
-        Wed, 28 Oct 2020 06:06:02 -0700 (PDT)
+        bh=5BWRuAigFz9km9p6yXg2RqfU876ueFRRadA3U73oXM0=;
+        b=eelNGvGHZQQgj+3zrf73FN/WLLwlLTpfBPAqZQdFOLEbSfENnXxnrQYCZxmaAn904s
+         jwMzhQG4ctA0zwTJc8eK7/7xRWmrjerNiie801s58IAZL20zCj6EZsk0LtpLyPtyx84s
+         ecuJpzF+eXAkJkmak9jDnd8savp/k1Fqcm49cP90LuMEm9VWat5Q6dWhSf6Dm5C23sQx
+         7pgc5OwfXidnHc1CLqWsaXR8/4oyxnATZ8svrrTEsDDKWzShwd8JiWqrqPoWmjt3IFn2
+         zzs3KifsnBX7iRErbqS8Fj/ydcrKLTnHH7V0zC14LzvNfdleEMODSlYRj306QvFuZJDP
+         CG4w==
+X-Gm-Message-State: AOAM533YPoEtuHxg3V+m9y+hhmcpIa8+nnKetZ9RVErxgtnB/v+qKKjQ
+	EIaaJPdVQBVZU9TtGVwpQXE=
+X-Google-Smtp-Source: ABdhPJxxUMVps4Zr+8JbLjrzekWhd1FMxqWLG6CU91v4PGo6av3pY1PrmLW11eVHAE269DrpgpOWBw==
+X-Received: by 2002:a17:906:3a55:: with SMTP id a21mr7365323ejf.357.1603891879235;
+        Wed, 28 Oct 2020 06:31:19 -0700 (PDT)
 Return-Path: <lukas.bulwahn@gmail.com>
 Received: from felia.fritz.box ([2001:16b8:2d7a:200:a915:6596:e9b0:4f60])
-        by smtp.gmail.com with ESMTPSA id j3sm2977928edh.25.2020.10.28.06.06.01
+        by smtp.gmail.com with ESMTPSA id ce15sm3186691ejc.39.2020.10.28.06.31.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2020 06:06:02 -0700 (PDT)
+        Wed, 28 Oct 2020 06:31:18 -0700 (PDT)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>
-Cc: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	Andrey Ignatov <rdna@fb.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
+To: David Airlie <airlied@linux.ie>
+Cc: Nathan Chancellor <natechancellor@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Tom Rix <trix@redhat.com>,
+	clang-built-linux@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	kernel-janitors@vger.kernel.org,
 	linux-safety@lists.elisa.tech,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] kernel/hung_task.c: make type annotations consistent
-Date: Wed, 28 Oct 2020 14:05:41 +0100
-Message-Id: <20201028130541.20320-1-lukas.bulwahn@gmail.com>
+Subject: [PATCH] agp: amd64: remove unneeded initialization
+Date: Wed, 28 Oct 2020 14:31:06 +0100
+Message-Id: <20201028133106.5420-1-lukas.bulwahn@gmail.com>
 X-Mailer: git-send-email 2.17.1
 
-Commit 32927393dc1c ("sysctl: pass kernel pointers to ->proc_handler")
-removed various __user annotations from function signatures as part of its
-refactoring.
+make clang-analyzer on x86_64 defconfig caught my attention with:
 
-It also removed the __user annotation for proc_dohung_task_timeout_secs()
-at its declaration in ./sched/sysctl.h, but not at its definition in
-./kernel/hung_task.c.
+  drivers/char/agp/amd64-agp.c:336:2: warning: \
+  Value stored to 'i' is never read [clang-analyzer-deadcode.DeadStores]
+          i = 0;
+          ^
 
-Hence, sparse complains:
+Remove this unneeded initialization to make clang-analyzer happy.
 
-  kernel/hung_task.c:271:5: error: \
-  symbol 'proc_dohung_task_timeout_secs' redeclared with different type \
-  (incompatible argument 3 (different address spaces))
+Commit a32073bffc65 ("x86_64: Clean and enhance up K8 northbridge access
+code") refactored cache_nbs() and introduced this unneeded dead-store
+initialization.
 
-Adjust the annotation at the definition fitting to that refactoring to make
-sparse happy again, which also resolves this warning from sparse:
+As compilers will detect this unneeded assignment and optimize this anyway,
+the resulting binary is identical before and after this change.
 
-  kernel/hung_task.c:277:52: warning: incorrect type in argument 3 \
-    (different address spaces)
-  kernel/hung_task.c:277:52:    expected void *
-  kernel/hung_task.c:277:52:    got void [noderef] __user *buffer
-
-No functional change. No change in object code.
+No functional change. No change in binary code.
 
 Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 ---
 applies cleanly on current master and next-20201028
 
-Christoph, can I get quick ack from you on a fix to your refactoring?
-Andrew, please pick this minor non-urgent clean-up patch.
+David, please pick this minor non-urgent clean-up patch.
 
- kernel/hung_task.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/char/agp/amd64-agp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-index a672db830a94..bb2e3e15c84c 100644
---- a/kernel/hung_task.c
-+++ b/kernel/hung_task.c
-@@ -269,8 +269,7 @@ static long hung_timeout_jiffies(unsigned long last_checked,
-  * Process updating of timeout sysctl
-  */
- int proc_dohung_task_timeout_secs(struct ctl_table *table, int write,
--				  void __user *buffer,
--				  size_t *lenp, loff_t *ppos)
-+				  void *buffer, size_t *lenp, loff_t *ppos)
- {
- 	int ret;
+diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
+index b40edae32817..0413b3136541 100644
+--- a/drivers/char/agp/amd64-agp.c
++++ b/drivers/char/agp/amd64-agp.c
+@@ -333,7 +333,6 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
+ 	if (!amd_nb_has_feature(AMD_NB_GART))
+ 		return -ENODEV;
  
+-	i = 0;
+ 	for (i = 0; i < amd_nb_num(); i++) {
+ 		struct pci_dev *dev = node_to_amd_nb(i)->misc;
+ 		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
 -- 
 2.17.1
