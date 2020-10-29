@@ -1,105 +1,172 @@
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
- by mx.groups.io with SMTP id smtpd.web09.3087.1603939038484204570
+Received: from mx01-sz.bfs.de (mx01-sz.bfs.de [194.94.69.67])
+ by mx.groups.io with SMTP id smtpd.web08.7516.1603972194737590666
  for <linux-safety@lists.elisa.tech>;
- Wed, 28 Oct 2020 19:37:18 -0700
+ Thu, 29 Oct 2020 04:49:56 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=HuHr7lUi;
- spf=pass (domain: gmail.com, ip: 209.85.210.196, mailfrom: natechancellor@gmail.com)
-Received: by mail-pf1-f196.google.com with SMTP id 13so1111015pfy.4
-        for <linux-safety@lists.elisa.tech>; Wed, 28 Oct 2020 19:37:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=6XRUpzLiGuEo7PmpLXwl6+IIfCCFqx3XPv+eOFg52rM=;
-        b=HuHr7lUi/XoZQNR8Nvwne0y+X9Y+XBP606LI3k20mieA7XVQIeIq73NEYxr+bDDgvi
-         fnn1bIS0zlOhEs6bIn7T4dYsGFi/sqbfRnZV4WuK/Az64S7W7wbOrQudn1NM+v9Zn1Ia
-         FP+aBs9Y0mI/T8pw7WVPb6yQz3LPEuVr2H5MoL85yBTNkeB5cPCIl3WC47z+XU8UGagN
-         5hmWpRPCrwtEJSjDnu9J6yJg7gzMZbRRkeu+qL/YONDiVu+OPA2yA7F7/ghWLQBKFpEc
-         cFzUp88lx69s0EosKkBIgMcU/0IvcJuZD/KZ3MiBQZZPbt9QxZINDHHSMxPgSYLW4Dbf
-         pM+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=6XRUpzLiGuEo7PmpLXwl6+IIfCCFqx3XPv+eOFg52rM=;
-        b=JrzgYz/h2Ng2wBSRQj8VX4i6sIxh4IC5LkiEpu781YLL3HyPNjaV9lp1G97Yn0LC+J
-         ZSMpFLROMrMO8s2XT1vEsMd8GOKWlb9up2p7HMcAhvCkxhxdnxCPAv6H6hru2jvBIqj4
-         Oq26xgRmJKKNOMWzFZK508HLnBCKb1h4r5WfuXYJjP7n6UtOYOVSW7VIP+KMHDd+pelp
-         P6Hsbsl0eNR+/osG3Use80D6uJpxPEjO/JcXirI42u7XMp/MmcboE5Nf3UvOLN4AE1gI
-         CEDX7OVUu19IpQcf1/ZArAmR5+kZSe92TTpMLkghx9uIQVVvC7hksT7zqVDugpKjhXmV
-         qP/Q==
-X-Gm-Message-State: AOAM532WMk2KWMhkuooKFJBwpF4wkNvKW9nxbE+26rtRPGgvtQ7dz2j2
-	X5FuqM+M8ChIYgaM1lUtgsw=
-X-Google-Smtp-Source: ABdhPJygJB0qYgQJ4lfS6ccFAjSDgo8hbidulS36ztazwLHYfjvZx9a5cEqkQFGvVBt1kWlNdlycTw==
-X-Received: by 2002:a65:689a:: with SMTP id e26mr2046138pgt.136.1603939037979;
-        Wed, 28 Oct 2020 19:37:17 -0700 (PDT)
-Return-Path: <natechancellor@gmail.com>
-Received: from Ryzen-9-3900X.localdomain (ip68-98-75-144.ph.ph.cox.net. [68.98.75.144])
-        by smtp.gmail.com with ESMTPSA id f71sm895705pfa.155.2020.10.28.19.37.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2020 19:37:17 -0700 (PDT)
-Date: Wed, 28 Oct 2020 19:37:16 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: David Airlie <airlied@linux.ie>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Tom Rix <trix@redhat.com>, clang-built-linux@googlegroups.com,
-	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
-	linux-safety@lists.elisa.tech
-Subject: Re: [PATCH] agp: amd64: remove unneeded initialization
-Message-ID: <20201029023716.GB2316@Ryzen-9-3900X.localdomain>
-References: <20201028133106.5420-1-lukas.bulwahn@gmail.com>
+ dkim=pass header.i=@bfs.de header.s=dkim201901 header.b=hUHncc8J;
+ spf=pass (domain: bfs.de, ip: 194.94.69.67, mailfrom: wharms@bfs.de)
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+	by mx01-sz.bfs.de (Postfix) with ESMTPS id 5FA4820136;
+	Thu, 29 Oct 2020 12:49:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+	t=1603972191;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WJT3j/NIWLP4R0ukUYUh1MfJEJRI4an9G0Vrqmy4RVg=;
+	b=hUHncc8JlqXGt6AhgKtNO7VBm+Z2X//HaONzD0CgCWlqnstOVZmQfYiOQJfv/wV7t2OOXB
+	A1EIMIqggK4wUB9bgDb3nGjR9ehHK1bJTyuVmB4SqfEog/XkrHeWMj5yMtc1yKYJmisliD
+	PpEzs6cSvHAjjcESXKL9oIBAC6zb2gGUg44/lPYkqX7WIlwtFVVbS54zlhYxRIeFPOwIWS
+	5QwZWWM4bwddCIz0xsARlnKVqS/xdzArFh/NRJVX2LNhb55uTtsc2fnf3ghGjFioKb7jTm
+	fhccHrbLcShBFiosp44HlaEGvq9av7b6Uml188DNVn3M5DjhDrAtPs5gkJzTKQ==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2106.2; Thu, 29 Oct
+ 2020 12:49:50 +0100
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.2106.002; Thu, 29 Oct 2020 12:49:50 +0100
+From: Walter Harms <wharms@bfs.de>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Josh Poimboeuf <jpoimboe@redhat.com>, "x86@kernel.org"
+	<x86@kernel.org>
+CC: "H . Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+	Nathan Chancellor <natechancellor@gmail.com>, Nick Desaulniers
+	<ndesaulniers@google.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "clang-built-linux@googlegroups.com"
+	<clang-built-linux@googlegroups.com>, "kernel-janitors@vger.kernel.org"
+	<kernel-janitors@vger.kernel.org>, "linux-safety@lists.elisa.tech"
+	<linux-safety@lists.elisa.tech>
+Subject: Re: [PATCH] x86/unwind: remove unneeded initialization
+Thread-Topic: [PATCH] x86/unwind: remove unneeded initialization
+Thread-Index: AQHWrZZp9P4B5XWLnkejzPAeNoVG0Kmudb7J
+Date: Thu, 29 Oct 2020 11:49:50 +0000
+Message-ID: <a28022479f594650a6d98adac3c4a6f0@bfs.de>
+References: <20201028122102.24202-1-lukas.bulwahn@gmail.com>
+In-Reply-To: <20201028122102.24202-1-lukas.bulwahn@gmail.com>
+Accept-Language: de-DE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.39]
+x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25754.006
+x-tm-as-result: No-10--0.988400-5.000000
+x-tmase-matchedrid: TE7h93R7O3jRubRCcrbc5pzEHTUOuMX33dCmvEa6IiGoLZarzrrPmeb5
+	gCbPfcioIC52rSBOy+gmQDJE1lzoKPGU4m5A0eV9z1H9SpactbiNY/pqxovzxYN0CMTKQ9ev/9W
+	PA4ZFFzrZjNZ12FSpFs8bFMQN3nGuMyy9eqWWzjvThGbP9qB93DjHtx4N53dRVsObDLfVQsThCQ
+	UB+puAZk12Dax6d5UQxBbcGLES8TueTWqY85I+X7oLyaVI8w2XWDLajM22ETZLxCuBTCXaKrCza
+	+U6obX487yjVwmj7q2zCx0lbV31dsxAixoJws1YA9lly13c/gHYuVu0X/rOkKcxvibtoCq3HP39
+	F6H4hveqHvcnMH4C7u9EJt2F5Oksv1l2Uvx6idoLbigRnpKlKZx+7GyJjhAUOLgvIsXATHC2ohu
+	Rgjqs900g0pBwme1+LRFzqCTzDFDuvr+O/VqMU6mrjuLrmYul6A2mBlkBcjqN9FRlnbL3hF5MAv
+	x/fsUBxutS1t8Wq0GIonbnNHgEwM/qYWYfQTGnSQOPumGIku0fwV6sBPR0lg==
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--0.988400-5.000000
+x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25754.006
+x-tm-snts-smtp: 1946DC9CBA21DAD32119240325D8B1EA458CA5236B8211B1D739423198A805262000:9
 MIME-Version: 1.0
-In-Reply-To: <20201028133106.5420-1-lukas.bulwahn@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Spam-Status: No, score=1.46
+X-Spam-Level: *
+Authentication-Results: mx01-sz.bfs.de;
+	none
+X-Spamd-Result: default: False [1.46 / 7.00];
+	 ARC_NA(0.00)[];
+	 TO_DN_EQ_ADDR_SOME(0.00)[];
+	 HAS_XOIP(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 MID_RHS_MATCH_FROM(0.00)[];
+	 URIBL_BLOCKED(0.00)[googlegroups.com:email,elisa.tech:email];
+	 DKIM_SIGNED(0.00)[];
+	 BAYES_HAM(-0.04)[58.60%];
+	 RCPT_COUNT_TWELVE(0.00)[14];
+	 NEURAL_HAM(-0.00)[-1.012];
+	 FREEMAIL_TO(0.00)[gmail.com,linutronix.de,redhat.com,alien8.de,kernel.org];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[zytor.com,infradead.org,gmail.com,google.com,vger.kernel.org,googlegroups.com,lists.elisa.tech];
+	 RCVD_COUNT_TWO(0.00)[2];
+	 SUSPICIOUS_RECIPS(1.50)[]
+Content-Language: de-DE
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2020 at 02:31:06PM +0100, Lukas Bulwahn wrote:
-> make clang-analyzer on x86_64 defconfig caught my attention with:
-> 
->   drivers/char/agp/amd64-agp.c:336:2: warning: \
->   Value stored to 'i' is never read [clang-analyzer-deadcode.DeadStores]
->           i = 0;
->           ^
-> 
-> Remove this unneeded initialization to make clang-analyzer happy.
-> 
-> Commit a32073bffc65 ("x86_64: Clean and enhance up K8 northbridge access
-> code") refactored cache_nbs() and introduced this unneeded dead-store
-> initialization.
-> 
-> As compilers will detect this unneeded assignment and optimize this anyway,
-> the resulting binary is identical before and after this change.
-> 
-> No functional change. No change in binary code.
-> 
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+this looks like a reimplementation of bsearch()
+perhaps the maintainer can add a comment why the=20
+kernel implementation is not suitable here ?
 
-Seems obvious :)
 
-Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+jm2c
+wh
 
-> ---
-> applies cleanly on current master and next-20201028
-> 
-> David, please pick this minor non-urgent clean-up patch.
-> 
->  drivers/char/agp/amd64-agp.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
-> index b40edae32817..0413b3136541 100644
-> --- a/drivers/char/agp/amd64-agp.c
-> +++ b/drivers/char/agp/amd64-agp.c
-> @@ -333,7 +333,6 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
->  	if (!amd_nb_has_feature(AMD_NB_GART))
->  		return -ENODEV;
->  
-> -	i = 0;
->  	for (i = 0; i < amd_nb_num(); i++) {
->  		struct pci_dev *dev = node_to_amd_nb(i)->misc;
->  		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
-> -- 
-> 2.17.1
-> 
+________________________________________
+Von: Lukas Bulwahn [lukas.bulwahn@gmail.com]
+Gesendet: Mittwoch, 28. Oktober 2020 13:21
+An: Thomas Gleixner; Ingo Molnar; Borislav Petkov; Josh Poimboeuf; x86@kern=
+el.org
+Cc: H . Peter Anvin; Peter Zijlstra; Nathan Chancellor; Nick Desaulniers; l=
+inux-kernel@vger.kernel.org; clang-built-linux@googlegroups.com; kernel-jan=
+itors@vger.kernel.org; linux-safety@lists.elisa.tech; Lukas Bulwahn
+Betreff: [PATCH] x86/unwind: remove unneeded initialization
+
+make clang-analyzer on x86_64 defconfig caught my attention with:
+
+  arch/x86/kernel/unwind_orc.c:38:7: warning: Value stored to 'mid' during
+  its initialization is never read [clang-analyzer-deadcode.DeadStores]
+          int *mid =3D first, *found =3D first;
+               ^
+
+Commit ee9f8fce9964 ("x86/unwind: Add the ORC unwinder") introduced
+__orc_find() with this unneeded dead-store initialization.
+
+Put the variable in local scope and initialize only once the value is
+needed to make clang-analyzer happy.
+
+As compilers will detect this unneeded assignment and optimize this
+anyway, the resulting object code is effectively identical before and
+after this change.
+
+No functional change. Effectively, no change to object code.
+
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+applies cleanly on current master and next-20201028
+
+Josh, please ack.
+Ingo, Borislav, please pick this minor non-urgent clean-up patch.
+
+ arch/x86/kernel/unwind_orc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
+index 6a339ce328e0..5c64eed08257 100644
+--- a/arch/x86/kernel/unwind_orc.c
++++ b/arch/x86/kernel/unwind_orc.c
+@@ -35,7 +35,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct=
+ orc_entry *u_table,
+ {
+        int *first =3D ip_table;
+        int *last =3D ip_table + num_entries - 1;
+-       int *mid =3D first, *found =3D first;
++       int *found =3D first;
+
+        if (!num_entries)
+                return NULL;
+@@ -47,7 +47,7 @@ static struct orc_entry *__orc_find(int *ip_table, struct=
+ orc_entry *u_table,
+         * ignored when they conflict with a real entry.
+         */
+        while (first <=3D last) {
+-               mid =3D first + ((last - first) / 2);
++               int *mid =3D first + ((last - first) / 2);
+
+                if (orc_ip(mid) <=3D ip) {
+                        found =3D mid;
+--
+2.17.1
