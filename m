@@ -1,60 +1,57 @@
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
- by mx.groups.io with SMTP id smtpd.web10.7693.1603973095805075997
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mx.groups.io with SMTP id smtpd.web09.1216.1604091591161335383
  for <linux-safety@lists.elisa.tech>;
- Thu, 29 Oct 2020 05:04:56 -0700
+ Fri, 30 Oct 2020 13:59:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@infradead.org header.s=merlin.20170209 header.b=gmyldzWA;
- spf=none, err=permanent DNS error (domain: infradead.org, ip: 205.233.59.134, mailfrom: peterz@infradead.org)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=o687iw3cdVKlrtAY0hVT9GT6GWB0dk8OiWOKpnhjMLg=; b=gmyldzWAHEGGIUSuub4fO2AJRD
-	fw2n5JKinmfwX7At1VNZ4KOnNc+s0IuOygjNrKCv2KRVKgk2MjEgEEKTbqywbjtZJoDLyHJcCZ+lC
-	kgcs595Vkzz0fm4FGm1Ef5VLREFs6X5QKsEpsN9B55cOiFepPXSy72O9q6xVm9dVI0JxavG1jukxD
-	5f/vaz/af4YiQJa1/SwPon5BEJngXOHSXb3e+AhWW8trfR1Nf2DdgbeQPmqSQ4H1n5kF2GmwNqTyX
-	x8Zzy6KZS9vqf/T3OvLPxkUU22vIbLnl7Glq+07ShxZ3TEaIDOPeB604e0qpr9rkmFED4AJNGZPwf
-	sfNg+BdQ==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
-	by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kY6fc-0008AP-QD; Thu, 29 Oct 2020 12:04:44 +0000
-Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
+ dkim=pass header.i=@kernel.org header.s=default header.b=jVCtK0ob;
+ spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: kuba@kernel.org)
+Received: from kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net (unknown [163.114.132.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 104023012C3;
-	Thu, 29 Oct 2020 13:04:43 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-	id EEB212B772B22; Thu, 29 Oct 2020 13:04:42 +0100 (CET)
-Date: Thu, 29 Oct 2020 13:04:42 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Walter Harms <wharms@bfs.de>
-Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Josh Poimboeuf <jpoimboe@redhat.com>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
-	"kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
-	"linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>
-Subject: Re: [PATCH] x86/unwind: remove unneeded initialization
-Message-ID: <20201029120442.GP2628@hirez.programming.kicks-ass.net>
-References: <20201028122102.24202-1-lukas.bulwahn@gmail.com>
- <a28022479f594650a6d98adac3c4a6f0@bfs.de>
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9ED3820797;
+	Fri, 30 Oct 2020 20:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604091590;
+	bh=g75KANMpn+QyFlKM9RAAm6BIhFn3Ci6qgnn766q1Hy0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=jVCtK0ob8Wx5rTuY9eV73iXjZ4Vy/PDg2lD8OuRuPS24MvS5TODyrb9xesuYecKeC
+	 owFaNEwpozmKBO6Y8p8x5ZUsO1SMxITG6GygYQtz3pE5296Rc5BHflER34txiaYUXG
+	 5qyIaFc0hVklS2vGT+/s8ll5ns1r0+60zuYWOvsM=
+Date: Fri, 30 Oct 2020 13:59:48 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Cc: Alexey Kuznetsov <kuznet@ms2.inr.ac.ru>, Hideaki YOSHIFUJI
+ <yoshfuji@linux-ipv6.org>, "David S . Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-safety@lists.elisa.tech
+Subject: Re: [PATCH] ipv6: mcast: make annotations for ip6_mc_msfget() consistent
+Message-ID: <20201030135948.32fc1a7c@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+In-Reply-To: <20201028115349.6855-1-lukas.bulwahn@gmail.com>
+References: <20201028115349.6855-1-lukas.bulwahn@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <a28022479f594650a6d98adac3c4a6f0@bfs.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2020 at 11:49:50AM +0000, Walter Harms wrote:
-> this looks like a reimplementation of bsearch()
-> perhaps the maintainer can add a comment why the 
-> kernel implementation is not suitable here ?
+On Wed, 28 Oct 2020 12:53:49 +0100 Lukas Bulwahn wrote:
+> Commit 931ca7ab7fe8 ("ip*_mc_gsfget(): lift copyout of struct group_filter
+> into callers") adjusted the type annotations for ip6_mc_msfget() at its
+> declaration, but missed the type annotations at its definition.
+> 
+> Hence, sparse complains on ./net/ipv6/mcast.c:
+> 
+>   mcast.c:550:5: error: symbol 'ip6_mc_msfget' redeclared with different type \
+>   (incompatible argument 3 (different address spaces))
+> 
+> Make ip6_mc_msfget() annotations consistent, which also resolves this
+> warning from sparse:
+> 
+>   mcast.c:607:34: warning: incorrect type in argument 1 (different address spaces)
+>   mcast.c:607:34:    expected void [noderef] __user *to
+>   mcast.c:607:34:    got struct __kernel_sockaddr_storage *p
+> 
+> No functional change. No change in object code.
+> 
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 
-If you look carefully it doesn't do an exact match, which is what
-bsearch() does.
-
-bsearch() also isn't stable in the precense of duplicates.
+Applied, thank you!
