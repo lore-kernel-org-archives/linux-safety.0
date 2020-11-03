@@ -1,112 +1,63 @@
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
- by mx.groups.io with SMTP id smtpd.web10.11060.1604666301594770694
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com [209.85.210.65])
+ by mx.groups.io with SMTP id smtpd.web08.417.1604383898025034470
  for <linux-safety@lists.elisa.tech>;
- Fri, 06 Nov 2020 04:38:21 -0800
+ Mon, 02 Nov 2020 22:11:38 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=WAJEZpww;
- spf=pass (domain: gmail.com, ip: 209.85.221.65, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wr1-f65.google.com with SMTP id w1so1171406wrm.4
-        for <linux-safety@lists.elisa.tech>; Fri, 06 Nov 2020 04:38:21 -0800 (PST)
+ dkim=pass header.i=@linaro.org header.s=google header.b=AGsR20jX;
+ spf=pass (domain: linaro.org, ip: 209.85.210.65, mailfrom: john.stultz@linaro.org)
+Received: by mail-ot1-f65.google.com with SMTP id l36so6985829ota.4
+        for <linux-safety@lists.elisa.tech>; Mon, 02 Nov 2020 22:11:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=oJeBlvI7pAnkAsw70khux5ZoE/B4WwO2O42ItTpncKs=;
-        b=WAJEZpwwyivZPgyV6gkLhK0Y/cm6bIad7kY58MOOTMAbjJoZKo0iDiFWuKcjli0joP
-         gc+bfTLQPAg9SP87socW83t/aUHOoTR5RkwijNPW16vWWKOF6rzrZiJYpQvdwZ+wsgGu
-         D7rOJMI/NojscP1nzw2xfqEZ81UmtOQSOGOfRKz5Y6gTgtZqESPFkj3QG5PhGjv5d6Cn
-         uKNrf3voJrN3tlytYswcULxhhRXwFCkKmGS2/UZwTyRjZrUyzQz8RqawV8qq70IoNrqd
-         F6bbtQl8r+roONbnTq6cfe03thF20gW839OV3v7rCEGQDuBGD8D9ci+v5VSxgZnPoSVn
-         XUbQ==
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=dUQECi2b2OmyDRScJrepUtAejD+g0Cf0SRxo1IXKJxY=;
+        b=AGsR20jXoMdzQ00xNiD1IByazVm3Bjl1NGCQe8DmtoViitMuOzzhNDj4356l6HRndU
+         ufR3hTueJY933LmLdYrDp/+7G4OrFkaq+aICNtNkYiU81Hlistf3a185hBRPZBl2qrLa
+         mGIysGc0x1l6nhMqd79AcDLH3YFYF8nkkWhYT0aBHEvcA/9cT+BWFJd85Z8Q7ZqI9Im+
+         4jnrw49j2InpIIHwzfjMTPqeYejLKOxS6BKTfgqsr2gxDZdRkBj5I2d2HtKm7NtcuqY0
+         PJE+EqBMSGrGq4i94va785QaD4H4c28JVorFUqDcArbglf8zJOWO04u7YD50eu2oWLnA
+         692Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=oJeBlvI7pAnkAsw70khux5ZoE/B4WwO2O42ItTpncKs=;
-        b=MTdc5TyrsAFkadMyTjpSP3kWD3Ugj9LrtXZhhERfN9hqGCeUtARGjcauOzNN0WcaW8
-         EwrOKGommLKasy4Uoyj8FiFleVxsqYYPa2BGnES8cvboAmAxUS1SW35M8aSobDOU7+lX
-         kT8g9FYWcGAiPMRga1gOCKhz+RuceKmj+USq1mBaBYLo5WvTxW+BrkFNJQY0O5YCdmJs
-         GO3FXD+Uecj4WFFFTFB1P4ila3mlDoQZ9yL+SWlRtvX6lHrIJUb2vUJLOzztVR5cOxZG
-         NhbYxv9wmOXjzM/kByz7RwbBcaj6NLDLzNOcsPEtLoqbtiaSyYRa0g5mZq9JT90o37Fj
-         wtGw==
-X-Gm-Message-State: AOAM532DKTMKtgRMiKxXrcCBQeVg9OKcyHO54KE7qHClosJz7/cyOrW5
-	zkRNM8J426mL5snsbCnVtJQ=
-X-Google-Smtp-Source: ABdhPJzlriX3iwt1mvdV4n7Fm1xf5GeKZnsqhivtwgEd646SLG0R7IIo49K7n1ZP2ZMZwzI9QXBiww==
-X-Received: by 2002:adf:dc4b:: with SMTP id m11mr2375463wrj.328.1604666300066;
-        Fri, 06 Nov 2020 04:38:20 -0800 (PST)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2d20:9d00:e580:adb5:1ef:950d])
-        by smtp.gmail.com with ESMTPSA id j9sm1924110wrr.49.2020.11.06.04.38.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2020 04:38:19 -0800 (PST)
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Fri, 6 Nov 2020 13:38:18 +0100 (CET)
-X-X-Sender: lukas@felia
-To: Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
-    Balbir Singh <bsingharora@gmail.com>, Tom Rix <trix@redhat.com>, 
-    Nathan Chancellor <natechancellor@gmail.com>, 
-    Nick Desaulniers <ndesaulniers@google.com>, 
-    clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org, 
-    linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
-Subject: Re: [linux-safety] [PATCH] taskstats: remove unneeded dead assignment
-In-Reply-To: <aea9d12d-88ee-f262-4328-03993521668f@codethink.co.uk>
-Message-ID: <alpine.DEB.2.21.2011061331250.20338@felia>
-References: <20201106062210.27920-1-lukas.bulwahn@gmail.com> <6ab2415b-0642-16ee-4be0-c909e07e7565@codethink.co.uk> <alpine.DEB.2.21.2011061126130.20338@felia> <aea9d12d-88ee-f262-4328-03993521668f@codethink.co.uk>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=dUQECi2b2OmyDRScJrepUtAejD+g0Cf0SRxo1IXKJxY=;
+        b=qqNmCBLj061uYPqiJJ4ph9p7cldddpik3t2TG9fPvalgAOQjThN2COFRSpI5EEr2AO
+         zpnmMVEPLQJaA2LdHuUeRbKI/CjA2PO2NNL3yCy3Lt1gse58KG5oVV4u7GTMaq19eubL
+         NKgFT+Nxs0GwwkJtcoma/jSjGzVHIZ4Mx3gxN3Fl++kG5oNJb85pwNqd3Apif7JYA7uF
+         P7EFHqRcyPfYd4638MVi090fKNJ7kr4KGxQDp3RBCYEqKaLg3GKf3CfPWZhATUSCa83B
+         c+z8jhcz0gcWbrELJzAnRctWYubK8tQe+fwzogXuPIA0UfrJQUiT6ioIPv0RCpvy4UJ/
+         nhTA==
+X-Gm-Message-State: AOAM532k/HDg+wbSr+joUxlIrUszX4kwjJUoMpBD4/KoZscemw6CF21W
+	AHWRDDE1sknE4u85Irbq7OTkzEhLYM4pHOkBkC7RRg==
+X-Google-Smtp-Source: ABdhPJyauU4JLerz1H5+gLLJB3GH4BxZ3L8r2UynN2PUKLok0mhN5q3GnRNnc8QUueR3kZObrzxW7/MHby1sWLLv8ZY=
+X-Received: by 2002:a05:6830:1556:: with SMTP id l22mr5385725otp.102.1604383897321;
+ Mon, 02 Nov 2020 22:11:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20201026180026.3350-1-sudipm.mukherjee@gmail.com>
+In-Reply-To: <20201026180026.3350-1-sudipm.mukherjee@gmail.com>
+From: John Stultz <john.stultz@linaro.org>
+Date: Mon, 2 Nov 2020 22:11:25 -0800
+Message-ID: <CALAqxLVzsQs6_G9DOTkaBsUa93-97c136mtx7WRPNjBFjfkyAA@mail.gmail.com>
+Subject: Re: [PATCH] misc: hisi_hikey_usb: use PTR_ERR_OR_ZERO
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	lkml <linux-kernel@vger.kernel.org>, linux-safety@lists.elisa.tech
+Content-Type: text/plain; charset="UTF-8"
 
-
-
-On Fri, 6 Nov 2020, Sudip Mukherjee wrote:
-
-> Hi Lukas,
-> 
-> On 06/11/2020 10:31, Lukas Bulwahn wrote:
-> > 
-> > 
-> > On Fri, 6 Nov 2020, Sudip Mukherjee wrote:
-> > 
-> >> Hi Lukas,
-> >>
-> 
-> <snip>
-> 
-> > 
-> > I did not try but I bet (a beverage of your choice) that the object code
-> > remains the same also for your suggested patch. Try to disprove my claim 
-> > and possibly earn yourself a beverage when we meet...
-> 
-> Lets decide which beverage.. ;-)
-> 
-> Using gcc-7.2.0 for MIPS:
-> 
-> original:- ab81d3305d578c2568fbc73aad2f9e61  kernel/taskstats.o
-> After your change:- ab81d3305d578c2568fbc73aad2f9e61  kernel/taskstats.o
-> After my change:- 0acae2c8d72abd3e15bf805fccdca711  kernel/taskstats.o
-> 
+On Mon, Oct 26, 2020 at 11:02 AM Sudip Mukherjee
+<sudipm.mukherjee@gmail.com> wrote:
 >
+> Coccinelle suggested using PTR_ERR_OR_ZERO() and looking at the code,
+> we can use PTR_ERR_OR_ZERO() instead of checking IS_ERR() and then
+> doing 'return 0'.
+>
+> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
 
-Interesting, can you share the diff of the objdump before and after?
+Thanks for sending this!
 
-I bet it found now a different assignment from variables to registers or 
-so; with the beverage at hand, we can then discuss if that is effectively 
-still the same object code or not.
+Acked-by: John Stultz <john.stultz@linaro.org>
 
-Thanks for confirming that my patch here really remains the same compared 
-to before, even on MIPS :) I only checked x86-64...
-
-Lukas 
-
-> 
-> -- 
-> Regards
-> Sudip
-> 
-> 
-> 
-> 
-> 
-> 
+thanks
+-john
