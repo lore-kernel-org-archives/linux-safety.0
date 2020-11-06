@@ -1,136 +1,84 @@
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
- by mx.groups.io with SMTP id smtpd.web12.9745.1604658223400817338
+Received: from imap3.hz.codethink.co.uk (imap3.hz.codethink.co.uk [176.9.8.87])
+ by mx.groups.io with SMTP id smtpd.web11.10025.1604658335275807186
  for <linux-safety@lists.elisa.tech>;
- Fri, 06 Nov 2020 02:23:43 -0800
+ Fri, 06 Nov 2020 02:25:35 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=Iu8FzfnH;
- spf=pass (domain: gmail.com, ip: 209.85.128.67, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wm1-f67.google.com with SMTP id v5so848625wmh.1
-        for <linux-safety@lists.elisa.tech>; Fri, 06 Nov 2020 02:23:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:date:to:cc:subject:in-reply-to:message-id:references
-         :user-agent:mime-version;
-        bh=mzNiuNqGeFamlvkvbNuJC+7srQmi+KnHfUNnRKxl8XQ=;
-        b=Iu8FzfnHSSbyRw4Xkh4ON1v8jlTRgybmQWaJOIbTX7rUOOXLGIYdD4dvaZIp88OJ4Y
-         aAs0pJIFdX96yHi/i50h9sPJMXQYJkSxDTJR2Caiy5ZEpe8kf/xWH54BPlM/SzQ6LO94
-         qD1Rk1a9QsXdaWaO5Q6eu8+gy4GqrSRB/N2b0FxZ3sMG6YOkv4hz/YrNnevzMXoJ7mp4
-         z1dKo3MhAdXPNk33P1hEtwm1WFpzwpmmp/dfJPh/HVK/9QI+OQRHATiIkZrTieZE9kzu
-         YAL3hTiRy1kbWzZW04Nkv85Ji1YQch663yNJ9uRoh1WXGDQ8k+LEMjlZQnzPZvE0rusm
-         56Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
-         :references:user-agent:mime-version;
-        bh=mzNiuNqGeFamlvkvbNuJC+7srQmi+KnHfUNnRKxl8XQ=;
-        b=PcIY2bGF38ZXKa1y3iYbJXSnwjmTRy/DyqfSUf2E93AVEIP3VIzxc1pmXQ+NdjaGBO
-         nWJIkkPJw+3G6paq7SJOTFk10H45SgVVADyBWg0qZqyxOmE9X91kSFG17iYzY+3zfaEf
-         ExblJPhQe+D8MtajhlapiITpwl6V+OTJN+XVCcoO6zQHHRI0gmgUYI76ny1OY44doSGU
-         4CKFZXEfvi94sC9i7U2uud4nzarEFUxiMCtpx8GCb4stiGzuC7KLvC+40K8Qo4dFYIW5
-         HzWXvCjlbj8eMilRF+y5L+LfpWELj+BD4MKb/pYcMk7C5YUOIpb8g//loVTcMT4XaMeg
-         ikOw==
-X-Gm-Message-State: AOAM533h58GouGXi1scerENQQMBa4n53vPrfmaG0vkqhbVBxjlS6qYXR
-	ClM0PKPgcaPBt9lDGrvA6k8=
-X-Google-Smtp-Source: ABdhPJxXzfKlYpUDKox/cdmpMNPTttMWjBfu7xNSzMPizbrEmkEvbLIdyUSuPmWDt5AlAstsxO33Tg==
-X-Received: by 2002:a1c:7515:: with SMTP id o21mr1724178wmc.5.1604658221759;
-        Fri, 06 Nov 2020 02:23:41 -0800 (PST)
-Return-Path: <lukas.bulwahn@gmail.com>
-Received: from felia ([2001:16b8:2d20:9d00:e580:adb5:1ef:950d])
-        by smtp.gmail.com with ESMTPSA id k81sm2067568wma.2.2020.11.06.02.23.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2020 02:23:41 -0800 (PST)
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Fri, 6 Nov 2020 11:23:34 +0100 (CET)
-X-X-Sender: lukas@felia
-To: Nathan Chancellor <natechancellor@gmail.com>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
-    Balbir Singh <bsingharora@gmail.com>, Tom Rix <trix@redhat.com>, 
-    Nick Desaulniers <ndesaulniers@google.com>, 
-    clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org, 
-    linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] taskstats: remove unneeded dead assignment
-In-Reply-To: <20201106095004.GA3269193@ubuntu-m3-large-x86>
-Message-ID: <alpine.DEB.2.21.2011061113270.20338@felia>
-References: <20201106062210.27920-1-lukas.bulwahn@gmail.com> <20201106095004.GA3269193@ubuntu-m3-large-x86>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ dkim=missing; spf=none, err=SPF record not found (domain: codethink.co.uk, ip: 176.9.8.87, mailfrom: sudip.mukherjee@codethink.co.uk)
+Received: from host-92-5-241-147.as43234.net ([92.5.241.147] helo=[192.168.1.13])
+	by imap3.hz.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+	id 1kayvz-00071a-Sl; Fri, 06 Nov 2020 10:25:31 +0000
+Subject: Re: [linux-safety] [PATCH] taskstats: remove unneeded dead assignment
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Balbir Singh <bsingharora@gmail.com>
+Cc: Tom Rix <trix@redhat.com>, Nathan Chancellor <natechancellor@gmail.com>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
+ linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
+References: <20201106062210.27920-1-lukas.bulwahn@gmail.com>
+From: "Sudip Mukherjee" <sudip.mukherjee@codethink.co.uk>
+Message-ID: <6ab2415b-0642-16ee-4be0-c909e07e7565@codethink.co.uk>
+Date: Fri, 6 Nov 2020 10:25:30 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <20201106062210.27920-1-lukas.bulwahn@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+Hi Lukas,
 
-
-On Fri, 6 Nov 2020, Nathan Chancellor wrote:
-
-> On Fri, Nov 06, 2020 at 07:22:10AM +0100, Lukas Bulwahn wrote:
-> > make clang-analyzer on x86_64 defconfig caught my attention with:
-> > 
-> >   kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
-> >   [clang-analyzer-deadcode.DeadStores]
-> >           rc = 0;
-> >           ^
-> > 
-> > Commit d94a041519f3 ("taskstats: free skb, avoid returns in
-> > send_cpu_listeners") made send_cpu_listeners() not return a value and
-> > hence, the rc variable remained only to be used within the loop where
-> > it is always assigned before read and it does not need any other
-> > initialisation.
-> > 
-> > So, simply remove this unneeded dead initializing assignment.
-> > 
-> > As compilers will detect this unneeded assignment and optimize this anyway,
-> > the resulting object code is identical before and after this change.
-> > 
-> > No functional change. No change to object code.
-> > 
-> > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+On 06/11/2020 06:22, Lukas Bulwahn wrote:
+> make clang-analyzer on x86_64 defconfig caught my attention with:
 > 
-> Question below.
+>   kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
+>   [clang-analyzer-deadcode.DeadStores]
+>           rc = 0;
+>           ^
 > 
-> Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+> Commit d94a041519f3 ("taskstats: free skb, avoid returns in
+> send_cpu_listeners") made send_cpu_listeners() not return a value and
+> hence, the rc variable remained only to be used within the loop where
+> it is always assigned before read and it does not need any other
+> initialisation.
 > 
-> > ---
-> > applies cleanly on current master and next-20201105
-> > 
-> > Balbir, please pick this minor non-urgent clean-up patch.
-> > 
-> >  kernel/taskstats.c | 1 -
-> >  1 file changed, 1 deletion(-)
-> > 
-> > diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-> > index a2802b6ff4bb..bd18a7bf5276 100644
-> > --- a/kernel/taskstats.c
-> > +++ b/kernel/taskstats.c
-> > @@ -117,7 +117,6 @@ static void send_cpu_listeners(struct sk_buff *skb,
-> >  
-> >  	genlmsg_end(skb, reply);
-> >  
-> > -	rc = 0;
-> >  	down_read(&listeners->sem);
-> >  	list_for_each_entry(s, &listeners->list, list) {
-> 
-> Would it be worth moving the scope of rc into the for loop, now that it
-> is only used there? Looks like it used to be used in the main function
-> scope before commit 053c095a82cf ("netlink: make nlmsg_end() and
-> genlmsg_end() void") but if this is removed, it is only used to check
-> the return of genlmsg_unicast within the list_for_each_entry loop. Not
-> sure that buys us anything but I know you have done it in patches
-> before so I thought it was worth considering.
->
+> So, simply remove this unneeded dead initializing assignment.
 
-I thought about moving it into the local scope, but it is a purely 
-cosmetic matter. Compilers are smart enough to generate the same code no 
-matter where it is defined.
-So, I always look around in the same file to determine if there is some 
-kind of strong preference for very locally scoped variable definition or 
-if they are generally just all defined at the function entry.
+Might be better to remove 'rc' completely as it is only used for the if
+condition now.
 
-Depending on my gut feeling in which style the file has mainly been 
-written, I then go with the one or other option. In this case, I went 
-with just keeping the definition at the function entry.
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index a2802b6ff4bb..63541f1ae04a 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -113,11 +113,10 @@ static void send_cpu_listeners(struct sk_buff *skb,
+        struct listener *s, *tmp;
+        struct sk_buff *skb_next, *skb_cur = skb;
+        void *reply = genlmsg_data(genlhdr);
+-       int rc, delcount = 0;
++       int delcount = 0;
 
-There is really no strong rule, though, that I see serving as good 
-indicator.
+        genlmsg_end(skb, reply);
 
-Thanks for your review.
+-       rc = 0;
+        down_read(&listeners->sem);
+        list_for_each_entry(s, &listeners->list, list) {
+                skb_next = NULL;
+@@ -126,8 +125,8 @@ static void send_cpu_listeners(struct sk_buff *skb,
+                        if (!skb_next)
+                                break;
+                }
+-               rc = genlmsg_unicast(&init_net, skb_cur, s->pid);
+-               if (rc == -ECONNREFUSED) {
++               if (genlmsg_unicast(&init_net, skb_cur, s->pid) ==
++                   -ECONNREFUSED) {
+                        s->valid = 0;
+                        delcount++;
+                }
 
-Lukas
+
+
+
+-- 
+Regards
+Sudip
