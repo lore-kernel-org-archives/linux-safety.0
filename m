@@ -1,119 +1,152 @@
-Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com [209.85.208.65])
- by mx.groups.io with SMTP id smtpd.web10.10008.1604658710039853949
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
+ by mx.groups.io with SMTP id smtpd.web12.9925.1604659642861472953
  for <linux-safety@lists.elisa.tech>;
- Fri, 06 Nov 2020 02:31:50 -0800
+ Fri, 06 Nov 2020 02:47:23 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=lHdUzkWW;
- spf=pass (domain: gmail.com, ip: 209.85.208.65, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ed1-f65.google.com with SMTP id o20so754932eds.3
-        for <linux-safety@lists.elisa.tech>; Fri, 06 Nov 2020 02:31:49 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZOkhO3Ur;
+ spf=pass (domain: gmail.com, ip: 209.85.218.68, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-ej1-f68.google.com with SMTP id s25so1267563ejy.6
+        for <linux-safety@lists.elisa.tech>; Fri, 06 Nov 2020 02:47:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:date:to:cc:subject:in-reply-to:message-id:references
          :user-agent:mime-version;
-        bh=8N2IRuQnolyQXy5yxaGIniNO8dc/B+5yGSA8aD4EoDE=;
-        b=lHdUzkWWoaJfy2mGDpg1jn0up1rtpy2t99CMXBhJL1ybYmJ6qBiRonnd51l4uq9mYX
-         0JNsxZ7a2CRcRDyqEIIJyclvj5m25kmBT1VF3N4ombJSB5m7h7fItCOZWW7buXm1oikF
-         OGj1S/C1CYzDl2kGumLca52COUsUUNDUfu0SAEYvxipKbSQHhsemsHy2bSwfODyybUJm
-         RnA7VzNHGmVAXkVO1cIuP6MyyImmyVokABJP3JZckjPkImdX86UZgAMUmSvFW2S9MIYf
-         I/V9nm3O0T72AmTBG12TA7d5ot11IlFB/e2UCafPCIyelEq35U796axa6y/4C/zIahZ3
-         i11A==
+        bh=sS6LjFB1Hny842iCOSq0gSFHnnlXSZfE6BxMZzj8mek=;
+        b=ZOkhO3Uri73lGsBrJPKvQX8VfO8Y4OPTkk4naQG0B0lDGfmkvc+TcbWh8irWkItyZD
+         /wNP/VlswRYcgt1dxzWOOklcwF/wIc+XVz5HMZZ59bIvpa+nXXZR5/QrC45AfJLQkrS4
+         1uKyO4isqOEnbdePOQM5kdSAApfh7e7S6MDCjjl75noImrWi2rvs5YEn3hwLRDhyVhIQ
+         4O+kbMiTHt2CU0oQ4UMtWHKMuXXwCweQeylgQGOAyeqtpIWHS1dg9O6+VVeMmwLgoWzA
+         oIZJn3fmXaQtsv3wiCpJ5YGvw04WZp2NXHggqSE56JoV5Bk4SrMeO2sn+xzaN7Oa/MX+
+         FiaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:date:to:cc:subject:in-reply-to:message-id
          :references:user-agent:mime-version;
-        bh=8N2IRuQnolyQXy5yxaGIniNO8dc/B+5yGSA8aD4EoDE=;
-        b=fW2/A2RCqiNqzWLMga6xWcpSqhTOrRNWHyfmt3GrRaGoM9LsOGKBaw1zx1dWe2xLMc
-         VnOu+rBkWSwOfYxSG/9PRQYhdMv0L0j1Or829cvtw/xZPcu6t8Twyh06TygGekLABUBL
-         qS96KJj0mlq57iq5KgMLcc1A4423ZX1mBzRqkzuWMPJSDlt8la/MXKwM8vRQC/Y5TduG
-         pTUUUtBt510TVro2VfpqxPTq7sL67lgkFUFY4xUSq4UEhiIxo4ypGMML0VkiGnXB607V
-         v/HqC1vZzt/No3xwpFVnTuO0CPxs3y1W3USaKJfdNH9tCGGCa94PLH3Vts/26POxMkvg
-         67Jw==
-X-Gm-Message-State: AOAM531Gv22iXCcGLgptSjkhCjQTEbAopMeJkAWULbpheulix8F4U9x7
-	73xI7NXKsvhPeS1doLB3ECA=
-X-Google-Smtp-Source: ABdhPJyaxlIgpDc5iZtEuHYd7wHXieGcPotHQWuNpR/PKHxOBenTH9q0mDqniOxjNPY0Lfu5XaEisQ==
-X-Received: by 2002:aa7:cac2:: with SMTP id l2mr1277712edt.141.1604658708559;
-        Fri, 06 Nov 2020 02:31:48 -0800 (PST)
+        bh=sS6LjFB1Hny842iCOSq0gSFHnnlXSZfE6BxMZzj8mek=;
+        b=TZB3zIm343DhpBqvb7r95PkafeaUXUiRn1ZB4KbJG3TvKtROVXrdjuolafIlwH96Ys
+         74LjkGrIQLgy3CPpdwum9Hc7wlO2BWWUqJ5v+KSp3/viOzmuVoNrkmwgXU8r01iiNu7X
+         9gHyYwuYKhxZrwGmXC9keWpnomFSeMoH+lv/1wTWo7uZQEUR9migfs3vVoGFVW9chUKr
+         nDk1KITLlYf6uSYtCyQLyYwaRTDv9cYfudFC6qDcbx1K3XaoIzBbUpaY2GMOXr7nSWWF
+         8SifzD49U4Vx4y7lL1LrwiZdiVoIl2Orctp/bTOIUSUQLLEcbgz168ZfSTov6zlYgB3L
+         VCjA==
+X-Gm-Message-State: AOAM533kX+cv8qUpeOZRhk4Fp69Kshzx1AxHpVER/+2Fckgm2Xo3Qm9Y
+	EsMFVSlNVSllgUnlLuQu7qs=
+X-Google-Smtp-Source: ABdhPJzz26n2g8FhiIWfpK7A4HRHvPwzif7bm2XgrIEz3r+SKhwnURR9agiRHDAabN2fY9KHoMPhcQ==
+X-Received: by 2002:a17:906:748b:: with SMTP id e11mr1306240ejl.513.1604659641272;
+        Fri, 06 Nov 2020 02:47:21 -0800 (PST)
 Return-Path: <lukas.bulwahn@gmail.com>
 Received: from felia ([2001:16b8:2d20:9d00:e580:adb5:1ef:950d])
-        by smtp.gmail.com with ESMTPSA id h4sm696552edj.1.2020.11.06.02.31.47
+        by smtp.gmail.com with ESMTPSA id j4sm649195ejs.8.2020.11.06.02.47.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2020 02:31:47 -0800 (PST)
+        Fri, 06 Nov 2020 02:47:20 -0800 (PST)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
 X-Google-Original-From: Lukas Bulwahn <lukas@gmail.com>
-Date: Fri, 6 Nov 2020 11:31:46 +0100 (CET)
+Date: Fri, 6 Nov 2020 11:47:19 +0100 (CET)
 X-X-Sender: lukas@felia
-To: Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, 
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+cc: Nathan Chancellor <natechancellor@gmail.com>, 
     Balbir Singh <bsingharora@gmail.com>, Tom Rix <trix@redhat.com>, 
-    Nathan Chancellor <natechancellor@gmail.com>, 
     Nick Desaulniers <ndesaulniers@google.com>, 
     clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org, 
     linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
-Subject: Re: [linux-safety] [PATCH] taskstats: remove unneeded dead assignment
-In-Reply-To: <6ab2415b-0642-16ee-4be0-c909e07e7565@codethink.co.uk>
-Message-ID: <alpine.DEB.2.21.2011061126130.20338@felia>
-References: <20201106062210.27920-1-lukas.bulwahn@gmail.com> <6ab2415b-0642-16ee-4be0-c909e07e7565@codethink.co.uk>
+Subject: Re: [PATCH] taskstats: remove unneeded dead assignment
+In-Reply-To: <alpine.DEB.2.21.2011061113270.20338@felia>
+Message-ID: <alpine.DEB.2.21.2011061135510.20338@felia>
+References: <20201106062210.27920-1-lukas.bulwahn@gmail.com> <20201106095004.GA3269193@ubuntu-m3-large-x86> <alpine.DEB.2.21.2011061113270.20338@felia>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 
 
-On Fri, 6 Nov 2020, Sudip Mukherjee wrote:
+On Fri, 6 Nov 2020, Lukas Bulwahn wrote:
 
-> Hi Lukas,
 > 
-> On 06/11/2020 06:22, Lukas Bulwahn wrote:
-> > make clang-analyzer on x86_64 defconfig caught my attention with:
+> 
+> On Fri, 6 Nov 2020, Nathan Chancellor wrote:
+> 
+> > On Fri, Nov 06, 2020 at 07:22:10AM +0100, Lukas Bulwahn wrote:
+> > > make clang-analyzer on x86_64 defconfig caught my attention with:
+> > > 
+> > >   kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
+> > >   [clang-analyzer-deadcode.DeadStores]
+> > >           rc = 0;
+> > >           ^
+> > > 
+> > > Commit d94a041519f3 ("taskstats: free skb, avoid returns in
+> > > send_cpu_listeners") made send_cpu_listeners() not return a value and
+> > > hence, the rc variable remained only to be used within the loop where
+> > > it is always assigned before read and it does not need any other
+> > > initialisation.
+> > > 
+> > > So, simply remove this unneeded dead initializing assignment.
+> > > 
+> > > As compilers will detect this unneeded assignment and optimize this anyway,
+> > > the resulting object code is identical before and after this change.
+> > > 
+> > > No functional change. No change to object code.
+> > > 
+> > > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 > > 
-> >   kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
-> >   [clang-analyzer-deadcode.DeadStores]
-> >           rc = 0;
-> >           ^
+> > Question below.
 > > 
-> > Commit d94a041519f3 ("taskstats: free skb, avoid returns in
-> > send_cpu_listeners") made send_cpu_listeners() not return a value and
-> > hence, the rc variable remained only to be used within the loop where
-> > it is always assigned before read and it does not need any other
-> > initialisation.
+> > Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
 > > 
-> > So, simply remove this unneeded dead initializing assignment.
+> > > ---
+> > > applies cleanly on current master and next-20201105
+> > > 
+> > > Balbir, please pick this minor non-urgent clean-up patch.
+> > > 
+> > >  kernel/taskstats.c | 1 -
+> > >  1 file changed, 1 deletion(-)
+> > > 
+> > > diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+> > > index a2802b6ff4bb..bd18a7bf5276 100644
+> > > --- a/kernel/taskstats.c
+> > > +++ b/kernel/taskstats.c
+> > > @@ -117,7 +117,6 @@ static void send_cpu_listeners(struct sk_buff *skb,
+> > >  
+> > >  	genlmsg_end(skb, reply);
+> > >  
+> > > -	rc = 0;
+> > >  	down_read(&listeners->sem);
+> > >  	list_for_each_entry(s, &listeners->list, list) {
+> > 
+> > Would it be worth moving the scope of rc into the for loop, now that it
+> > is only used there? Looks like it used to be used in the main function
+> > scope before commit 053c095a82cf ("netlink: make nlmsg_end() and
+> > genlmsg_end() void") but if this is removed, it is only used to check
+> > the return of genlmsg_unicast within the list_for_each_entry loop. Not
+> > sure that buys us anything but I know you have done it in patches
+> > before so I thought it was worth considering.
+> >
 > 
-> Might be better to remove 'rc' completely as it is only used for the if
-> condition now.
+> I thought about moving it into the local scope, but it is a purely 
+> cosmetic matter. Compilers are smart enough to generate the same code no 
+> matter where it is defined.
+> So, I always look around in the same file to determine if there is some 
+> kind of strong preference for very locally scoped variable definition or 
+> if they are generally just all defined at the function entry.
 > 
-> diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-> index a2802b6ff4bb..63541f1ae04a 100644
-> --- a/kernel/taskstats.c
-> +++ b/kernel/taskstats.c
-> @@ -113,11 +113,10 @@ static void send_cpu_listeners(struct sk_buff *skb,
->         struct listener *s, *tmp;
->         struct sk_buff *skb_next, *skb_cur = skb;
->         void *reply = genlmsg_data(genlhdr);
-> -       int rc, delcount = 0;
-> +       int delcount = 0;
+> Depending on my gut feeling in which style the file has mainly been 
+> written, I then go with the one or other option. In this case, I went 
+> with just keeping the definition at the function entry.
 > 
->         genlmsg_end(skb, reply);
+> There is really no strong rule, though, that I see serving as good 
+> indicator.
 > 
-> -       rc = 0;
->         down_read(&listeners->sem);
->         list_for_each_entry(s, &listeners->list, list) {
->                 skb_next = NULL;
-> @@ -126,8 +125,8 @@ static void send_cpu_listeners(struct sk_buff *skb,
->                         if (!skb_next)
->                                 break;
->                 }
-> -               rc = genlmsg_unicast(&init_net, skb_cur, s->pid);
-> -               if (rc == -ECONNREFUSED) {
-> +               if (genlmsg_unicast(&init_net, skb_cur, s->pid) ==
-> +                   -ECONNREFUSED) {
+> Thanks for your review.
+>
 
-I thought about that as well; and I did not like that because of the ugly
-line break in this condition.
+More specifically, if I think rc should be only defined locally, I would 
+probably need to apply the same argument to skb_next in this function and 
+put that in local scope as well. That did not happen in the past, so I am 
+not going to change that now neither. Hence, the change stays minimal 
+invasive but and that is important: it makes clang-analyzer happy.
 
-I did not try but I bet (a beverage of your choice) that the object code
-remains the same also for your suggested patch. Try to disprove my claim 
-and possibly earn yourself a beverage when we meet...
+And a happy clang-analyzer will eventually point to real bugs :)
+
+There are a few examples of dead store warnings that in the end really 
+point to missing or wrong paths in some functions...
 
 Lukas
