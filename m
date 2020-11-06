@@ -1,63 +1,108 @@
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com [209.85.210.65])
- by mx.groups.io with SMTP id smtpd.web08.417.1604383898025034470
+Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com [209.85.222.194])
+ by mx.groups.io with SMTP id smtpd.web12.6960.1604634551493743593
  for <linux-safety@lists.elisa.tech>;
- Mon, 02 Nov 2020 22:11:38 -0800
+ Thu, 05 Nov 2020 19:49:11 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=AGsR20jX;
- spf=pass (domain: linaro.org, ip: 209.85.210.65, mailfrom: john.stultz@linaro.org)
-Received: by mail-ot1-f65.google.com with SMTP id l36so6985829ota.4
-        for <linux-safety@lists.elisa.tech>; Mon, 02 Nov 2020 22:11:37 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=fG4iOMhy;
+ spf=pass (domain: gmail.com, ip: 209.85.222.194, mailfrom: natechancellor@gmail.com)
+Received: by mail-qk1-f194.google.com with SMTP id r7so29944qkf.3
+        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 19:49:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=dUQECi2b2OmyDRScJrepUtAejD+g0Cf0SRxo1IXKJxY=;
-        b=AGsR20jXoMdzQ00xNiD1IByazVm3Bjl1NGCQe8DmtoViitMuOzzhNDj4356l6HRndU
-         ufR3hTueJY933LmLdYrDp/+7G4OrFkaq+aICNtNkYiU81Hlistf3a185hBRPZBl2qrLa
-         mGIysGc0x1l6nhMqd79AcDLH3YFYF8nkkWhYT0aBHEvcA/9cT+BWFJd85Z8Q7ZqI9Im+
-         4jnrw49j2InpIIHwzfjMTPqeYejLKOxS6BKTfgqsr2gxDZdRkBj5I2d2HtKm7NtcuqY0
-         PJE+EqBMSGrGq4i94va785QaD4H4c28JVorFUqDcArbglf8zJOWO04u7YD50eu2oWLnA
-         692Q==
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=0oV6zTD6LpNnhkp+52mi6F8NkFZ6auhC3pOPfDEuyUc=;
+        b=fG4iOMhyr9cocSQ20LTNCxxvAKTuWBVN19dLyiJ78lvLIXovaDI3ePjfr2NZCbP5k6
+         c6Q0fDft8snMx0gJMcFx3tIziwybETFm2dl5NmLga/xI4rvxBYhMJRSnFlw3VLs5NTsS
+         Etj+wgefTjFH+SaqG01qz7ZoK66TByB2k/ELHqZ8CvJ4M90d0MSQQGwsqhwHyP0Q6dL2
+         Tq6EVuK74i/MyExDbUycscfPB5cln1r2h9IBDMp9jFfmZUZyRprpqbRrHGqpTgk+Cljp
+         Y2luUT+bOQ29IkU6H++bv0/j6TnEwpFBDl41ZOfCkKVs+ieY+lbaNxIMJYp0s2NBgeJL
+         Eh0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=dUQECi2b2OmyDRScJrepUtAejD+g0Cf0SRxo1IXKJxY=;
-        b=qqNmCBLj061uYPqiJJ4ph9p7cldddpik3t2TG9fPvalgAOQjThN2COFRSpI5EEr2AO
-         zpnmMVEPLQJaA2LdHuUeRbKI/CjA2PO2NNL3yCy3Lt1gse58KG5oVV4u7GTMaq19eubL
-         NKgFT+Nxs0GwwkJtcoma/jSjGzVHIZ4Mx3gxN3Fl++kG5oNJb85pwNqd3Apif7JYA7uF
-         P7EFHqRcyPfYd4638MVi090fKNJ7kr4KGxQDp3RBCYEqKaLg3GKf3CfPWZhATUSCa83B
-         c+z8jhcz0gcWbrELJzAnRctWYubK8tQe+fwzogXuPIA0UfrJQUiT6ioIPv0RCpvy4UJ/
-         nhTA==
-X-Gm-Message-State: AOAM532k/HDg+wbSr+joUxlIrUszX4kwjJUoMpBD4/KoZscemw6CF21W
-	AHWRDDE1sknE4u85Irbq7OTkzEhLYM4pHOkBkC7RRg==
-X-Google-Smtp-Source: ABdhPJyauU4JLerz1H5+gLLJB3GH4BxZ3L8r2UynN2PUKLok0mhN5q3GnRNnc8QUueR3kZObrzxW7/MHby1sWLLv8ZY=
-X-Received: by 2002:a05:6830:1556:: with SMTP id l22mr5385725otp.102.1604383897321;
- Mon, 02 Nov 2020 22:11:37 -0800 (PST)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=0oV6zTD6LpNnhkp+52mi6F8NkFZ6auhC3pOPfDEuyUc=;
+        b=XxkzvODf0mMzaagMywgh0f+TvvGR9K8S3ycnp4krn1bh4VHxyQsEQAlViX9seHEsZj
+         vEvEJfHPCEXKA4u0Q5GueSDP4fqK1DtxBCpj/Xrk0xjgr7lSbpT3LMHP9cuOxTHluA/d
+         3YTFHB3cyUasvchw98kwp0mH30/dJ0qJ3Qm+hbXsbk2vCyhFyTF15zK178oLcnGUktXn
+         WIB4ym0zKgv0WVE3bWL7GzF2xOT8fDByG8NgrMLL1a/Yp4VBO2KHJ/jzyloStp9dzpuk
+         IwN0w0qoXmw6LHosY30ZBadgMOHLGHDllFCw67wy7k9nhBLgNizl9gewg3ZWCYKq1Jou
+         AodQ==
+X-Gm-Message-State: AOAM530/CipHUbFuoXo8ef0SJ8gYpW0rBLy5NHd+iJkHul7guCFgEXqv
+	DEIAKEFF21njukAYeOT5+4g=
+X-Google-Smtp-Source: ABdhPJwV0oKBetot7vcJ05DTzplrUKh7nudzJXyD7DhYY7l1sfliTEVHDDHjshfYM70xIQhGpn2paQ==
+X-Received: by 2002:a37:4796:: with SMTP id u144mr5356208qka.235.1604634550544;
+        Thu, 05 Nov 2020 19:49:10 -0800 (PST)
+Return-Path: <natechancellor@gmail.com>
+Received: from ubuntu-m3-large-x86 ([2604:1380:45f1:1d00::1])
+        by smtp.gmail.com with ESMTPSA id u2sm10411qtw.40.2020.11.05.19.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2020 19:49:09 -0800 (PST)
+Date: Thu, 5 Nov 2020 20:49:08 -0700
+From: Nathan Chancellor <natechancellor@gmail.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Cc: Petr Mladek <pmladek@suse.com>,
+	Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
+	kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
+Subject: Re: [PATCH] printk: remove unneeded dead-store assignment
+Message-ID: <20201106034908.GA2143960@ubuntu-m3-large-x86>
+References: <20201106034005.18822-1-lukas.bulwahn@gmail.com>
 MIME-Version: 1.0
-References: <20201026180026.3350-1-sudipm.mukherjee@gmail.com>
-In-Reply-To: <20201026180026.3350-1-sudipm.mukherjee@gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Mon, 2 Nov 2020 22:11:25 -0800
-Message-ID: <CALAqxLVzsQs6_G9DOTkaBsUa93-97c136mtx7WRPNjBFjfkyAA@mail.gmail.com>
-Subject: Re: [PATCH] misc: hisi_hikey_usb: use PTR_ERR_OR_ZERO
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	lkml <linux-kernel@vger.kernel.org>, linux-safety@lists.elisa.tech
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20201106034005.18822-1-lukas.bulwahn@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Oct 26, 2020 at 11:02 AM Sudip Mukherjee
-<sudipm.mukherjee@gmail.com> wrote:
->
-> Coccinelle suggested using PTR_ERR_OR_ZERO() and looking at the code,
-> we can use PTR_ERR_OR_ZERO() instead of checking IS_ERR() and then
-> doing 'return 0'.
->
-> Signed-off-by: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+On Fri, Nov 06, 2020 at 04:40:05AM +0100, Lukas Bulwahn wrote:
+> make clang-analyzer on x86_64 defconfig caught my attention with:
+> 
+>   kernel/printk/printk_ringbuffer.c:885:3: warning:
+>   Value stored to 'desc' is never read [clang-analyzer-deadcode.DeadStores]
+>                 desc = to_desc(desc_ring, head_id);
+>                 ^
+> 
+> Commit b6cf8b3f3312 ("printk: add lockless ringbuffer") introduced
+> desc_reserve() with this unneeded dead-store assignment.
+> 
+> As discussed with John Ogness privately, this is probably just some minor
+> left-over from previous iterations of the ringbuffer implementation. So,
+> simply remove this unneeded dead assignment to make clang-analyzer happy.
+> 
+> As compilers will detect this unneeded assignment and optimize this anyway,
+> the resulting object code is identical before and after this change.
+> 
+> No functional change. No change to object code.
+> 
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 
-Thanks for sending this!
+Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
 
-Acked-by: John Stultz <john.stultz@linaro.org>
-
-thanks
--john
+> ---
+> applies cleanly on current master and next-20201105
+> 
+> John, please ack.
+> Petr, please pick this minor non-urgent clean-up patch.
+> 
+>  kernel/printk/printk_ringbuffer.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
+> index 6b1525685277..74e25a1704f2 100644
+> --- a/kernel/printk/printk_ringbuffer.c
+> +++ b/kernel/printk/printk_ringbuffer.c
+> @@ -882,8 +882,6 @@ static bool desc_reserve(struct printk_ringbuffer *rb, unsigned long *id_out)
+>  	head_id = atomic_long_read(&desc_ring->head_id); /* LMM(desc_reserve:A) */
+>  
+>  	do {
+> -		desc = to_desc(desc_ring, head_id);
+> -
+>  		id = DESC_ID(head_id + 1);
+>  		id_prev_wrap = DESC_ID_PREV_WRAP(desc_ring, id);
+>  
+> -- 
+> 2.17.1
+> 
