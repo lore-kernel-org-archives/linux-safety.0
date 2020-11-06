@@ -1,63 +1,64 @@
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com [209.85.222.194])
- by mx.groups.io with SMTP id smtpd.web12.6960.1604634551493743593
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+ by mx.groups.io with SMTP id smtpd.web12.7630.1604639563483302712
  for <linux-safety@lists.elisa.tech>;
- Thu, 05 Nov 2020 19:49:11 -0800
+ Thu, 05 Nov 2020 21:12:43 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=fG4iOMhy;
- spf=pass (domain: gmail.com, ip: 209.85.222.194, mailfrom: natechancellor@gmail.com)
-Received: by mail-qk1-f194.google.com with SMTP id r7so29944qkf.3
-        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 19:49:11 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=gH4mN2yO;
+ spf=pass (domain: gmail.com, ip: 209.85.214.180, mailfrom: sergey.senozhatsky@gmail.com)
+Received: by mail-pl1-f180.google.com with SMTP id b12so128307plr.4
+        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 21:12:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=0oV6zTD6LpNnhkp+52mi6F8NkFZ6auhC3pOPfDEuyUc=;
-        b=fG4iOMhyr9cocSQ20LTNCxxvAKTuWBVN19dLyiJ78lvLIXovaDI3ePjfr2NZCbP5k6
-         c6Q0fDft8snMx0gJMcFx3tIziwybETFm2dl5NmLga/xI4rvxBYhMJRSnFlw3VLs5NTsS
-         Etj+wgefTjFH+SaqG01qz7ZoK66TByB2k/ELHqZ8CvJ4M90d0MSQQGwsqhwHyP0Q6dL2
-         Tq6EVuK74i/MyExDbUycscfPB5cln1r2h9IBDMp9jFfmZUZyRprpqbRrHGqpTgk+Cljp
-         Y2luUT+bOQ29IkU6H++bv0/j6TnEwpFBDl41ZOfCkKVs+ieY+lbaNxIMJYp0s2NBgeJL
-         Eh0w==
+        bh=qaz5JfSXEexVzd3vu4/X1zvrfhtSmuN9aWiTUHv9SJA=;
+        b=gH4mN2yOR56HxWAUwIJnrOftunZr9+x3k3rBsiRJpCEksBtaVdkAckIA/ShkL3YK2I
+         mkGL3Hy4IUaQz762pvnkx4KwUGB3BGF80qajcWfFjd3npfm501lmjQmXotnZ6fWWFPTv
+         HtGAsH4Nr6zqgcBut3cJLOkkA6HjcjzOeiBgQOQmGIkHpBIZk7SfvgFKzre4bD6er3ya
+         gXaAFbMsf1CME3CF83weO8ROcpeFuEPeflYeITDaZa9G75buQ0cI5aO6IItXmjHRFbEM
+         99PGhazX1x6zc9vZ5TEqTrOmrufIVnDJhwjCUGQym7gCog8MXh3QtEriERKx5ZABf9rB
+         HpBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=0oV6zTD6LpNnhkp+52mi6F8NkFZ6auhC3pOPfDEuyUc=;
-        b=XxkzvODf0mMzaagMywgh0f+TvvGR9K8S3ycnp4krn1bh4VHxyQsEQAlViX9seHEsZj
-         vEvEJfHPCEXKA4u0Q5GueSDP4fqK1DtxBCpj/Xrk0xjgr7lSbpT3LMHP9cuOxTHluA/d
-         3YTFHB3cyUasvchw98kwp0mH30/dJ0qJ3Qm+hbXsbk2vCyhFyTF15zK178oLcnGUktXn
-         WIB4ym0zKgv0WVE3bWL7GzF2xOT8fDByG8NgrMLL1a/Yp4VBO2KHJ/jzyloStp9dzpuk
-         IwN0w0qoXmw6LHosY30ZBadgMOHLGHDllFCw67wy7k9nhBLgNizl9gewg3ZWCYKq1Jou
-         AodQ==
-X-Gm-Message-State: AOAM530/CipHUbFuoXo8ef0SJ8gYpW0rBLy5NHd+iJkHul7guCFgEXqv
-	DEIAKEFF21njukAYeOT5+4g=
-X-Google-Smtp-Source: ABdhPJwV0oKBetot7vcJ05DTzplrUKh7nudzJXyD7DhYY7l1sfliTEVHDDHjshfYM70xIQhGpn2paQ==
-X-Received: by 2002:a37:4796:: with SMTP id u144mr5356208qka.235.1604634550544;
-        Thu, 05 Nov 2020 19:49:10 -0800 (PST)
-Return-Path: <natechancellor@gmail.com>
-Received: from ubuntu-m3-large-x86 ([2604:1380:45f1:1d00::1])
-        by smtp.gmail.com with ESMTPSA id u2sm10411qtw.40.2020.11.05.19.49.09
+        bh=qaz5JfSXEexVzd3vu4/X1zvrfhtSmuN9aWiTUHv9SJA=;
+        b=SBA7fSAhHoU9fyU1gTUaH8DUT3J0VOZBviXOqCRQh1+rPSKkYcNo8KNX/K6vOMU0IR
+         Ajt0UK7peRAPqXTOD6ZH1HYiI4Qo8sqNmxlq2WIgGQIY14w4dX/8Kk6yB+q+eJ2buRr2
+         BuOXRC8xE1eODFiP0K1H/2LAvK6ZNLurctlPBS9l8qG5UBYbk9EMSzDOcxXB8HiRWgz2
+         z0sf7xTJTIN238O6Yp3wAU9B+88nEn9pInWzjXk+4VQrkAK6H0+IPdLYnc9F4uICwg15
+         4aQpak+rtyUvhEnRVGwPqLu5YxiSpODa9QCS6rtSb3PruBz38dPcB4aEiAqSB/9toIhk
+         f+IQ==
+X-Gm-Message-State: AOAM531h6fiOj1M4qsFzug3BaGi2qNlNX7EIlCOkOdx9Tit5fiv81pju
+	awQQa176ND0h1OJQ+UDJHPs=
+X-Google-Smtp-Source: ABdhPJyn8OECd6Yk2g1TFuxtsKbYq4FLzAeVOngn/1xDW9/NSK6CjFcd/h0m9+vl0XlPDiPDXxLHrQ==
+X-Received: by 2002:a17:902:d698:b029:d6:b974:13c5 with SMTP id v24-20020a170902d698b02900d6b97413c5mr339670ply.13.1604639563004;
+        Thu, 05 Nov 2020 21:12:43 -0800 (PST)
+Return-Path: <sergey.senozhatsky@gmail.com>
+Received: from localhost ([2409:10:2e40:5100:6e29:95ff:fe2d:8f34])
+        by smtp.gmail.com with ESMTPSA id j184sm320461pfg.207.2020.11.05.21.12.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2020 19:49:09 -0800 (PST)
-Date: Thu, 5 Nov 2020 20:49:08 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
+        Thu, 05 Nov 2020 21:12:42 -0800 (PST)
+Date: Fri, 6 Nov 2020 14:12:40 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Cc: Petr Mladek <pmladek@suse.com>,
 	Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	John Ogness <john.ogness@linutronix.de>,
+	Nathan Chancellor <natechancellor@gmail.com>,
 	Nick Desaulniers <ndesaulniers@google.com>,
 	linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
 	kernel-janitors@vger.kernel.org, linux-safety@lists.elisa.tech
 Subject: Re: [PATCH] printk: remove unneeded dead-store assignment
-Message-ID: <20201106034908.GA2143960@ubuntu-m3-large-x86>
+Message-ID: <20201106051240.GC4718@jagdpanzerIV.localdomain>
 References: <20201106034005.18822-1-lukas.bulwahn@gmail.com>
 MIME-Version: 1.0
 In-Reply-To: <20201106034005.18822-1-lukas.bulwahn@gmail.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Nov 06, 2020 at 04:40:05AM +0100, Lukas Bulwahn wrote:
+On (20/11/06 04:40), Lukas Bulwahn wrote:
 > make clang-analyzer on x86_64 defconfig caught my attention with:
 > 
 >   kernel/printk/printk_ringbuffer.c:885:3: warning:
@@ -79,30 +80,6 @@ On Fri, Nov 06, 2020 at 04:40:05AM +0100, Lukas Bulwahn wrote:
 > 
 > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 
-Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+Reviewed-by: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
 
-> ---
-> applies cleanly on current master and next-20201105
-> 
-> John, please ack.
-> Petr, please pick this minor non-urgent clean-up patch.
-> 
->  kernel/printk/printk_ringbuffer.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
-> index 6b1525685277..74e25a1704f2 100644
-> --- a/kernel/printk/printk_ringbuffer.c
-> +++ b/kernel/printk/printk_ringbuffer.c
-> @@ -882,8 +882,6 @@ static bool desc_reserve(struct printk_ringbuffer *rb, unsigned long *id_out)
->  	head_id = atomic_long_read(&desc_ring->head_id); /* LMM(desc_reserve:A) */
->  
->  	do {
-> -		desc = to_desc(desc_ring, head_id);
-> -
->  		id = DESC_ID(head_id + 1);
->  		id_prev_wrap = DESC_ID_PREV_WRAP(desc_ring, id);
->  
-> -- 
-> 2.17.1
-> 
+	-ss
