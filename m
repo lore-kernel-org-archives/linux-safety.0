@@ -1,72 +1,71 @@
-Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com [209.85.218.67])
- by mx.groups.io with SMTP id smtpd.web09.7055.1604634020317183499
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
+ by mx.groups.io with SMTP id smtpd.web08.8104.1604643741506491196
  for <linux-safety@lists.elisa.tech>;
- Thu, 05 Nov 2020 19:40:20 -0800
+ Thu, 05 Nov 2020 22:22:21 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=G2sPbaKV;
- spf=pass (domain: gmail.com, ip: 209.85.218.67, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-ej1-f67.google.com with SMTP id k3so5698891ejj.10
-        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 19:40:20 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=eXFlA98X;
+ spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-wm1-f65.google.com with SMTP id c16so268862wmd.2
+        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 22:22:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=v31c+3qUzm/Jl9mhtRELjufMUcxhfj6Qpk0Egg0rkIc=;
-        b=G2sPbaKVWlctWWt9dQqnUUZ26kWvTx4lqpzkKvDn9D1DxhleQxkvLOaOHnbPnk3raT
-         Lk7PdtiqqtRFkDpPM2JXWduU85jDrg8SZreWZlATMqd6zdcLaz9YfcKnq7bEGGA+m9cX
-         8Oz+j9tVEk9imS/i1TzoJ0qXuejfUX/yDNMCKzUwGWr58yJWgUTUfe9hp5NueEa+RI+Y
-         6gaq/n+nbQqqV2c7zT3zd3ZZmmU9CYkeTmw9KfZYMsomje/mKrNiMdHr/4c3Kgl4RCWC
-         bzLptOP6jsqvjY2KAAtprDXXZqNIVxX7p8Mpl0josoGZXcroSDGO+j5lCF40P9Qmte1l
-         qniQ==
+        bh=s5ZmG5HziDA6IddsEwKpYTRZvML0z6aMnCT2nnV/iGw=;
+        b=eXFlA98XsP9bNmMIrUbtLEH8DNqvq47SPuGmJHCzfmWSp1fR1x2j++BW+WQOKtNHpy
+         +n08HtlcerjUblGu7gVJIEAE8snqfmrKwkHUBhVmckyOAifi9wl/MLGB+j8fZnAhKgft
+         AGf/TnfJECJbQhkZd5NaLUOE+dB2HmNcP1cXmptgfCEcvh2ESOWwr8viqYLL3qrflwQ4
+         ej9EnxUhE9BBa/UQrjg+TYA/zGHhHUF5z3raVSr5MypFVjkjv0/u1pitZf2oUcQxMax5
+         RehF139mRg36hUXiXbPwOZYby58Feh1Zu8IX5dkdNtsMdC9/SYNEfYpNKEiRcDbBCiqK
+         Sc3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=v31c+3qUzm/Jl9mhtRELjufMUcxhfj6Qpk0Egg0rkIc=;
-        b=Q3fB/19Nqxk/6Ri+R3yZSBeAjRYhfBAWxRJOwK2+o0FPVMLYXQlh/DQ+Tr7pAjw4rY
-         ybPZN5sT6ry+LlSK/2C2Gv2ktu9a9A89EqZJNm+HdqAMxqDRPIzT2cqkDd8qN9H/XKYy
-         zR3I8nKz2RwsRpVbHiN/cI+VuUUFMN1O8+Emw55l6vt+lAeXBCLbHw54fJAdhVIp5kdZ
-         L3SyR90v13sx77vCFNCtHgFTMz7kR7+5wb8xEmKQm/U+c9VsS6OyDhxXKYTQVyBnfEQz
-         oojCpkbpfeD48mIA88i8slSMoQP0WXTPtrSrZZZjFgmCWPoRKETdVvwNXOXLDaUPoIAS
-         m1Ww==
-X-Gm-Message-State: AOAM5338i8GKSg2sPz1rdsNSaH2cY/cj4TJFqHPXhBMbHJ9PwDuhDxaf
-	k31ls0FwRxl8qBFgP9omryU=
-X-Google-Smtp-Source: ABdhPJxdlgrDr75OUdeerY4h/FD+9Z7XvLQL8XO5mZ2NUVm/pGUpKmrXgCq2czkobGG4KNQiERvrOA==
-X-Received: by 2002:a17:906:6a57:: with SMTP id n23mr55277ejs.315.1604634018857;
-        Thu, 05 Nov 2020 19:40:18 -0800 (PST)
+        bh=s5ZmG5HziDA6IddsEwKpYTRZvML0z6aMnCT2nnV/iGw=;
+        b=WglSu+2ngTKl677c+Kk49QzJJaJi9E5aQbgperKVGzBItTvUL/wJZaocslJwf10fvU
+         cP/9q59FKkIQWstld5yIuCc0dN8YAe3dpeMBMNDikW5lSgBzTszRYChH1gfuQ0mmmstr
+         wyzZLTKpV38OI92r7QDHlPoAF2se/V1MTIaXE8elulMIp55UwcsPFHgZbxbHhKcQJqPQ
+         bLMJFs5+UGBwZSC2CQBiOIn/ink5/YH+yXQDWyHsVfPLbPcj75hLBnWLUaheJIdpBO6v
+         +Yt2Eckuaik2aOkc5CTO1zfNgUzuSrLMH8ZdIHtPAjmhkaKizbflZHIrG1AAb0wb4uzi
+         CoGw==
+X-Gm-Message-State: AOAM530r4oxtRbxkg5twM85izPjoIS6Fyq6o+ftiIsexbq7B18m6sCIe
+	rkCQnps2MUxbuK1u5sKgTaE=
+X-Google-Smtp-Source: ABdhPJw1kNpLxAin7EGLXZO9jr3KRSf4YMHdtk5JEmho3ZDLTxUMoNc/quG7fq3c5nak5We4cIg9ig==
+X-Received: by 2002:a1c:a503:: with SMTP id o3mr613462wme.21.1604643739995;
+        Thu, 05 Nov 2020 22:22:19 -0800 (PST)
 Return-Path: <lukas.bulwahn@gmail.com>
 Received: from felia.fritz.box ([2001:16b8:2d20:9d00:b87b:b644:61a3:6870])
-        by smtp.gmail.com with ESMTPSA id z23sm2103337ejb.4.2020.11.05.19.40.17
+        by smtp.gmail.com with ESMTPSA id h81sm612401wmf.44.2020.11.05.22.22.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2020 19:40:18 -0800 (PST)
+        Thu, 05 Nov 2020 22:22:19 -0800 (PST)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-To: Petr Mladek <pmladek@suse.com>,
-	Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>
-Cc: Nathan Chancellor <natechancellor@gmail.com>,
+To: Balbir Singh <bsingharora@gmail.com>
+Cc: Tom Rix <trix@redhat.com>,
+	Nathan Chancellor <natechancellor@gmail.com>,
 	Nick Desaulniers <ndesaulniers@google.com>,
-	linux-kernel@vger.kernel.org,
 	clang-built-linux@googlegroups.com,
 	kernel-janitors@vger.kernel.org,
 	linux-safety@lists.elisa.tech,
+	linux-kernel@vger.kernel.org,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] printk: remove unneeded dead-store assignment
-Date: Fri,  6 Nov 2020 04:40:05 +0100
-Message-Id: <20201106034005.18822-1-lukas.bulwahn@gmail.com>
+Subject: [PATCH] taskstats: remove unneeded dead assignment
+Date: Fri,  6 Nov 2020 07:22:10 +0100
+Message-Id: <20201106062210.27920-1-lukas.bulwahn@gmail.com>
 X-Mailer: git-send-email 2.17.1
 
 make clang-analyzer on x86_64 defconfig caught my attention with:
 
-  kernel/printk/printk_ringbuffer.c:885:3: warning:
-  Value stored to 'desc' is never read [clang-analyzer-deadcode.DeadStores]
-                desc = to_desc(desc_ring, head_id);
-                ^
+  kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
+  [clang-analyzer-deadcode.DeadStores]
+          rc = 0;
+          ^
 
-Commit b6cf8b3f3312 ("printk: add lockless ringbuffer") introduced
-desc_reserve() with this unneeded dead-store assignment.
+Commit d94a041519f3 ("taskstats: free skb, avoid returns in
+send_cpu_listeners") made send_cpu_listeners() not return a value and
+hence, the rc variable remained only to be used within the loop where
+it is always assigned before read and it does not need any other
+initialisation.
 
-As discussed with John Ogness privately, this is probably just some minor
-left-over from previous iterations of the ringbuffer implementation. So,
-simply remove this unneeded dead assignment to make clang-analyzer happy.
+So, simply remove this unneeded dead initializing assignment.
 
 As compilers will detect this unneeded assignment and optimize this anyway,
 the resulting object code is identical before and after this change.
@@ -77,24 +76,22 @@ Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 ---
 applies cleanly on current master and next-20201105
 
-John, please ack.
-Petr, please pick this minor non-urgent clean-up patch.
+Balbir, please pick this minor non-urgent clean-up patch.
 
- kernel/printk/printk_ringbuffer.c | 2 --
- 1 file changed, 2 deletions(-)
+ kernel/taskstats.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/kernel/printk/printk_ringbuffer.c b/kernel/printk/printk_ringbuffer.c
-index 6b1525685277..74e25a1704f2 100644
---- a/kernel/printk/printk_ringbuffer.c
-+++ b/kernel/printk/printk_ringbuffer.c
-@@ -882,8 +882,6 @@ static bool desc_reserve(struct printk_ringbuffer *rb, unsigned long *id_out)
- 	head_id = atomic_long_read(&desc_ring->head_id); /* LMM(desc_reserve:A) */
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index a2802b6ff4bb..bd18a7bf5276 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -117,7 +117,6 @@ static void send_cpu_listeners(struct sk_buff *skb,
  
- 	do {
--		desc = to_desc(desc_ring, head_id);
--
- 		id = DESC_ID(head_id + 1);
- 		id_prev_wrap = DESC_ID_PREV_WRAP(desc_ring, id);
+ 	genlmsg_end(skb, reply);
  
+-	rc = 0;
+ 	down_read(&listeners->sem);
+ 	list_for_each_entry(s, &listeners->list, list) {
+ 		skb_next = NULL;
 -- 
 2.17.1
