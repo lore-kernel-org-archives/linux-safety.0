@@ -1,44 +1,46 @@
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
- by mx.groups.io with SMTP id smtpd.web08.8104.1604643741506491196
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
+ by mx.groups.io with SMTP id smtpd.web10.9674.1604656115712737356
  for <linux-safety@lists.elisa.tech>;
- Thu, 05 Nov 2020 22:22:21 -0800
+ Fri, 06 Nov 2020 01:48:36 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=eXFlA98X;
- spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-wm1-f65.google.com with SMTP id c16so268862wmd.2
-        for <linux-safety@lists.elisa.tech>; Thu, 05 Nov 2020 22:22:21 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=eQ3+X40T;
+ spf=pass (domain: gmail.com, ip: 209.85.221.66, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-wr1-f66.google.com with SMTP id g12so616285wrp.10
+        for <linux-safety@lists.elisa.tech>; Fri, 06 Nov 2020 01:48:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id;
-        bh=s5ZmG5HziDA6IddsEwKpYTRZvML0z6aMnCT2nnV/iGw=;
-        b=eXFlA98XsP9bNmMIrUbtLEH8DNqvq47SPuGmJHCzfmWSp1fR1x2j++BW+WQOKtNHpy
-         +n08HtlcerjUblGu7gVJIEAE8snqfmrKwkHUBhVmckyOAifi9wl/MLGB+j8fZnAhKgft
-         AGf/TnfJECJbQhkZd5NaLUOE+dB2HmNcP1cXmptgfCEcvh2ESOWwr8viqYLL3qrflwQ4
-         ej9EnxUhE9BBa/UQrjg+TYA/zGHhHUF5z3raVSr5MypFVjkjv0/u1pitZf2oUcQxMax5
-         RehF139mRg36hUXiXbPwOZYby58Feh1Zu8IX5dkdNtsMdC9/SYNEfYpNKEiRcDbBCiqK
-         Sc3A==
+        bh=r7YyaJmRIWWPTEfEzl80MC6QW4rF6G5MsBiV1a8/Lpc=;
+        b=eQ3+X40TsWePgKwYfv6Y0LrGNy6Si6msdrfWqYRBp5WPTkG0hjNjGm66SiM9HqZ0nk
+         KF5HPV6RTb5+1fkntdj+itsd956wskElIvlUkBamTgKjpnplJ4Rk2Ib0ZBg32FcYylp+
+         Jfutwen3/Jo8hF5/Y7bL2j/tf2OT/5H9BfIE66I48QofEdVgCsdlHb6TyttKYBIJ9Jy5
+         cfSwiMiCX4I7W2zvParOK4si2/Z6C52EoVua/0aWfSgdb9cEX2/ug7fpydGdA+KKEM9J
+         R1r/ICUPEoh548L51HgsP7qB63gu7VwTtGnqrF2ukiNlWpoD3+spNOiV3Wf7kfih6Vuu
+         4CJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=s5ZmG5HziDA6IddsEwKpYTRZvML0z6aMnCT2nnV/iGw=;
-        b=WglSu+2ngTKl677c+Kk49QzJJaJi9E5aQbgperKVGzBItTvUL/wJZaocslJwf10fvU
-         cP/9q59FKkIQWstld5yIuCc0dN8YAe3dpeMBMNDikW5lSgBzTszRYChH1gfuQ0mmmstr
-         wyzZLTKpV38OI92r7QDHlPoAF2se/V1MTIaXE8elulMIp55UwcsPFHgZbxbHhKcQJqPQ
-         bLMJFs5+UGBwZSC2CQBiOIn/ink5/YH+yXQDWyHsVfPLbPcj75hLBnWLUaheJIdpBO6v
-         +Yt2Eckuaik2aOkc5CTO1zfNgUzuSrLMH8ZdIHtPAjmhkaKizbflZHIrG1AAb0wb4uzi
-         CoGw==
-X-Gm-Message-State: AOAM530r4oxtRbxkg5twM85izPjoIS6Fyq6o+ftiIsexbq7B18m6sCIe
-	rkCQnps2MUxbuK1u5sKgTaE=
-X-Google-Smtp-Source: ABdhPJw1kNpLxAin7EGLXZO9jr3KRSf4YMHdtk5JEmho3ZDLTxUMoNc/quG7fq3c5nak5We4cIg9ig==
-X-Received: by 2002:a1c:a503:: with SMTP id o3mr613462wme.21.1604643739995;
-        Thu, 05 Nov 2020 22:22:19 -0800 (PST)
+        bh=r7YyaJmRIWWPTEfEzl80MC6QW4rF6G5MsBiV1a8/Lpc=;
+        b=lcF66sVRKv5oD3wVXWTpR9ffcKukA57zLNXu7z1fIRYnLrEHtgE02G0PQ4eVed7lBm
+         XxDPXwyHrnab0z0EyXqkZeaANHVh7GNmSMn7FWxp9+jirbFzHzslhZYFyxyNIotP1tcS
+         ck9ViToEcCKLO+XNMzoEILZaITy9MO1XhA+wLfXu8GRrAa+Q+jzUx9q8+g0RLVEHrtSI
+         xWMoo/OWKqKeVTs940VmmehzOSbvcS1EByKGiwzroO5yLeKzdXZt10OHclMw39WkdV5P
+         PonB1LxTVpG/fn8c3A+IwyvkgzoQDwYGgQ+N+9TsZIQLihjwLAZomExbqZ1MFsfmYQId
+         mbhg==
+X-Gm-Message-State: AOAM530Q8EYNqAvlUHMvTbR2eYpnUuhKhuGPxSakBXW8MVQ5eV4E8zNn
+	7slvEY5XfoHsB7uA8iP93O0=
+X-Google-Smtp-Source: ABdhPJyVUzxwiL83Bw5+ELbmBhVqWaLCOIfOQ1w3aqx4YdGq1EfkW9niP4Pe3zgVc9WNFsu/OEZyqg==
+X-Received: by 2002:a5d:6681:: with SMTP id l1mr1705435wru.356.1604656114107;
+        Fri, 06 Nov 2020 01:48:34 -0800 (PST)
 Return-Path: <lukas.bulwahn@gmail.com>
 Received: from felia.fritz.box ([2001:16b8:2d20:9d00:b87b:b644:61a3:6870])
-        by smtp.gmail.com with ESMTPSA id h81sm612401wmf.44.2020.11.05.22.22.18
+        by smtp.gmail.com with ESMTPSA id c9sm1187446wrp.65.2020.11.06.01.48.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2020 22:22:19 -0800 (PST)
+        Fri, 06 Nov 2020 01:48:33 -0800 (PST)
 From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
-To: Balbir Singh <bsingharora@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	linux-clk@vger.kernel.org
 Cc: Tom Rix <trix@redhat.com>,
 	Nathan Chancellor <natechancellor@gmail.com>,
 	Nick Desaulniers <ndesaulniers@google.com>,
@@ -47,25 +49,25 @@ Cc: Tom Rix <trix@redhat.com>,
 	linux-safety@lists.elisa.tech,
 	linux-kernel@vger.kernel.org,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: [PATCH] taskstats: remove unneeded dead assignment
-Date: Fri,  6 Nov 2020 07:22:10 +0100
-Message-Id: <20201106062210.27920-1-lukas.bulwahn@gmail.com>
+Subject: [PATCH] clk: remove unneeded dead-store initialization
+Date: Fri,  6 Nov 2020 10:48:20 +0100
+Message-Id: <20201106094820.30167-1-lukas.bulwahn@gmail.com>
 X-Mailer: git-send-email 2.17.1
 
 make clang-analyzer on x86_64 defconfig caught my attention with:
 
-  kernel/taskstats.c:120:2: warning: Value stored to 'rc' is never read \
+  drivers/clk/clk.c:423:19:
+  warning: Value stored to 'parent' during its initialization is never read
   [clang-analyzer-deadcode.DeadStores]
-          rc = 0;
-          ^
+          struct clk_core *parent = ERR_PTR(-ENOENT);
+                           ^
 
-Commit d94a041519f3 ("taskstats: free skb, avoid returns in
-send_cpu_listeners") made send_cpu_listeners() not return a value and
-hence, the rc variable remained only to be used within the loop where
-it is always assigned before read and it does not need any other
-initialisation.
+Commit fc0c209c147f ("clk: Allow parents to be specified without string
+names") introduced clk_core_fill_parent_index() with this unneeded
+dead-store initialization.
 
-So, simply remove this unneeded dead initializing assignment.
+So, simply remove this unneeded dead-store initialization to make
+clang-analyzer happy.
 
 As compilers will detect this unneeded assignment and optimize this anyway,
 the resulting object code is identical before and after this change.
@@ -74,24 +76,25 @@ No functional change. No change to object code.
 
 Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 ---
-applies cleanly on current master and next-20201105
+applies cleanly on current master and next-20201106
 
-Balbir, please pick this minor non-urgent clean-up patch.
+Stephen, Michael, please pick this minor non-urgent clean-up patch.
 
- kernel/taskstats.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/clk/clk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-index a2802b6ff4bb..bd18a7bf5276 100644
---- a/kernel/taskstats.c
-+++ b/kernel/taskstats.c
-@@ -117,7 +117,6 @@ static void send_cpu_listeners(struct sk_buff *skb,
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index f83dac54ed85..ba35bf35bcd3 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -420,7 +420,7 @@ static struct clk_core *clk_core_get(struct clk_core *core, u8 p_index)
+ static void clk_core_fill_parent_index(struct clk_core *core, u8 index)
+ {
+ 	struct clk_parent_map *entry = &core->parents[index];
+-	struct clk_core *parent = ERR_PTR(-ENOENT);
++	struct clk_core *parent;
  
- 	genlmsg_end(skb, reply);
- 
--	rc = 0;
- 	down_read(&listeners->sem);
- 	list_for_each_entry(s, &listeners->list, list) {
- 		skb_next = NULL;
+ 	if (entry->hw) {
+ 		parent = entry->hw->core;
 -- 
 2.17.1
