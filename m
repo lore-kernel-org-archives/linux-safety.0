@@ -1,93 +1,105 @@
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com [209.85.222.196])
- by mx.groups.io with SMTP id smtpd.web12.21351.1604970499751587182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by mx.groups.io with SMTP id smtpd.web12.21564.1604971602879328029
  for <linux-safety@lists.elisa.tech>;
- Mon, 09 Nov 2020 17:08:19 -0800
+ Mon, 09 Nov 2020 17:26:43 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=pUdpifgo;
- spf=pass (domain: gmail.com, ip: 209.85.222.196, mailfrom: natechancellor@gmail.com)
-Received: by mail-qk1-f196.google.com with SMTP id r7so9987698qkf.3
-        for <linux-safety@lists.elisa.tech>; Mon, 09 Nov 2020 17:08:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=jfYrdTPKMZbK96SOWjVC+rX+6K1DHm/KzMlUaGqdCkw=;
-        b=pUdpifgoK3w/lahMuT6WcZmrX4aQ2ovlJSJoTrIARtJQbPBh83RGgcVvTlBrAsaUV5
-         u8Vk+QKxnbN7lKUsNHc4qJxvQq3P2iPRLc4GFr7foKh/io6u6OlPuBetXNzJdFMYUwcB
-         SUfer6LTAEtgrkjvorvT+2Vg5kW082G8yBNdg8M3c1EhYm3l8A1zBWbRBSIgaC0BvfS8
-         CG0Os63C5a0pOtHwc6FF2Gl6eS+0yecZPNb/a58bWNx7yj7+xunAZeUNGDFUXcgorjTV
-         lRlnHSxKw4LHtbs241np/7yGP77pdl7x305N2DAIcJaI+pyn2Fn3aTcRcPGH12u17m1m
-         d0YQ==
+ dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=a5cXAsAz;
+ spf=pass (domain: redhat.com, ip: 216.205.24.124, mailfrom: trix@redhat.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1604971602;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t05JtdUe9+ueKiWP7Cd0WcO5v2xombvbloOzDhjvSkg=;
+	b=a5cXAsAzZcCX5n0dE5L76oRC/nEsXkbQ1QPfRmQ2d7qjLx9/a91RlDyiorZ7oAH4kYj8vX
+	wRCjN0c7U5fDHoU6F8QtFoNmJtQVzJqf6/nzYOZzIOWRJT1I68ysPoY07mzoQR77m+iDEh
+	UOiIAW8hRwJASoWfVI5vCCGffOkbyLI=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-565-chCupInAO06vEZWh0O7FiA-1; Mon, 09 Nov 2020 20:26:40 -0500
+X-MC-Unique: chCupInAO06vEZWh0O7FiA-1
+Received: by mail-qt1-f199.google.com with SMTP id l67so6360344qte.6
+        for <linux-safety@lists.elisa.tech>; Mon, 09 Nov 2020 17:26:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=jfYrdTPKMZbK96SOWjVC+rX+6K1DHm/KzMlUaGqdCkw=;
-        b=b7bSnBU44S84t+hN1VsMB7aU1kFHCksE/oW/XfxYJgIsxLUwAPU1AAg+1hCWXkJEBh
-         ucNw5m67ev7O6/15ukIkNJEMVgIAExvrMH0IwvPih++FjL4K6yX9mDxwXEVHgNf5mzWj
-         SGex3VfdOzyC/r99JxyhTKstuwOl49+1f53hXNsjvB7D7Uq5lQDX+ejESh4h3byJOjuz
-         9qmQF6qlg507pUH9sDE0sFGFVdHggxqx3q4vkn1vooPv3r5YMiap2uGP43dqwFWn7BuJ
-         uVIZ5DnZ1Smk4Edeyy+DuhIky9KCe1Wxw+9hGq+3YWBYMkdZQO+NTqxhs05SKfFbQCcM
-         7m5g==
-X-Gm-Message-State: AOAM533t9Ud+6XS5NKlF0qednLNUtsU9z/Ybqqc4ljp6kZyHqH/rMV4P
-	3v/Wi7gYiSdHiPF9U1KY49A=
-X-Google-Smtp-Source: ABdhPJzJVAFILxIYtGbynUNUhQHwI2fH9uUHuUb1MdMFmdDbiekSZtZNli0tzavpO8qg98IXWDJc+A==
-X-Received: by 2002:a37:8c9:: with SMTP id 192mr7524631qki.428.1604970498896;
-        Mon, 09 Nov 2020 17:08:18 -0800 (PST)
-Return-Path: <natechancellor@gmail.com>
-Received: from ubuntu-m3-large-x86 ([2604:1380:45f1:1d00::1])
-        by smtp.gmail.com with ESMTPSA id k3sm6774156qtj.84.2020.11.09.17.08.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2020 17:08:18 -0800 (PST)
-Date: Mon, 9 Nov 2020 18:08:16 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Kees Cook <keescook@chromium.org>,
-	Iurii Zaikin <yzaikin@google.com>, linux-fsdevel@vger.kernel.org,
-	Tom Rix <trix@redhat.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
-	linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=t05JtdUe9+ueKiWP7Cd0WcO5v2xombvbloOzDhjvSkg=;
+        b=a5DJLos81Gmfsnx7vW3R+9hyFn+fjE7egC7xdzxw+vHriXU2CaaMeRKHFBYm1FKobH
+         GaXOC0eNYVa+Jc1C3JHtfYsFpxBang1ZI0HuFnfb/EeZ4FMRUv/DUn6yxjHtQwFnkMXP
+         +uKWTmPtXpXC2ndNk0oj9yVMXiHmm/gmNBijGD86z7eHVKqigOqupio0MjYg2FVsLHSB
+         VkwvU6Wmet8XYEANckR/lPvjeoxmGjdnwbB1j7P+mt/JWio2hjZGNOM2jaZCMbKUuqGD
+         hQpsErIiReYwMkH5accC2lrUuANO8z/+LbwsEC5c6UOglmjIEQvwmjBv8b3Zq2/yWWuK
+         /Oqg==
+X-Gm-Message-State: AOAM533zemCZwkdF+2xWPERJCU7edpTW3JaPaUFGvntJICSWyRBP+EPr
+	w5YtzIFX8HNAvBFNA5dHbq82HmnF7vlElmynVYkXt0hQFQa8cPVg0Y7BQ5cpga7rDF+ZSdbwnbF
+	yziH6uMdbiFnY9gplq7rGaTr4pg==
+X-Received: by 2002:a05:6214:12e8:: with SMTP id w8mr12148217qvv.16.1604971600056;
+        Mon, 09 Nov 2020 17:26:40 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyId0TiOzOqiFGE0H+bF95RmGtjd6vw5jTrtLt0Hd3sykGjZMSOHupvlqQGlMR7Zd+CbsLsbQ==
+X-Received: by 2002:a05:6214:12e8:: with SMTP id w8mr12148196qvv.16.1604971599811;
+        Mon, 09 Nov 2020 17:26:39 -0800 (PST)
+Return-Path: <trix@redhat.com>
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
+        by smtp.gmail.com with ESMTPSA id f56sm5363152qta.49.2020.11.09.17.26.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2020 17:26:39 -0800 (PST)
 Subject: Re: [PATCH] sysctl: move local variable in proc_do_large_bitmap() to proper scope
-Message-ID: <20201110010816.GA2018112@ubuntu-m3-large-x86>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Kees Cook <keescook@chromium.org>,
+ Iurii Zaikin <yzaikin@google.com>, linux-fsdevel@vger.kernel.org
+Cc: Nathan Chancellor <natechancellor@gmail.com>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
+ linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
 References: <20201109071107.22560-1-lukas.bulwahn@gmail.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <e0cf83dc-2978-70ce-aeb2-37873cc81c03@redhat.com>
+Date: Mon, 9 Nov 2020 17:26:37 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
 In-Reply-To: <20201109071107.22560-1-lukas.bulwahn@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Mon, Nov 09, 2020 at 08:11:07AM +0100, Lukas Bulwahn wrote:
+
+On 11/8/20 11:11 PM, Lukas Bulwahn wrote:
 > make clang-analyzer caught my attention with:
-> 
+>
 >   kernel/sysctl.c:1511:4: warning: Value stored to 'first' is never read \
 >   [clang-analyzer-deadcode.DeadStores]
 >                           first = 0;
 >                           ^
-> 
+>
 > Commit 9f977fb7ae9d ("sysctl: add proc_do_large_bitmap") introduced
 > proc_do_large_bitmap(), where the variable first is only effectively used
 > when write is false; when write is true, the variable first is only used in
 > a dead assignment.
-> 
+>
 > So, simply remove this dead assignment and put the variable in local scope.
-> 
+>
 > As compilers will detect this unneeded assignment and optimize this anyway,
 > the resulting object code is identical before and after this change.
-> 
+>
 > No functional change. No change to object code.
-> 
+>
 > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-
-Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
-
 > ---
 > applies cleanly on v5.10-rc3 and next-20201106
-> 
+>
 > Luis, Kees, Iurii, please pick this minor non-urgent clean-up patch.
-> 
+>
 >  kernel/sysctl.c | 3 +--
 >  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
+>
 > diff --git a/kernel/sysctl.c b/kernel/sysctl.c
 > index ce75c67572b9..cc274a431d91 100644
 > --- a/kernel/sysctl.c
@@ -111,9 +123,24 @@ Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
 >  	} else {
 >  		unsigned long bit_a, bit_b = 0;
 > +		bool first = 1;
+
+This looks fine, but while you are here how about setting, to match the type
+
+first = true
+
+And then only clearing first once
+
+if (!first)                                                                            
+  proc_put_char(&buffer, &left, ',');
+
+else
+
+  first = false
+
+Instead of at every loop iteraction
+
+Tom
+
 >  
 >  		while (left) {
 >  			bit_a = find_next_bit(bitmap, bitmap_len, bit_b);
-> -- 
-> 2.17.1
-> 
