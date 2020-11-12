@@ -1,146 +1,141 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by mx.groups.io with SMTP id smtpd.web12.21564.1604971602879328029
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
+ by mx.groups.io with SMTP id smtpd.web08.9546.1605208387051185002
  for <linux-safety@lists.elisa.tech>;
- Mon, 09 Nov 2020 17:26:43 -0800
+ Thu, 12 Nov 2020 11:13:07 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=a5cXAsAz;
- spf=pass (domain: redhat.com, ip: 216.205.24.124, mailfrom: trix@redhat.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604971602;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t05JtdUe9+ueKiWP7Cd0WcO5v2xombvbloOzDhjvSkg=;
-	b=a5cXAsAzZcCX5n0dE5L76oRC/nEsXkbQ1QPfRmQ2d7qjLx9/a91RlDyiorZ7oAH4kYj8vX
-	wRCjN0c7U5fDHoU6F8QtFoNmJtQVzJqf6/nzYOZzIOWRJT1I68ysPoY07mzoQR77m+iDEh
-	UOiIAW8hRwJASoWfVI5vCCGffOkbyLI=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-565-chCupInAO06vEZWh0O7FiA-1; Mon, 09 Nov 2020 20:26:40 -0500
-X-MC-Unique: chCupInAO06vEZWh0O7FiA-1
-Received: by mail-qt1-f199.google.com with SMTP id l67so6360344qte.6
-        for <linux-safety@lists.elisa.tech>; Mon, 09 Nov 2020 17:26:40 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=jVBu+ceL;
+ spf=pass (domain: gmail.com, ip: 209.85.128.65, mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-wm1-f65.google.com with SMTP id d142so6213219wmd.4
+        for <linux-safety@lists.elisa.tech>; Thu, 12 Nov 2020 11:13:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=pdSRw9mlDHitGPfQBRUv6P8lG2F84sSOXhcflYqXKJo=;
+        b=jVBu+ceL7qUj6u8/X7xubAJKNSY5DbZ2HfkQRBgCL4jTPNrpsiFEiEAvT0tRY7qeK6
+         mf6yNfh9nlT1CFl//UHXh1KCkjpuZfzIyaglUJ9+4xO22Wkk/myB5Fta9JH6OzvGHbOU
+         eWWQ25wqiwH/kYN8X1sbRbZsGS5qAfha++XnYzyED9rqyYe0pTS55PPnZEgUTR05kmXz
+         L2hCpOfrBaMw6Rg/zwikeUz1DrrAWGy7SHVFxf2V2SraMjdWu1C+Cmm/+MzzgvD7tQqP
+         k9OtkUTWl+VM+G0bsyKUvh4KiqY14AuDPrQm3HtYkYBPTd7uFj8RXe++f7/H70PArCCv
+         tCgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=t05JtdUe9+ueKiWP7Cd0WcO5v2xombvbloOzDhjvSkg=;
-        b=a5DJLos81Gmfsnx7vW3R+9hyFn+fjE7egC7xdzxw+vHriXU2CaaMeRKHFBYm1FKobH
-         GaXOC0eNYVa+Jc1C3JHtfYsFpxBang1ZI0HuFnfb/EeZ4FMRUv/DUn6yxjHtQwFnkMXP
-         +uKWTmPtXpXC2ndNk0oj9yVMXiHmm/gmNBijGD86z7eHVKqigOqupio0MjYg2FVsLHSB
-         VkwvU6Wmet8XYEANckR/lPvjeoxmGjdnwbB1j7P+mt/JWio2hjZGNOM2jaZCMbKUuqGD
-         hQpsErIiReYwMkH5accC2lrUuANO8z/+LbwsEC5c6UOglmjIEQvwmjBv8b3Zq2/yWWuK
-         /Oqg==
-X-Gm-Message-State: AOAM533zemCZwkdF+2xWPERJCU7edpTW3JaPaUFGvntJICSWyRBP+EPr
-	w5YtzIFX8HNAvBFNA5dHbq82HmnF7vlElmynVYkXt0hQFQa8cPVg0Y7BQ5cpga7rDF+ZSdbwnbF
-	yziH6uMdbiFnY9gplq7rGaTr4pg==
-X-Received: by 2002:a05:6214:12e8:: with SMTP id w8mr12148217qvv.16.1604971600056;
-        Mon, 09 Nov 2020 17:26:40 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyId0TiOzOqiFGE0H+bF95RmGtjd6vw5jTrtLt0Hd3sykGjZMSOHupvlqQGlMR7Zd+CbsLsbQ==
-X-Received: by 2002:a05:6214:12e8:: with SMTP id w8mr12148196qvv.16.1604971599811;
-        Mon, 09 Nov 2020 17:26:39 -0800 (PST)
-Return-Path: <trix@redhat.com>
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
-        by smtp.gmail.com with ESMTPSA id f56sm5363152qta.49.2020.11.09.17.26.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2020 17:26:39 -0800 (PST)
-Subject: Re: [PATCH] sysctl: move local variable in proc_do_large_bitmap() to proper scope
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Kees Cook <keescook@chromium.org>,
- Iurii Zaikin <yzaikin@google.com>, linux-fsdevel@vger.kernel.org
-Cc: Nathan Chancellor <natechancellor@gmail.com>,
- Nick Desaulniers <ndesaulniers@google.com>,
- clang-built-linux@googlegroups.com, kernel-janitors@vger.kernel.org,
- linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org
-References: <20201109071107.22560-1-lukas.bulwahn@gmail.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <e0cf83dc-2978-70ce-aeb2-37873cc81c03@redhat.com>
-Date: Mon, 9 Nov 2020 17:26:37 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20201109071107.22560-1-lukas.bulwahn@gmail.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=pdSRw9mlDHitGPfQBRUv6P8lG2F84sSOXhcflYqXKJo=;
+        b=DQ2Y5RM6yYXoRbxJ5O+fXYfNAWQ2acGe2Izm+4+No5qm7GldW8UkelGGRCFA2jXQId
+         xp9LvY1KhblJwVhYclJJUTj8fzIxUlM7HEmBZwhYShfCtf+uQFzv+R/qXtBqGWAMxHaF
+         Lj2WTtlupyUswvbh6bvUyv+ejN06/kSLFa+4a15IttaaQanRLSlwI09kw801tau+Ef0j
+         PuU5EarcHDaaXwjFsHKUbhbpaKztlHE5wY6jk165DEev/lWgkqDqnBJalalp42k4Yjbg
+         wbSvdayeHKTqa9bEhf7ljXGtfKS3pJCnCk7XBmAjfjo1GTmbCyNGYL0boLEmRmFJmJ3u
+         O3Aw==
+X-Gm-Message-State: AOAM532zHo8HU/h3hYu8bIjE16fa5rVrYOBYtZpXbYy9hY2RoaJRCzdf
+	Q9g0mQN3IMBQf4Acn0THDDQ=
+X-Google-Smtp-Source: ABdhPJzUNjkj5hW3jOV8Ulc6jJZ63ghMB8cNmQwlAyaNV3fB041ODIEjkkL9OKhKE9y1nzvTWuwP2g==
+X-Received: by 2002:a1c:b0c4:: with SMTP id z187mr1066051wme.113.1605208385297;
+        Thu, 12 Nov 2020 11:13:05 -0800 (PST)
+Return-Path: <lukas.bulwahn@gmail.com>
+Received: from felia.fritz.box ([2001:16b8:2d19:d300:649c:b988:4446:6d44])
+        by smtp.gmail.com with ESMTPSA id 30sm427118wrd.88.2020.11.12.11.13.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2020 11:13:04 -0800 (PST)
+From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net
+Cc: Tom Rix <trix@redhat.com>,
+	Nathan Chancellor <natechancellor@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	clang-built-linux@googlegroups.com,
+	kernel-janitors@vger.kernel.org,
+	linux-safety@lists.elisa.tech,
+	linux-kernel@vger.kernel.org,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH] USB: storage: avoid use of uninitialized values in error path
+Date: Thu, 12 Nov 2020 20:12:55 +0100
+Message-Id: <20201112191255.13372-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 
+When usb_stor_bulk_transfer_sglist() returns with USB_STOR_XFER_ERROR, it
+returns without writing to its parameter *act_len.
 
-On 11/8/20 11:11 PM, Lukas Bulwahn wrote:
-> make clang-analyzer caught my attention with:
->
->   kernel/sysctl.c:1511:4: warning: Value stored to 'first' is never read \
->   [clang-analyzer-deadcode.DeadStores]
->                           first = 0;
->                           ^
->
-> Commit 9f977fb7ae9d ("sysctl: add proc_do_large_bitmap") introduced
-> proc_do_large_bitmap(), where the variable first is only effectively used
-> when write is false; when write is true, the variable first is only used in
-> a dead assignment.
->
-> So, simply remove this dead assignment and put the variable in local scope.
->
-> As compilers will detect this unneeded assignment and optimize this anyway,
-> the resulting object code is identical before and after this change.
->
-> No functional change. No change to object code.
->
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> ---
-> applies cleanly on v5.10-rc3 and next-20201106
->
-> Luis, Kees, Iurii, please pick this minor non-urgent clean-up patch.
->
->  kernel/sysctl.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-> index ce75c67572b9..cc274a431d91 100644
-> --- a/kernel/sysctl.c
-> +++ b/kernel/sysctl.c
-> @@ -1423,7 +1423,6 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
->  			 void *buffer, size_t *lenp, loff_t *ppos)
->  {
->  	int err = 0;
-> -	bool first = 1;
->  	size_t left = *lenp;
->  	unsigned long bitmap_len = table->maxlen;
->  	unsigned long *bitmap = *(unsigned long **) table->data;
-> @@ -1508,12 +1507,12 @@ int proc_do_large_bitmap(struct ctl_table *table, int write,
->  			}
->  
->  			bitmap_set(tmp_bitmap, val_a, val_b - val_a + 1);
-> -			first = 0;
->  			proc_skip_char(&p, &left, '\n');
->  		}
->  		left += skipped;
->  	} else {
->  		unsigned long bit_a, bit_b = 0;
-> +		bool first = 1;
+Further, the two callers of usb_stor_bulk_transfer_sglist():
 
-This looks fine, but while you are here how about setting, to match the type
+    usb_stor_bulk_srb() and
+    usb_stor_bulk_transfer_sg(),
 
-first = true
+use the passed variable partial without checking the return value. Hence,
+the uninitialized value of partial is then used in the further execution
+of those two functions.
 
-And then only clearing first once
+Clang-analyzer detects this potential control and data flow and warns:
 
-if (!first)                                                                            
-  proc_put_char(&buffer, &left, ',');
+  drivers/usb/storage/transport.c:469:40:
+    warning: The right operand of '-' is a garbage value
+    [clang-analyzer-core.UndefinedBinaryOperatorResult]
+          scsi_set_resid(srb, scsi_bufflen(srb) - partial);
+                                                ^
 
-else
+  drivers/usb/storage/transport.c:495:15:
+    warning: Assigned value is garbage or undefined
+    [clang-analyzer-core.uninitialized.Assign]
+                  length_left -= partial;
+                              ^
 
-  first = false
+When a transfer error occurs, the *act_len value is probably ignored by the
+higher layers. But it won't hurt to set it to a valid number, just in case.
 
-Instead of at every loop iteraction
+For the two early-return paths in usb_stor_bulk_transfer_sglist(), the
+amount of data transferred is 0.  So if act_len is not NULL, set *act_len
+to 0 in those paths. That makes clang-analyzer happy.
 
-Tom
+Proposal was discussed in this mail thread:
 
->  
->  		while (left) {
->  			bit_a = find_next_bit(bitmap, bitmap_len, bit_b);
+Link: https://lore.kernel.org/linux-usb/alpine.DEB.2.21.2011112146110.13119@felia/
+
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+applies cleanly on current master and next-20201112
+
+I did some basic compile testing...
+
+Alan, Greg, please pick this minor non-urgent clean-up patch.
+
+ drivers/usb/storage/transport.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/storage/transport.c b/drivers/usb/storage/transport.c
+index 238a8088e17f..5eb895b19c55 100644
+--- a/drivers/usb/storage/transport.c
++++ b/drivers/usb/storage/transport.c
+@@ -416,7 +416,7 @@ static int usb_stor_bulk_transfer_sglist(struct us_data *us, unsigned int pipe,
+ 
+ 	/* don't submit s-g requests during abort processing */
+ 	if (test_bit(US_FLIDX_ABORTING, &us->dflags))
+-		return USB_STOR_XFER_ERROR;
++		goto usb_stor_xfer_error;
+ 
+ 	/* initialize the scatter-gather request block */
+ 	usb_stor_dbg(us, "xfer %u bytes, %d entries\n", length, num_sg);
+@@ -424,7 +424,7 @@ static int usb_stor_bulk_transfer_sglist(struct us_data *us, unsigned int pipe,
+ 			sg, num_sg, length, GFP_NOIO);
+ 	if (result) {
+ 		usb_stor_dbg(us, "usb_sg_init returned %d\n", result);
+-		return USB_STOR_XFER_ERROR;
++		goto usb_stor_xfer_error;
+ 	}
+ 
+ 	/*
+@@ -452,6 +452,11 @@ static int usb_stor_bulk_transfer_sglist(struct us_data *us, unsigned int pipe,
+ 		*act_len = us->current_sg.bytes;
+ 	return interpret_urb_result(us, pipe, length, result,
+ 			us->current_sg.bytes);
++
++usb_stor_xfer_error:
++	if (act_len)
++		*act_len = 0;
++	return USB_STOR_XFER_ERROR;
+ }
+ 
+ /*
+-- 
+2.17.1
