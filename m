@@ -1,131 +1,215 @@
-Return-Path: <SRS0=GvZH=EY=lists.elisa.tech=bounce+72012+179+5278000+9232812@kernel.org>
+Return-Path: <SRS0=UrcW=E2=lists.elisa.tech=bounce+72012+180+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	LOTS_OF_MONEY,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 228F9C63777
-	for <linux-safety@archiver.kernel.org>; Wed, 18 Nov 2020 15:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64A49C2D0E4
+	for <linux-safety@archiver.kernel.org>; Fri, 20 Nov 2020 17:31:40 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96F232474A
-	for <linux-safety@archiver.kernel.org>; Wed, 18 Nov 2020 15:16:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 94A3422264
+	for <linux-safety@archiver.kernel.org>; Fri, 20 Nov 2020 17:31:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=lists.elisa.tech header.i=@lists.elisa.tech header.b="fhGk/0PH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96F232474A
+	dkim=pass (1024-bit key) header.d=lists.elisa.tech header.i=@lists.elisa.tech header.b="VlmSy30b"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 94A3422264
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+179+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id zKZ5YY5279335xLu0rFG19OI; Wed, 18 Nov 2020 07:16:32 -0800
-X-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by mx.groups.io with SMTP id smtpd.web09.25487.1605712592432184645
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+180+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id IgTlYY5279335x3Mqmv5RSbr; Fri, 20 Nov 2020 09:31:38 -0800
+X-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by mx.groups.io with SMTP id smtpd.web09.679.1605893498107165932
  for <linux-safety@lists.elisa.tech>;
- Wed, 18 Nov 2020 07:16:32 -0800
-IronPort-SDR: TrzMG9VZL73VNRKirVcJG7GWgeZx9rUJSHQOjV6QB9h/PhGsl4vm+kc3bQuYhT3aazhvfuKhe8
- qH0KtSBkikvA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="170348326"
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; 
-   d="scan'208";a="170348326"
+ Fri, 20 Nov 2020 09:31:38 -0800
+IronPort-SDR: l6BxYh3lYmizK5/mS3KQ7+JFRUR2zAzkvSMsmPn6QfldlPkHXSKMd09le+B+1KBelr4QcAdCDX
+ 24EDZ1MhZ9AA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="235654961"
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; 
+   d="scan'208";a="235654961"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-X-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2020 07:16:07 -0800
-IronPort-SDR: Qdj1G/BZDfUwKBd9PGrja0yEPB2y5oIR8EVsEoULTfcS+ZmJWqFhPNXha2H4xpjI3mfdLEKQTK
- ha0EJCyBdLKQ==
-X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; 
-   d="scan'208";a="359492130"
-X-Received: from paolonig001.ir.intel.com ([163.33.183.93])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2020 07:16:05 -0800
+X-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2020 09:31:35 -0800
+IronPort-SDR: laVkgpYBrrbSF+dd9nT4/ruCDFuBdYQ3BLkrNywawk3o/aSSvh57EKAwCOrTsLZV/sdtKjJw70
+ HvHb8DjenAxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; 
+   d="scan'208";a="369236769"
+X-Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+  by FMSMGA003.fm.intel.com with ESMTP; 20 Nov 2020 09:31:35 -0800
+X-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Fri, 20 Nov 2020 09:31:35 -0800
+X-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Fri, 20 Nov 2020 09:31:34 -0800
+X-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Fri, 20 Nov 2020 09:31:34 -0800
+X-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.173)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Fri, 20 Nov 2020 09:31:34 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OYbUM+Rye9oLDZfSPgsceNQbZd7aQ5E/U/vmZ0kRmZbGUbK02A5esRxgmvtLIw2a6z2iv6X/tfGEb4raj7NkynfGoKuCC0+2EZ3AIBIMaeo3qif9VJMNEEgMyZZLMhL1xP1gU89EZPWO8OpeohOqbP3DwSURVoxNL87UsQl5uEqMuVGu+dAn2JZcn0J8FQi5OaspJflhE1N7hQqnHDAHpAtDQn1higwNxE04D0P7h5Y2SQE62jQ4FPeiDXdbTaVW+893MM57v3GHefK9Z3o+KKDl3h7kVIzvo1y3pw66BfeC8FswBfBZiIBTEW359H9UDifhY/IrmSGyNyQN7rRrDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gy8qHTDX7cfCbH9tHmS956pv+wqOm1GXtZbb7tDjvbQ=;
+ b=IVFFMZ9yBcFPNrZBd00V7jWNeGc9iCvfmCE3zTuQew+r6gpdeLBtxBCwwOGGl3pvO9ASdnYUdFWC7YK2zz2ZlTwCCKwfbODq6HLmBnFXeTu9X1C7yJi4GdAxlHrS/R3vH0R9yokd/aWSDEYVW2DO/XUOjyEtMqK4evAUhg4M7l3VGxgNAx3nzVwSBZNvL0wgasn6efCfs0TDn1B8pkjFpRNIqGbzzHDhgypfjCn22ScFdXr1QtVbSXbzzo1g2CFulmUl7pReQ2HnJ0tZi4JOdIU+bCULXSgcSoFhMx6eJwUT5EstfYim0Wd2pI4N1RnAu1jd7KE/2m9orZpBZO+ujw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+X-Received: from MN2PR11MB4158.namprd11.prod.outlook.com (2603:10b6:208:155::14)
+ by MN2PR11MB4517.namprd11.prod.outlook.com (2603:10b6:208:24e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Fri, 20 Nov
+ 2020 17:31:33 +0000
+X-Received: from MN2PR11MB4158.namprd11.prod.outlook.com
+ ([fe80::7c1f:8c42:4ed6:240e]) by MN2PR11MB4158.namprd11.prod.outlook.com
+ ([fe80::7c1f:8c42:4ed6:240e%3]) with mapi id 15.20.3589.025; Fri, 20 Nov 2020
+ 17:31:32 +0000
 From: "Paoloni, Gabriele" <gabriele.paoloni@intel.com>
-To: tony.luck@intel.com,
-	bp@alien8.de,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: gabriele.paoloni@intel.com,
-	linux-safety@lists.elisa.tech
-Subject: [linux-safety] [PATCH 4/4] x86/mce: remove redundant call to irq_work_queue()
-Date: Wed, 18 Nov 2020 15:15:52 +0000
-Message-Id: <20201118151552.1412-5-gabriele.paoloni@intel.com>
-In-Reply-To: <20201118151552.1412-1-gabriele.paoloni@intel.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: "Luck, Tony" <tony.luck@intel.com>, "tglx@linutronix.de"
+	<tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "x86@kernel.org"
+	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-safety@lists.elisa.tech" <linux-safety@lists.elisa.tech>
+Subject: Re: [linux-safety] [PATCH 1/4] x86/mce: do not overwrite no_way_out if mce_end() fails
+Thread-Topic: [PATCH 1/4] x86/mce: do not overwrite no_way_out if mce_end()
+ fails
+Thread-Index: AQHWvb2/GqMi8MuYvESX6RxO6efbtqnRQ8+AgAACm8A=
+Date: Fri, 20 Nov 2020 17:31:32 +0000
+Message-ID: <MN2PR11MB4158BE8B738CF6F6BF9B850D88FF0@MN2PR11MB4158.namprd11.prod.outlook.com>
 References: <20201118151552.1412-1-gabriele.paoloni@intel.com>
+ <20201118151552.1412-2-gabriele.paoloni@intel.com>
+ <20201120170737.GD712@zn.tnic>
+In-Reply-To: <20201120170737.GD712@zn.tnic>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-product: dlpe-windows
+dlp-version: 11.5.1.3
+x-originating-ip: [93.57.250.116]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: bf2c912d-baef-413f-541d-08d88d7a1fac
+x-ms-traffictypediagnostic: MN2PR11MB4517:
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR11MB451724750B5B86582AF06FEA88FF0@MN2PR11MB4517.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 9+d0ZbFJbZr3yWNkz+IyMLTa+F9qK1hUp8JNobfgQfz20lVAb3BvtD9dgwVOB5NJskkkNLARQ34+mypM4DB4ZJF1r9rJuadWL2X3nUG2xYvbxA8iFT7kTQnJ16+jwN+piBoC0P1yGRgjI5JiVOov+5ja1rkmq0YLFtxSyi+yrVB+TjN60wO7JxCCYF8yuf/4P7PeITxPZXFOFPmitrtO//1ixUDGW3RKJuds2FQH5ib6iopvXYRbNQVfrRttLXi34K5cfKsGKzXXFuSwOrPbZQmrD1GV5dTJSN7NL74yyGxM+kxhhcX43Ja9vZ4N718DSq+ibT+7ZM7w0LM9+ZQq+I3ETqHbpUb3z2xwQ3DSV0YXTF2IXUIV3yiG5dWIz27vBISqUeMqFY12nV8i1yjSKg==
+x-ms-exchange-antispam-messagedata: cxR5zQLKslTViQZXIPwNGshbj/i559ib6bvqvc45GGsfOL1S+2zwffXnWsEDvIKadHvFwDmOyVR9l15qkaX5auVEyly/lCzmKlJ5xuJNI2GJdJ+CEXHR7ehKou8loEPCFIJbK12vLuRBZn/uHTqtcrahP5O0EVL3LEzYP5NiG9vyWyS/lFYwvB/Qve15w93ZKl1oYlXbV+cnfCchc19YG9z4AM8L49Ditnwh87K+TuDLYQK7+5/jxCfNLHTsjcQkQxPKxpleDzMJ6+FMDD/P3qS4hppiOAlT5Co9HfryV9pS1aILVY9bHAKCHnMiVHI5HTeZ1UqPn73KvwXpzvlsoi6ZT0/dOiuY4SndOpUsJNvhCv73y+wmtJyRAz1VIMpE8SSKZ11G78xtLbx4c2ns7XX6Dy+tnPvUf5BzzGbqxoUyRT4qLrB2jb4UHSFLYciUnrO7IraItcUu0wLAOIKSl9rMIDVzyiudKFeF4vkNpfUMmfufsYRdrjBbZEx/kcTXTsAHl76wA5AK9JPclC+XDAzoe+15l7wuASWUlm3GOle3qb/ko12vBnPh/S2OUEnYuE1TGBp+YhodgI6NAVMrBE+6Mc6gP8pYOYQa4e9WlGldi7VN+vNmHT8l7tpzXWo+zicJE7tsSH0H4EDl2XmChmfbIcNB0Al7FNsPaulKLoot5jp5+TAhTO7KB8XxNH2fc/FF/HoJ3WjCaMvuHy0I0+RbqO9QkjqV7Bomb6GeBPzQDjBai+iuSqfvA9dYXyRN3jfKsBzmhEOxiAq1qFpc4FYFmIJ6pr73aaae3cFLW1YJLpfftc9KW9PGFc6n20h15r42OuQHbdkhJYjb7S9dP+bjXpK2/Vd84chqNhw+SUD7h8b5d3G5x/eGKotVknzKrYg0G/37dghU5fCtmbM3kw==
 MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR11MB4158.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf2c912d-baef-413f-541d-08d88d7a1fac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2020 17:31:32.8160
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lQB5hODJ+neXvYCPqjdmLQwWovo/cGp0utyCSICYdT+6Sg8DKNAjkyW65UfU1gzqZUbEbKcXAsEwvbG+p5z97EG6Sfs9DN1jSR5XphsEcUE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4517
+X-OriginatorOrg: intel.com
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
 Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: niYMD9jaD8n7x4WdAaMu5vcrx5278000AA=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Gm-Message-State: UWhiVcvYfuZiJ7gcjfwBC2ahx5278000AA=
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1605712592;
- bh=urMRSDDFuUq/ESLV4dtwlN4pczdbLZ4KzlBEmtVo32A=;
- h=Cc:Content-Type:Date:From:Subject:To;
- b=fhGk/0PHYTSoImX8Tx2ohjGcOc2YWTmZMd/NdnXQAPgqzd396zl4BXkTkUgc5Tn76cf
- I2gVusv/g8U9SgDLaBj1opU7gelodopVzoy7vRCD8tSuTr72te4Pb7mF6dvhKejP5baXQ
- EljgawccVmBaHqCDKn+mXXO6pTkd0bcsxR0=
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1605893498;
+ bh=5DpCRcnoL5uBIfThVNSWZ9p+EWsaQkZBpG7R4V+Sn0M=;
+ h=CC:Content-Type:Date:From:Subject:To;
+ b=VlmSy30bBLZYpMiI8MMjvUGSWpO6rxEcfd3QgqlffQ6y5vu3DgL63cwIgmzdPs7BL+q
+ DDO53FcSat1uSQSv9tFb1atHIz6i4mA2i7JGrrLmtB2wD9W61XuSpup2Rx49ZEc0up5l8
+ 6JIZOYWujfPgKkq8BHWGe15N69zYEJ9gAk8=
 
-Right now in do_machine_check() we have:
-__mc_scan_banks()->mce_log()->irq_work_queue(&mce_irq_work)
-
-hence the call of irq_work_queue() below after __mc_scan_banks()
-seems redundant. Just remove it.
-
-Signed-off-by: Gabriele Paoloni <gabriele.paoloni@intel.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
----
- arch/x86/kernel/cpu/mce/core.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index d16cbb05b09c..f2f7bfc60c67 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -1407,9 +1407,6 @@ noinstr void do_machine_check(struct pt_regs *regs)
- 		}
- 	}
- 
--	if (worst > 0)
--		irq_work_queue(&mce_irq_work);
--
- 	if (worst != MCE_AR_SEVERITY && !kill_it)
- 		goto out;
- 
--- 
-2.20.1
-
----------------------------------------------------------------------
-INTEL CORPORATION ITALIA S.p.A. con unico socio
-Sede: Milanofiori Palazzo E 4 
-CAP 20094 Assago (MI)
-Capitale Sociale Euro 104.000,00 interamente versato
-Partita I.V.A. e Codice Fiscale  04236760155
-Repertorio Economico Amministrativo n. 997124 
-Registro delle Imprese di Milano nr. 183983/5281/33
-Soggetta ad attivita' di direzione e coordinamento di 
-INTEL CORPORATION, USA
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
-
-
-
--=-=-=-=-=-=-=-=-=-=-=-
-Links: You receive all messages sent to this group.
-View/Reply Online (#179): https://lists.elisa.tech/g/linux-safety/message/179
-Mute This Topic: https://lists.elisa.tech/mt/78342513/5278000
-Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
-
-
+SGkgQm9yaXMNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBCb3Jpc2xh
+diBQZXRrb3YgPGJwQGFsaWVuOC5kZT4NCj4gU2VudDogRnJpZGF5LCBOb3ZlbWJlciAyMCwgMjAy
+MCA2OjA4IFBNDQo+IFRvOiBQYW9sb25pLCBHYWJyaWVsZSA8Z2FicmllbGUucGFvbG9uaUBpbnRl
+bC5jb20+DQo+IENjOiBMdWNrLCBUb255IDx0b255Lmx1Y2tAaW50ZWwuY29tPjsgdGdseEBsaW51
+dHJvbml4LmRlOw0KPiBtaW5nb0ByZWRoYXQuY29tOyB4ODZAa2VybmVsLm9yZzsgaHBhQHp5dG9y
+LmNvbTsgbGludXgtDQo+IGVkYWNAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5r
+ZXJuZWwub3JnOyBsaW51eC0NCj4gc2FmZXR5QGxpc3RzLmVsaXNhLnRlY2gNCj4gU3ViamVjdDog
+UmU6IFtQQVRDSCAxLzRdIHg4Ni9tY2U6IGRvIG5vdCBvdmVyd3JpdGUgbm9fd2F5X291dCBpZg0K
+PiBtY2VfZW5kKCkgZmFpbHMNCj4gDQo+IE9uIFdlZCwgTm92IDE4LCAyMDIwIGF0IDAzOjE1OjQ5
+UE0gKzAwMDAsIEdhYnJpZWxlIFBhb2xvbmkgd3JvdGU6DQo+ID4gQ3VycmVudGx5IGlmIG1jZV9l
+bmQoKSBmYWlscyBub193YXlfb3V0IGlzIHNldCBlcXVhbCB0byB3b3JzdC4NCj4gPiB3b3JzdCBp
+cyB0aGUgd29yc3Qgc2V2ZXJpcnR5IHRoYXQgd2FzIGZvdW5kIGluIHRoZSBNQ0EgYmFua3MNCj4g
+CQkgICAgIF5eXl5eXl5eXg0KPiANCj4gUGxlYXNlIGludHJvZHVjZSBhIHNwZWxsY2hlY2tlciBp
+bnRvIHlvdXIgcGF0Y2ggY3JlYXRpb24gd29ya2Zsb3cuDQo+IA0KPiA+IGFzc29jaWF0ZWQgdG8g
+dGhlIGN1cnJlbnQgQ1BVOyBob3dldmVyIGF0IHRoaXMgcG9pbnQgbm9fd2F5X291dA0KPiAJICAg
+ICBeDQo+IAkgICAgIHdpdGgNCj4gDQo+IA0KPiA+IGNvdWxkIGJlIGFscmVhZHkgc2V0IGJ5IG1j
+YV9zdGFydCgpIGJ5IGxvb2tpbmcgYXQgYWxsIHNldmVyaXRpZXMNCj4gDQo+IEkgdGhpbmsgeW91
+IG1lYW4gImNvdWxkIGhhdmUgYmVlbiBhbHJlYWR5IHNldCIgaGVyZQ0KPiANCj4gPiBvZiBhbGwg
+Q1BVcyB0aGF0IGVudGVyZWQgdGhlIE1DRSBoYW5kbGVyLg0KPiA+IGlmIG1jZV9lbmQoKSBmYWls
+cyB3ZSBmaXJzdCBjaGVjayBpZiBub193YXlfb3V0IGlzIGFscmVhZHkgc2V0IGFuZA0KPiANCj4g
+UGxlYXNlIHVzZSBwYXNzaXZlIHZvaWNlIGluIHlvdXIgY29tbWl0IG1lc3NhZ2U6IG5vICJ3ZSIg
+b3IgIkkiLCBldGMuDQo+IA0KPiBBbHNvLCBwbHMgc3RhcnQgbmV3IHNlbnRlbmNlcyB3aXRoIGEg
+Y2FwaXRhbCBsZXR0ZXIgYW5kIGVuZCB0aGVtIHdpdGggYQ0KPiBmdWxsc3RvcC4NCg0KU29ycnkg
+YWJvdXQgdGhlIGdyYW1tYXIgZXJyb3JzIGFib3ZlLCBJJ2xsIHBheSBtb3JlIGF0dGVudGlvbiBp
+biBmdXR1cmUNCg0KPiANCj4gPiBpZiBzbyB3ZSBzdGljayB0byBpdCwgb3RoZXJ3aXNlIHdlIHVz
+ZSB0aGUgbG9jYWwgd29yc3QgdmFsdWUNCj4gDQo+IFNvIGJhc2ljYWxseSB5b3UncmUgdHJ5aW5n
+IHRvIHNheSBoZXJlIHRoYXQgbm9fd2F5X291dCBtaWdodCBoYXZlIGJlZW4NCj4gYWxyZWFkeSBz
+ZXQgYW5kIG90aGVyIENQVXMgY291bGQgb3ZlcndyaXRlIGl0IGFuZCB0aGF0IHNob3VsZCBub3QN
+Cj4gaGFwcGVuLg0KPiANCj4gSXMgdGhhdCB3aGF0IHlvdSBtZWFuPw0KDQpJIG1lYW4gdGhhdCBv
+biB0aGlzIENQVSB0aHJlYWQgYXQgdGhpcyBwb2ludCBtY2Vfc3RhcnQoKSBhbHJlYWR5IGNhY2hl
+ZA0KZ2xvYmFsX253byBhbmQgaGVuY2UgY291bGQgYWNjdW11bGF0ZSBmYXRhbCBzZXZlcml0aWVz
+IG9mIG90aGVyIENQVXMuDQoNCk5vdyBoZXJlIGlmIG1jZV9lbmQoKSBmYWlscyB3ZSBvbmx5IGNv
+bnNpZGVyIHRoZSBsb2NhbCAnd29yc3QnIHNldmVyaXR5DQphbmQgd2Ugb3ZlcndyaXRlIHRob3Nl
+IGFscmVhZHkgY2FjaGVkLg0KDQo+IA0KPiA+IFNpZ25lZC1vZmYtYnk6IEdhYnJpZWxlIFBhb2xv
+bmkgPGdhYnJpZWxlLnBhb2xvbmlAaW50ZWwuY29tPg0KPiA+IFJldmlld2VkLWJ5OiBUb255IEx1
+Y2sgPHRvbnkubHVja0BpbnRlbC5jb20+DQo+ID4gLS0tDQo+ID4gIGFyY2gveDg2L2tlcm5lbC9j
+cHUvbWNlL2NvcmUuYyB8IDIgKy0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
+LCAxIGRlbGV0aW9uKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYva2VybmVsL2Nw
+dS9tY2UvY29yZS5jDQo+IGIvYXJjaC94ODYva2VybmVsL2NwdS9tY2UvY29yZS5jDQo+ID4gaW5k
+ZXggNDEwMmI4NjZlN2MwLi5iOTkwODkyYzY3NjYgMTAwNjQ0DQo+ID4gLS0tIGEvYXJjaC94ODYv
+a2VybmVsL2NwdS9tY2UvY29yZS5jDQo+ID4gKysrIGIvYXJjaC94ODYva2VybmVsL2NwdS9tY2Uv
+Y29yZS5jDQo+ID4gQEAgLTEzODUsNyArMTM4NSw3IEBAIG5vaW5zdHIgdm9pZCBkb19tYWNoaW5l
+X2NoZWNrKHN0cnVjdCBwdF9yZWdzDQo+ICpyZWdzKQ0KPiA+ICAJICovDQo+ID4gIAlpZiAoIWxt
+Y2UpIHsNCj4gPiAgCQlpZiAobWNlX2VuZChvcmRlcikgPCAwKQ0KPiA+IC0JCQlub193YXlfb3V0
+ID0gd29yc3QgPj0gTUNFX1BBTklDX1NFVkVSSVRZOw0KPiA+ICsJCQlub193YXlfb3V0ID0gbm9f
+d2F5X291dCA/IG5vX3dheV9vdXQgOiB3b3JzdCA+PQ0KPiBNQ0VfUEFOSUNfU0VWRVJJVFk7DQo+
+IA0KPiBJIGhhZCB0byBzdGFyZSBhdCB0aGlzIGEgYml0IHRvIGZpZ3VyZSBvdXQgd2hhdCB5b3Un
+cmUgZG9pbmcuIFNvIGhvdw0KPiBhYm91dCBzaW1wbGlmeWluZyB0aGlzOg0KPiANCj4gCQkJaWYg
+KCFub193YXlfb3V0KQ0KPiAJCQkJbm9fd2F5X291dCA9IHdvcnN0ID49DQoNClllcyB0aGF0IHdv
+cmtzIGFzIHdlbGwgaW1wcm92aW5nIHJlYWRhYmlsaXR5Lg0KDQpJZiBvayBJIHdpbGwgZml4IHRo
+ZSBncmFtbWFyIGFuZCByZXdyaXRlIHRoaXMgY29kZSBpbiB2Mi4NCg0KTWFueSBUaGFua3MNCkdh
+Yg0KDQo+IE1DRV9QQU5JQ19TRVZFUklUWTsNCj4gDQo+ID8NCj4gDQo+IFRoeC4NCj4gDQo+IC0t
+DQo+IFJlZ2FyZHMvR3J1c3MsDQo+ICAgICBCb3Jpcy4NCj4gDQo+IGh0dHBzOi8vcGVvcGxlLmtl
+cm5lbC5vcmcvdGdseC9ub3Rlcy1hYm91dC1uZXRpcXVldHRlDQotLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KSU5URUwg
+Q09SUE9SQVRJT04gSVRBTElBIFMucC5BLiBjb24gdW5pY28gc29jaW8KU2VkZTogTWlsYW5vZmlv
+cmkgUGFsYXp6byBFIDQgCkNBUCAyMDA5NCBBc3NhZ28gKE1JKQpDYXBpdGFsZSBTb2NpYWxlIEV1
+cm8gMTA0LjAwMCwwMCBpbnRlcmFtZW50ZSB2ZXJzYXRvClBhcnRpdGEgSS5WLkEuIGUgQ29kaWNl
+IEZpc2NhbGUgIDA0MjM2NzYwMTU1ClJlcGVydG9yaW8gRWNvbm9taWNvIEFtbWluaXN0cmF0aXZv
+IG4uIDk5NzEyNCAKUmVnaXN0cm8gZGVsbGUgSW1wcmVzZSBkaSBNaWxhbm8gbnIuIDE4Mzk4My81
+MjgxLzMzClNvZ2dldHRhIGFkIGF0dGl2aXRhJyBkaSBkaXJlemlvbmUgZSBjb29yZGluYW1lbnRv
+IGRpIApJTlRFTCBDT1JQT1JBVElPTiwgVVNBCgpUaGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1l
+bnRzIG1heSBjb250YWluIGNvbmZpZGVudGlhbCBtYXRlcmlhbCBmb3IKdGhlIHNvbGUgdXNlIG9m
+IHRoZSBpbnRlbmRlZCByZWNpcGllbnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0aW9uCmJ5
+IG90aGVycyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5k
+ZWQKcmVjaXBpZW50LCBwbGVhc2UgY29udGFjdCB0aGUgc2VuZGVyIGFuZCBkZWxldGUgYWxsIGNv
+cGllcy4KDQoKLT0tPS09LT0tPS09LT0tPS09LT0tPS0KTGlua3M6IFlvdSByZWNlaXZlIGFsbCBt
+ZXNzYWdlcyBzZW50IHRvIHRoaXMgZ3JvdXAuClZpZXcvUmVwbHkgT25saW5lICgjMTgwKTogaHR0
+cHM6Ly9saXN0cy5lbGlzYS50ZWNoL2cvbGludXgtc2FmZXR5L21lc3NhZ2UvMTgwCk11dGUgVGhp
+cyBUb3BpYzogaHR0cHM6Ly9saXN0cy5lbGlzYS50ZWNoL210Lzc4MzQyNTAxLzUyNzgwMDAKR3Jv
+dXAgT3duZXI6IGxpbnV4LXNhZmV0eStvd25lckBsaXN0cy5lbGlzYS50ZWNoClVuc3Vic2NyaWJl
+OiBodHRwczovL2xpc3RzLmVsaXNhLnRlY2gvZy9saW51eC1zYWZldHkvdW5zdWIgW2xpbnV4LXNh
+ZmV0eUBhcmNoaXZlci5rZXJuZWwub3JnXQotPS09LT0tPS09LT0tPS09LT0tPS09LQoKDQo=
