@@ -1,4 +1,4 @@
-Return-Path: <SRS0=4Jdw=E6=lists.elisa.tech=bounce+72012+203+5278000+9232812@kernel.org>
+Return-Path: <SRS0=/gpt=E6=lists.elisa.tech=bounce+72012+205+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -7,48 +7,49 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EBC0C2D0E4
-	for <linux-safety@archiver.kernel.org>; Tue, 24 Nov 2020 16:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 24407C63798
+	for <linux-safety@archiver.kernel.org>; Tue, 24 Nov 2020 17:02:05 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA3A520715
-	for <linux-safety@archiver.kernel.org>; Tue, 24 Nov 2020 16:37:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5069320857
+	for <linux-safety@archiver.kernel.org>; Tue, 24 Nov 2020 17:02:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=lists.elisa.tech header.i=@lists.elisa.tech header.b="Hi/Px/0+"
+	dkim=pass (1024-bit key) header.d=lists.elisa.tech header.i=@lists.elisa.tech header.b="pQ5WEwpc"
 Authentication-Results: mail.kernel.org; dmarc=permerror header.from=codethink.co.uk
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+203+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id DmaLYY5279335xtRNDnb9USp; Tue, 24 Nov 2020 08:37:17 -0800
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+205+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id w1KGYY5279335xxxoWMUdwtO; Tue, 24 Nov 2020 09:02:03 -0800
 X-Received: from ubuntu.localdomain (ubuntu.localdomain [2.127.6.98])
- by mx.groups.io with SMTP id smtpd.web12.54523.1606235836402974736
+ by mx.groups.io with SMTP id smtpd.web12.54933.1606237322862086857
  for <linux-safety@lists.elisa.tech>;
- Tue, 24 Nov 2020 08:37:16 -0800
+ Tue, 24 Nov 2020 09:02:03 -0800
 X-Received: by ubuntu.localdomain (Postfix, from userid 0)
-	id 6BF551612EC; Tue, 24 Nov 2020 16:37:14 +0000 (GMT)
+	id 58FB71612EC; Tue, 24 Nov 2020 17:02:01 +0000 (GMT)
 From: "Milan Lakhani" <milan.lakhani@codethink.co.uk>
 To: devel@driverdev.osuosl.org,
 	linux-kernel@vger.kernel.org,
-	linux-safety@lists.elisa.tech
+	linux-safety@lists.elisa.tech,
+	gregkh@linuxfoundation.org
 Cc: Milan Lakhani <milan.lakhani@codethink.co.uk>
 Subject: [linux-safety] [PATCH v2 2/2] staging: vt6655: Use macro in rxtx.c
-Date: Tue, 24 Nov 2020 16:37:13 +0000
-Message-Id: <1606235833-6077-2-git-send-email-milan.lakhani@codethink.co.uk>
-In-Reply-To: <1606235833-6077-1-git-send-email-milan.lakhani@codethink.co.uk>
-References: <1606235833-6077-1-git-send-email-milan.lakhani@codethink.co.uk>
+Date: Tue, 24 Nov 2020 17:01:56 +0000
+Message-Id: <1606237316-6247-2-git-send-email-milan.lakhani@codethink.co.uk>
+In-Reply-To: <1606237316-6247-1-git-send-email-milan.lakhani@codethink.co.uk>
+References: <1606237316-6247-1-git-send-email-milan.lakhani@codethink.co.uk>
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
 Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: hUIjgi6WKpWgCpvxK2FEWl40x5278000AA=
+X-Gm-Message-State: 2nbT7dmBhpLbHRy9DIuNZLoEx5278000AA=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1606235837;
- bh=jHcnEv9iIYowF2i9gcOAhz6TatRGXhujZsJu2MgilTY=;
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1606237323;
+ bh=SirMrmfiWj55PUkH4YGJeJWI1r1BTRq3GldGjMbQI24=;
  h=Cc:Date:From:Subject:To;
- b=Hi/Px/0+ABXfVkqxPLqbsSoPAtt9D9n0UO/pOIBdDT7SDJ9kbopATmauQDpiqi8ey5J
- mAUcPx6e2MAgrVDQoY9CVus8uvWA2T9szk2bPezgeXbpu/wgO53wIMnuGnfcBiXfmoeF1
- qWjm/aBZfBiM+4ll1sm1Dl1PAQdxlGSlKYU=
+ b=pQ5WEwpcPSKKXux/F1XZFAzJ7C+6CX2GmCQ+KbxVL6LV01UXDPtIyydXSwlq1JvZEl1
+ wJ7oZhU+SkNinVSST603sxqVM7VwmEI6QGtKrlxKzoKGiEpyeBgiiw8JUYIS4g2R7yzsR
+ TMhnhKbRB6wI/6gJGBK9Hhv4qEk0o9xlv70=
 
 Use macro for repeated function to get the data duration and timestamp,
 correcting line length and alignment warnings in rxtx.c. Reported by
@@ -164,8 +165,8 @@ index ff45206..5ce0362 100644
 
 -=-=-=-=-=-=-=-=-=-=-=-
 Links: You receive all messages sent to this group.
-View/Reply Online (#203): https://lists.elisa.tech/g/linux-safety/message/203
-Mute This Topic: https://lists.elisa.tech/mt/78480844/5278000
+View/Reply Online (#205): https://lists.elisa.tech/g/linux-safety/message/205
+Mute This Topic: https://lists.elisa.tech/mt/78481482/5278000
 Group Owner: linux-safety+owner@lists.elisa.tech
 Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
 -=-=-=-=-=-=-=-=-=-=-=-
