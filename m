@@ -1,132 +1,122 @@
-Return-Path: <SRS0=MihS=FT=lists.elisa.tech=bounce+72012+224+5278000+9232812@kernel.org>
+Return-Path: <SRS0=oL8a=FU=lists.elisa.tech=bounce+72012+225+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47349C4361B
-	for <linux-safety@archiver.kernel.org>; Tue, 15 Dec 2020 20:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74FEEC4361B
+	for <linux-safety@archiver.kernel.org>; Wed, 16 Dec 2020 16:16:09 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B47CC222BB
-	for <linux-safety@archiver.kernel.org>; Tue, 15 Dec 2020 20:42:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D36CE2335A
+	for <linux-safety@archiver.kernel.org>; Wed, 16 Dec 2020 16:16:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org; dmarc=permerror header.from=codethink.co.uk
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+224+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id 4IZ5YY5279335xxKXPHOVv9k; Tue, 15 Dec 2020 12:42:42 -0800
-X-Received: from ubuntu.localdomain (ubuntu.localdomain [5.68.98.115])
- by mx.groups.io with SMTP id smtpd.web11.2523.1608064961387446767
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+225+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id dRWiYY5279335xuD6mQNY5H6; Wed, 16 Dec 2020 08:16:08 -0800
+X-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk [78.40.148.184])
+ by mx.groups.io with SMTP id smtpd.web08.10627.1608135367537463854
  for <linux-safety@lists.elisa.tech>;
- Tue, 15 Dec 2020 12:42:42 -0800
-X-Received: by ubuntu.localdomain (Postfix, from userid 0)
-	id 03DAF160D80; Tue, 15 Dec 2020 20:42:39 +0000 (GMT)
+ Wed, 16 Dec 2020 08:16:07 -0800
+X-Received: from 05446273.skybroadband.com ([5.68.98.115] helo=[192.168.0.21])
+	by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+	id 1kpZTA-0001vA-Vz
+	for <linux-safety@lists.elisa.tech> ; Wed, 16 Dec 2020 16:16:05 +0000
+Subject: [linux-safety] E-mail addresses for kernel contributors to send patches to
 From: "Milan Lakhani" <milan.lakhani@codethink.co.uk>
-To: linux-kernel@vger.kernel.org,
-	linux-safety@lists.elisa.tech,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org,
-	lukas.bulwahn@gmail.com,
-	sudip.mukherjee@codethink.co.uk
-Cc: Milan Lakhani <milan.lakhani@codethink.co.uk>
-Subject: [linux-safety] [PATCH v2] Documentation: process: Correct numbering
-Date: Tue, 15 Dec 2020 20:42:36 +0000
-Message-Id: <1608064956-5512-1-git-send-email-milan.lakhani@codethink.co.uk>
+To: linux-safety@lists.elisa.tech
+References: <1608061835-5118-1-git-send-email-milan.lakhani@codethink.co.uk>
+ <20201215201639.cuq7xtyanbk6bxan@debian>
+ <3ab65bf4-6bb8-82a0-572b-cd44fefbaae7@codethink.co.uk>
+Message-ID: <05356dac-c547-e71c-7ec4-f474d5ad655e@codethink.co.uk>
+Date: Wed, 16 Dec 2020 16:16:04 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <3ab65bf4-6bb8-82a0-572b-cd44fefbaae7@codethink.co.uk>
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
 Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: x97nm99Bm0NGRfBcTtaLgRk3x5278000AA=
+X-Gm-Message-State: alBfUiv1WNcmAJo8yninNcK5x5278000AA=
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1608064962;
- bh=y+QE7paqO3AnPVcBG+hLrTKbSHxMr1xU3RYw+66+Zw8=;
- h=Cc:Date:From:Subject:To;
- b=iO7fa9R8eqeEX8KTg3C0F/DsmbsLwPdCoJtJuUgJKA5KziHb6ij/Chgra9wbyu4J9Ge
- 6/ubxIdjQUYQR+MrjOGMI+Kzcwm9WxPm3D+x6V/jk7zM+09SXni9/S78Xc9Z7btRUCOnR
- l7sp5g8HU8ojv7SYMLFoOFrLj6oQVqJvUbQ=
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1608135368;
+ bh=loTfymkDj4hjtgYB8vpNOkEZfSFfycOxlCY+MHR7VZI=;
+ h=Content-Type:Date:From:Subject:To;
+ b=tsIDLu8XsAJR0gVNGZbEV8HlyXZ7dJ3I3QHVT38lcTf+CN9qbKJjgalCoyR4lSZOLTw
+ fGXq7NfbyFA8hrbp4sYCi6zrB3j4QIbtiCOCVqtl+K5FNI1a/h3abD2TtU46PxnZuYaIq
+ Ve298LotNMZD/dXKEXWaJ91Bep2Ms5iByHQ=
 
-Renumber the steps in submit-checklist.rst as some numbers were skipped.
+Hi,
 
-Fixes: 72deb455b5ec ("block: remove CONFIG_LBDAF")
-Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
----
- Documentation/process/submit-checklist.rst | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+I made the below changes and sent the documentation patch version 2,
 
-diff --git a/Documentation/process/submit-checklist.rst b/Documentation/process/submit-checklist.rst
-index 1879f88..230ee42 100644
---- a/Documentation/process/submit-checklist.rst
-+++ b/Documentation/process/submit-checklist.rst
-@@ -75,44 +75,44 @@ and elsewhere regarding submitting Linux kernel patches.
- 13) Has been build- and runtime tested with and without ``CONFIG_SMP`` and
-     ``CONFIG_PREEMPT.``
- 
--16) All codepaths have been exercised with all lockdep features enabled.
-+14) All codepaths have been exercised with all lockdep features enabled.
- 
--17) All new ``/proc`` entries are documented under ``Documentation/``
-+15) All new ``/proc`` entries are documented under ``Documentation/``
- 
--18) All new kernel boot parameters are documented in
-+16) All new kernel boot parameters are documented in
-     ``Documentation/admin-guide/kernel-parameters.rst``.
- 
--19) All new module parameters are documented with ``MODULE_PARM_DESC()``
-+17) All new module parameters are documented with ``MODULE_PARM_DESC()``
- 
--20) All new userspace interfaces are documented in ``Documentation/ABI/``.
-+18) All new userspace interfaces are documented in ``Documentation/ABI/``.
-     See ``Documentation/ABI/README`` for more information.
-     Patches that change userspace interfaces should be CCed to
-     linux-api@vger.kernel.org.
- 
--21) Check that it all passes ``make headers_check``.
-+19) Check that it all passes ``make headers_check``.
- 
--22) Has been checked with injection of at least slab and page-allocation
-+20) Has been checked with injection of at least slab and page-allocation
-     failures.  See ``Documentation/fault-injection/``.
- 
-     If the new code is substantial, addition of subsystem-specific fault
-     injection might be appropriate.
- 
--23) Newly-added code has been compiled with ``gcc -W`` (use
-+21) Newly-added code has been compiled with ``gcc -W`` (use
-     ``make EXTRA_CFLAGS=-W``).  This will generate lots of noise, but is good
-     for finding bugs like "warning: comparison between signed and unsigned".
- 
--24) Tested after it has been merged into the -mm patchset to make sure
-+22) Tested after it has been merged into the -mm patchset to make sure
-     that it still works with all of the other queued patches and various
-     changes in the VM, VFS, and other subsystems.
- 
--25) All memory barriers {e.g., ``barrier()``, ``rmb()``, ``wmb()``} need a
-+23) All memory barriers {e.g., ``barrier()``, ``rmb()``, ``wmb()``} need a
-     comment in the source code that explains the logic of what they are doing
-     and why.
- 
--26) If any ioctl's are added by the patch, then also update
-+24) If any ioctl's are added by the patch, then also update
-     ``Documentation/userspace-api/ioctl/ioctl-number.rst``.
- 
--27) If your modified source code depends on or uses any of the kernel
-+25) If your modified source code depends on or uses any of the kernel
-     APIs or features that are related to the following ``Kconfig`` symbols,
-     then test multiple builds with the related ``Kconfig`` symbols disabled
-     and/or ``=m`` (if that option is available) [not all of these at the
--- 
-2.7.4
+In case there are any other new contributors wondering the best place to 
+send their kernel patches, I now send mine to:
 
+kernel@vger.kernel.org (Kernel mailing list)
+linux-safety@lists.elisa.tech (ELISA safety list)
+The maintainers (obtained by running 'git show HEAD | perl 
+scripts/get_maintainer.pl --separator , --nokeywords --nogit 
+--nogit-fallback --norolestats --nol' if the HEAD commit is the patch)
+
+For driver patches I'll also include devel@driverdev.osuosl.org and Greg 
+gregkh@linuxfoundation.org, while for a documentation patch I'll include 
+the linux-doc@vger.kernel.org list.
+
+Milan
+
+On 15/12/2020 20:32, Milan Lakhani wrote:
+> Hi Sudip,
+>
+> On 15/12/2020 20:16, Sudip Mukherjee wrote:
+>> Hi Milan,
+>>
+>> On Tue, Dec 15, 2020 at 07:50:35PM +0000, Milan Lakhani wrote:
+>>> Renumber the steps in submit-checklist.rst as some numbers were 
+>>> skipped.
+>>>
+>>> Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
+>> Maybe you can also add:
+>> Fixes: 72deb455b5ec ("block: remove CONFIG_LBDAF")
+> Will add this :)
+>>
+>> But I am confused about why you have added Greg and staging list instead
+>> of 'linux-doc@vger.kernel.org'.
+>
+> I was a bit unsure since the whole repository is called staging so I 
+> was thinking these different folders may use the same lists and didn't 
+> pay attention that the staging list had the word 'drivers', I'm clear 
+> on the different lists now though. I'll change the drivers list for 
+> the one you mention there.
+>
+> Thanks,
+> Milan
+>
+>>
+>> -- 
+>> Regards
+>> Sudip
+>>
+>>
+>> 
+>>
+>>
+>>
 
 
 -=-=-=-=-=-=-=-=-=-=-=-
 Links: You receive all messages sent to this group.
-View/Reply Online (#224): https://lists.elisa.tech/g/linux-safety/message/224
-Mute This Topic: https://lists.elisa.tech/mt/78985953/5278000
+View/Reply Online (#225): https://lists.elisa.tech/g/linux-safety/message/225
+Mute This Topic: https://lists.elisa.tech/mt/79004338/5278000
 Group Owner: linux-safety+owner@lists.elisa.tech
 Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
 -=-=-=-=-=-=-=-=-=-=-=-
