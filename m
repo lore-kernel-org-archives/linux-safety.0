@@ -1,92 +1,114 @@
-Return-Path: <SRS0=7Ozj=FU=lists.elisa.tech=bounce+72012+227+5278000+9232812@kernel.org>
+Return-Path: <SRS0=loxM=FZ=lists.elisa.tech=bounce+72012+228+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5885C4361B
-	for <linux-safety@archiver.kernel.org>; Wed, 16 Dec 2020 16:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C51D7C433DB
+	for <linux-safety@archiver.kernel.org>; Mon, 21 Dec 2020 17:54:18 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03B34233E2
-	for <linux-safety@archiver.kernel.org>; Wed, 16 Dec 2020 16:30:50 +0000 (UTC)
-Authentication-Results: mail.kernel.org; dmarc=permerror header.from=codethink.co.uk
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+227+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id 81RxYY5279335x24w0I1koci; Wed, 16 Dec 2020 08:30:50 -0800
-X-Received: from imap3.hz.codethink.co.uk (imap3.hz.codethink.co.uk [176.9.8.87])
- by mx.groups.io with SMTP id smtpd.web11.10747.1608136249984822109
+	by mail.kernel.org (Postfix) with ESMTPS id 257D822B51
+	for <linux-safety@archiver.kernel.org>; Mon, 21 Dec 2020 17:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 257D822B51
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lwn.net
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+228+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id NQUqYY5279335xqupjEWcRPh; Mon, 21 Dec 2020 09:54:17 -0800
+X-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by mx.groups.io with SMTP id smtpd.web12.2632.1608569532511383625
  for <linux-safety@lists.elisa.tech>;
- Wed, 16 Dec 2020 08:30:50 -0800
-X-Received: from host-92-5-250-55.as43234.net ([92.5.250.55] helo=[192.168.1.13])
-	by imap3.hz.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
-	id 1kpZhO-00018n-P0; Wed, 16 Dec 2020 16:30:46 +0000
-Subject: Re: [linux-safety] E-mail addresses for kernel contributors to send patches to
-To: Milan Lakhani <milan.lakhani@codethink.co.uk>,
- linux-safety@lists.elisa.tech
-References: <1608061835-5118-1-git-send-email-milan.lakhani@codethink.co.uk>
- <20201215201639.cuq7xtyanbk6bxan@debian>
- <3ab65bf4-6bb8-82a0-572b-cd44fefbaae7@codethink.co.uk>
- <05356dac-c547-e71c-7ec4-f474d5ad655e@codethink.co.uk>
-From: "Sudip Mukherjee" <sudip.mukherjee@codethink.co.uk>
-Message-ID: <43a21360-7869-fa66-9895-91f8d3118ca9@codethink.co.uk>
-Date: Wed, 16 Dec 2020 16:30:46 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.2
+ Mon, 21 Dec 2020 08:52:12 -0800
+X-Received: from lwn.net (localhost [127.0.0.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id E57DD559;
+	Mon, 21 Dec 2020 16:52:10 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net E57DD559
+Date: Mon, 21 Dec 2020 09:52:09 -0700
+From: Jonathan Corbet <corbet@lwn.net>
+To: Milan Lakhani <milan.lakhani@codethink.co.uk>
+Cc: linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
+ linux-doc@vger.kernel.org, lukas.bulwahn@gmail.com,
+ sudip.mukherjee@codethink.co.uk, Christoph Hellwig <hch@lst.de>
+Subject: Re: [linux-safety] [PATCH v2] Documentation: process: Correct numbering
+Message-ID: <20201221095209.4dd4233e@lwn.net>
+In-Reply-To: <1608064956-5512-1-git-send-email-milan.lakhani@codethink.co.uk>
+References: <1608064956-5512-1-git-send-email-milan.lakhani@codethink.co.uk>
+Organization: LWN.net
 MIME-Version: 1.0
-In-Reply-To: <05356dac-c547-e71c-7ec4-f474d5ad655e@codethink.co.uk>
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
 Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: asdxQQIAFT0DCzocEOlib5CXx5278000AA=
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Gm-Message-State: vO4G8fcTQugEMRubM1fR9qxpx5278000AA=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1608136250;
- bh=Vxw8rbwnD3IpQrAJDS3/4wrF1yaUEdVuV5fLHGE2z90=;
- h=Content-Type:Date:From:Subject:To;
- b=jZxu9eaATdgm9AkzEMDu1ch9xXeiq+hR/BcVEt6MOgdLrApxxxF9u24rt+Eo1qZCjvq
- MzoG2FmnbGRf/s3zJ1vU36uFvADioB7ZzpEpX1iCnUhtIGCBy8wzQUe0BoKsTjLGpgjPy
- ADGx1vYGyF0abmLt3pNoHSHKFZ9wusIkEz4=
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1608573257;
+ bh=gusw7rUXf4ojQBGYTixr9ONcOOdkQknMGKGlgmId5E8=;
+ h=Cc:Content-Type:Date:From:Subject:To;
+ b=stNDF3/UtXGLnRyPghAnkChiS7fSUXxvq7eGUF2dAWVHUjpKa06fM8gkJECVmq4nLgY
+ W6ARcstNpwdkK/jAXLK5nYDA8p5qfZYci5vJ7QDRDHgtZyKHCYbw+yN75Euyx3RxVVYNZ
+ SMmC096xsTr5Wj1w/nB/xvJBNEKI3iHvvNw=
 
-Hi Milan,
+On Tue, 15 Dec 2020 20:42:36 +0000
+Milan Lakhani <milan.lakhani@codethink.co.uk> wrote:
 
-On 16/12/2020 16:16, Milan Lakhani wrote:
-> Hi,
-> 
-> I made the below changes and sent the documentation patch version 2,
-> 
+> Renumber the steps in submit-checklist.rst as some numbers were skipped.
+>=20
+> Fixes: 72deb455b5ec ("block: remove CONFIG_LBDAF")
+> Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
+> ---
+>  Documentation/process/submit-checklist.rst | 24 ++++++++++++-----------=
+-
+>  1 file changed, 12 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/Documentation/process/submit-checklist.rst b/Documentation/=
+process/submit-checklist.rst
+> index 1879f88..230ee42 100644
+> --- a/Documentation/process/submit-checklist.rst
+> +++ b/Documentation/process/submit-checklist.rst
+> @@ -75,44 +75,44 @@ and elsewhere regarding submitting Linux kernel patc=
+hes.
+>  13) Has been build- and runtime tested with and without ``CONFIG_SMP`` =
+and
+>      ``CONFIG_PREEMPT.``
+>  
+> -16) All codepaths have been exercised with all lockdep features enabled=
+.
+> +14) All codepaths have been exercised with all lockdep features enabled=
+.
+>  
+> -17) All new ``/proc`` entries are documented under ``Documentation/``
+> +15) All new ``/proc`` entries are documented under ``Documentation/``
+[...]
 
-<snip>
+I've applied this, but, if you're going to stick a "Fixes" tag onto a
+patch, it's probably only polite to copy the original author.  I'm not
+fully convinced that the tag is warranted in this case.
 
-> 
-> For driver patches I'll also include devel@driverdev.osuosl.org and Greg
-> gregkh@linuxfoundation.org, while for a documentation patch I'll include
-> the linux-doc@vger.kernel.org list.
+This document seems out of date in a number of ways; it could really use a
+rather more thorough updating than this.
 
-Not for all the drivers. Like any patch to drivers in
-'drivers/watchdog/' does not need GregKH or devel@driverdev.osuosl.org.
+Thanks,
 
-
-
--- 
-Regards
-Sudip
+jon
 
 
--=-=-=-=-=-=-=-=-=-=-=-
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 Links: You receive all messages sent to this group.
-View/Reply Online (#227): https://lists.elisa.tech/g/linux-safety/message/227
-Mute This Topic: https://lists.elisa.tech/mt/79004338/5278000
+View/Reply Online (#228): https://lists.elisa.tech/g/linux-safety/message/=
+228
+Mute This Topic: https://lists.elisa.tech/mt/78985953/5278000
 Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@a=
+rchiver.kernel.org]
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 
 
