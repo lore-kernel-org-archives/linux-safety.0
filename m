@@ -1,44 +1,45 @@
-Return-Path: <SRS0=6AKr=GX=lists.elisa.tech=bounce+72012+233+5278000+9232812@kernel.org>
+Return-Path: <SRS0=q5WX=GX=lists.elisa.tech=bounce+72012+234+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.4 required=3.0 tests=BAYES_00,DATE_IN_PAST_24_48,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B7EAC433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46C1EC433DB
 	for <linux-safety@archiver.kernel.org>; Wed, 20 Jan 2021 00:21:17 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9A60622573
+	by mail.kernel.org (Postfix) with ESMTPS id CA67822C9E
 	for <linux-safety@archiver.kernel.org>; Wed, 20 Jan 2021 00:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A60622573
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA67822C9E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lwn.net
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+233+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id A7LFYY5279335xT9fcaTF9tN; Tue, 19 Jan 2021 16:21:16 -0800
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+234+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id WOeiYY5279335xmNvoVm0gFV; Tue, 19 Jan 2021 16:21:16 -0800
 X-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
- by mx.groups.io with SMTP id smtpd.web08.1497.1611001572689116403
+ by mx.groups.io with SMTP id smtpd.web09.20983.1611101829189401121
  for <linux-safety@lists.elisa.tech>;
- Mon, 18 Jan 2021 12:26:12 -0800
-X-Received: from lwn.net (unknown [IPv6:2601:281:8300:104d::5f6])
+ Tue, 19 Jan 2021 16:17:09 -0800
+X-Received: from localhost (unknown [IPv6:2601:281:8300:104d::5f6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 65E372AE;
-	Mon, 18 Jan 2021 20:26:08 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 65E372AE
-Date: Mon, 18 Jan 2021 13:26:07 -0700
+	by ms.lwn.net (Postfix) with ESMTPSA id 1BFAA52BF;
+	Wed, 20 Jan 2021 00:01:03 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 1BFAA52BF
 From: Jonathan Corbet <corbet@lwn.net>
-To: Milan Lakhani <milan.lakhani@codethink.co.uk>
-Cc: lukas.bulwahn@gmail.com, sudip.mukherjee@codethink.co.uk,
- linux-kernel@vger.kernel.org, linux-safety@lists.elisa.tech,
- linux-doc@vger.kernel.org, hch@lst.de
-Subject: Re: [linux-safety] [PATCH] docs: Remove make headers_check from checklist
-Message-ID: <20210118132607.78d3c2d3@lwn.net>
-In-Reply-To: <1610458861-2832-1-git-send-email-milan.lakhani@codethink.co.uk>
-References: <1610458861-2832-1-git-send-email-milan.lakhani@codethink.co.uk>
-Organization: LWN.net
+To: Milan Lakhani <milan.lakhani@codethink.co.uk>, lukas.bulwahn@gmail.com,
+ sudip.mukherjee@codethink.co.uk, linux-safety@lists.elisa.tech,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ harryxiyou@gmail.com, alex.shi@linux.alibaba.com
+Cc: Milan Lakhani <milan.lakhani@codethink.co.uk>, Rob Herring
+ <robh@kernel.org>
+Subject: Re: [linux-safety] [PATCH] docs: Change reference that was to removed file
+In-Reply-To: <1611051980-3834-1-git-send-email-milan.lakhani@codethink.co.uk>
+References: <1611051980-3834-1-git-send-email-milan.lakhani@codethink.co.uk>
+Date: Tue, 19 Jan 2021 17:01:02 -0700
+Message-ID: <87y2gopjcx.fsf@meer.lwn.net>
 MIME-Version: 1.0
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
@@ -46,41 +47,59 @@ Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: N2nkigIphzGGaXup7gQQKHpFx5278000AA=
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+X-Gm-Message-State: j2gHdp7ipHxr0l5x2EYrkjAKx5278000AA=
+Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=lists.elisa.tech; q=dns/txt; s=20140610; t=1611102076;
- bh=AtfCqKtWJ+N/xI2EvqLH5sXLNN/igzYr62GXd8DAcJM=;
+ bh=ko4c6e/GGcIUhAW+8nlB3b8lm8H02eGbHUlesapfFpE=;
  h=Cc:Content-Type:Date:From:Subject:To;
- b=SNNk8wdpaJp7/q73fuaCKfpByiP1Ubwu51FWwuzas1EhBSVubrSJ7NnjqQlPlmAH6iI
- GmSk7jyi0kHw0lfkPjgK/xayqomVbgU3HgXXnwWke3sg6SLHlv2xJzG4Qua/NUQ7etLYP
- agg/j5ufb/vHUdUOsOoZkC2mJBgx9NbSiOo=
+ b=ns8CPMBqElNJWMxYYtb7wEoAgkq4RwiSTDmo7pvkaUbSn/BvpDvXtHxkV6itxuEe4bH
+ 5eZuMMyFvIHEQN8tzpnktk+8RrBRMgwPnaEtW9DVa8ma+aS468bwuL7pXPBc+wPMAkOPC
+ 1mGbCFTwQiAKMmq+SwHPn1LhJrCqC7stcZE=
 
-On Tue, 12 Jan 2021 13:41:01 +0000
-Milan Lakhani <milan.lakhani@codethink.co.uk> wrote:
+Milan Lakhani <milan.lakhani@codethink.co.uk> writes:
 
-> Remove the make headers_check step from submit-checklist.rst as this is
-> no longer functional.
->=20
+[CC += Rob]
+
+> There were two references to
+> Documentation/devicetree/booting-without-of.rst for dtb format
+> information. This file has been removed, so I have changed the links to
+> Documentation/devicetree/usage-model.rst for this information, which
+> itself points to https://elinux.org/Device_Tree_Usage for an overview of
+> the device tree data format.
+>
 > Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
 > ---
->  Documentation/process/submit-checklist.rst | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
+>  Documentation/arm/booting.rst                | 2 +-
+>  Documentation/translations/zh_CN/arm/Booting | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/arm/booting.rst b/Documentation/arm/booting.rst
+> index a226345..5392d01 100644
+> --- a/Documentation/arm/booting.rst
+> +++ b/Documentation/arm/booting.rst
+> @@ -128,7 +128,7 @@ it.  The recommended placement is in the first 16KiB of RAM.
+>  
+>  The boot loader must load a device tree image (dtb) into system ram
+>  at a 64bit aligned address and initialize it with the boot data.  The
+> -dtb format is documented in Documentation/devicetree/booting-without-of.rst.
+> +dtb format is documented in Documentation/devicetree/usage-model.rst.
 
-Applied, thanks.
+Except that ... usage-model.rst doesn't actually document the DTB
+format.  Perhaps we should instead substitute a link that does what's
+promised here?
+
+Thanks,
 
 jon
 
 
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+-=-=-=-=-=-=-=-=-=-=-=-
 Links: You receive all messages sent to this group.
-View/Reply Online (#233): https://lists.elisa.tech/g/linux-safety/message/=
-233
-Mute This Topic: https://lists.elisa.tech/mt/79623000/5278000
+View/Reply Online (#234): https://lists.elisa.tech/g/linux-safety/message/234
+Mute This Topic: https://lists.elisa.tech/mt/79948363/5278000
 Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@a=
-rchiver.kernel.org]
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
+-=-=-=-=-=-=-=-=-=-=-=-
 
 
