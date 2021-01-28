@@ -1,123 +1,94 @@
-Return-Path: <SRS0=K3oi=GX=lists.elisa.tech=bounce+72012+237+5278000+9232812@kernel.org>
+Return-Path: <SRS0=Vc+3=G7=lists.elisa.tech=bounce+72012+238+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E25D9C433E0
-	for <linux-safety@archiver.kernel.org>; Wed, 20 Jan 2021 14:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3408C433DB
+	for <linux-safety@archiver.kernel.org>; Thu, 28 Jan 2021 22:58:09 +0000 (UTC)
 Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2A1E52336E
-	for <linux-safety@archiver.kernel.org>; Wed, 20 Jan 2021 14:46:16 +0000 (UTC)
-Authentication-Results: mail.kernel.org; dmarc=permerror header.from=codethink.co.uk
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+237+5278000+9232812@lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id xzAhYY5279335xUYgLvLM4Z2; Wed, 20 Jan 2021 06:46:16 -0800
-X-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk [78.40.148.184])
- by mx.groups.io with SMTP id smtpd.web11.28552.1611153975603260843
+	by mail.kernel.org (Postfix) with ESMTPS id E3B0C64D9E
+	for <linux-safety@archiver.kernel.org>; Thu, 28 Jan 2021 22:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3B0C64D9E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lwn.net
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=bounce+72012+238+5278000+9232812@lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id 4HUEYY5279335xqRrluJzRG0; Thu, 28 Jan 2021 14:58:08 -0800
+X-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by mx.groups.io with SMTP id smtpd.web12.1416.1611873822868903266
  for <linux-safety@lists.elisa.tech>;
- Wed, 20 Jan 2021 06:46:16 -0800
-X-Received: from [90.222.153.26] (helo=[192.168.0.21])
-	by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
-	id 1l2EkJ-0007l1-NJ; Wed, 20 Jan 2021 14:46:07 +0000
-Subject: Re: [linux-safety] [PATCH] docs: Change reference that was to removed file
-To: Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: Lukas Bulwahn <lukas.bulwahn@gmail.com>, sudip.mukherjee@codethink.co.uk,
- linux-safety@lists.elisa.tech,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Harry Wei <harryxiyou@gmail.com>, Alex Shi <alex.shi@linux.alibaba.com>
-References: <1611051980-3834-1-git-send-email-milan.lakhani@codethink.co.uk>
- <87y2gopjcx.fsf@meer.lwn.net>
- <CAL_Jsq+YW2K8YoLes8EAUy1WrFRzpYvtzvErOYbhw3zvZBoddQ@mail.gmail.com>
-From: "Milan Lakhani" <milan.lakhani@codethink.co.uk>
-Message-ID: <e8534aeb-3fbb-ef40-4c50-aa306fada4d3@codethink.co.uk>
-Date: Wed, 20 Jan 2021 14:46:07 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 28 Jan 2021 14:43:43 -0800
+X-Received: from lwn.net (unknown [IPv6:2601:281:8300:104d::5f6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 087F16178;
+	Thu, 28 Jan 2021 22:43:41 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 087F16178
+Date: Thu, 28 Jan 2021 15:43:40 -0700
+From: Jonathan Corbet <corbet@lwn.net>
+To: Milan Lakhani <milan.lakhani@codethink.co.uk>
+Cc: lukas.bulwahn@gmail.com, sudip.mukherjee@codethink.co.uk,
+ linux-safety@lists.elisa.tech, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, harryxiyou@gmail.com,
+ alex.shi@linux.alibaba.com, robh@kernel.org
+Subject: Re: [linux-safety] [PATCH] docs: Update DTB format references
+Message-ID: <20210128154340.2b10a06f@lwn.net>
+In-Reply-To: <1611149511-4990-1-git-send-email-milan.lakhani@codethink.co.uk>
+References: <1611149511-4990-1-git-send-email-milan.lakhani@codethink.co.uk>
+Organization: LWN.net
 MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+YW2K8YoLes8EAUy1WrFRzpYvtzvErOYbhw3zvZBoddQ@mail.gmail.com>
 Precedence: Bulk
 List-Unsubscribe: <https://lists.elisa.tech/g/linux-safety/unsub>
 Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
 Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
 List-Post: <mailto:linux-safety@lists.elisa.tech>
-X-Gm-Message-State: Ym3QMBhT3KTLSr0WYVy1s4IFx5278000AA=
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+X-Gm-Message-State: 0pxKxLXbCFd8NOfCRYR8ETz7x5278000AA=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1611153976;
- bh=fD1nL+on1PnJorTLJfrs+NuA1e2WEgb2AIkjDYRXGJ8=;
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1611874688;
+ bh=gI/X1diMXUBylZ5KWPL58FUi11ZvNGVhJkjBmV2YxgA=;
  h=Cc:Content-Type:Date:From:Subject:To;
- b=Z4pu8DsC07BDrAxqgQ9dMT3YRBvhNdnytok7AG1m/928e7UrzQLLw00ik4XJ+HAqkcb
- no/beZFW6Lh1SI0D5oam3ddKcipFKFOmBZTaAkW7L0dTjfAr0EBe0p70DnCNfDZES6NV/
- lQXMOjJAdXhB0b2YIBk5hFBy/PaBahTR81A=
+ b=ZrqW35YL5ZYiS5jnmzvEy0X4EtMku94XeKr0KEe4cxNS2qxnYHozcILNROZ/ZAP1/H0
+ nWT1PPOqMSFENgNglreqwTmMwslam7vg9YW81mZt0dHrJKmfsi1QyflU/QLjJmpu1SY+i
+ wUG6o05hfcsCZy34Lr72Fq6SnDAdKphJZ3c=
 
-Thanks Rob, Jon, I've submitted a new patch pointing the two broken 
-links and also usage-model.rst all to 
-https://www.devicetree.org.specifications/.
+On Wed, 20 Jan 2021 13:31:51 +0000
+Milan Lakhani <milan.lakhani@codethink.co.uk> wrote:
 
-Milan
+> There were two references to devicetree/booting-without-of.rst (which ha=
+s
+> been removed) for DTB format information, and
+> devicetree/usage-model.rst pointed to
+> https://elinux.org/Device_Tree_Usage. Change all three of these referenc=
+es to
+> https://www.devicetree.org/specifications/.
+>=20
+> Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
+> ---
+>  Documentation/arm/booting.rst                | 2 +-
+>  Documentation/devicetree/usage-model.rst     | 2 +-
+>  Documentation/translations/zh_CN/arm/Booting | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 
-On 20/01/2021 01:07, Rob Herring wrote:
-> On Tue, Jan 19, 2021 at 6:01 PM Jonathan Corbet <corbet@lwn.net> wrote:
->> Milan Lakhani <milan.lakhani@codethink.co.uk> writes:
->>
->> [CC += Rob]
->>
->>> There were two references to
->>> Documentation/devicetree/booting-without-of.rst for dtb format
->>> information. This file has been removed, so I have changed the links to
->>> Documentation/devicetree/usage-model.rst for this information, which
->>> itself points to https://elinux.org/Device_Tree_Usage for an overview of
->>> the device tree data format.
->>>
->>> Signed-off-by: Milan Lakhani <milan.lakhani@codethink.co.uk>
->>> ---
->>>   Documentation/arm/booting.rst                | 2 +-
->>>   Documentation/translations/zh_CN/arm/Booting | 2 +-
->>>   2 files changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/Documentation/arm/booting.rst b/Documentation/arm/booting.rst
->>> index a226345..5392d01 100644
->>> --- a/Documentation/arm/booting.rst
->>> +++ b/Documentation/arm/booting.rst
->>> @@ -128,7 +128,7 @@ it.  The recommended placement is in the first 16KiB of RAM.
->>>
->>>   The boot loader must load a device tree image (dtb) into system ram
->>>   at a 64bit aligned address and initialize it with the boot data.  The
->>> -dtb format is documented in Documentation/devicetree/booting-without-of.rst.
->>> +dtb format is documented in Documentation/devicetree/usage-model.rst.
->> Except that ... usage-model.rst doesn't actually document the DTB
->> format.  Perhaps we should instead substitute a link that does what's
->> promised here?
-> Yes, it's in the DT spec. I'd point to
-> 'https://www.devicetree.org/specifications/' so it's always going to
-> show the latest. And that's the link we have elsewhere in the kernel.
->
-> usage-model.rst is also something needing updating...
->
-> Rob
->
->
-> 
->
->
->
+Applied, thanks.
+
+jon
 
 
--=-=-=-=-=-=-=-=-=-=-=-
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 Links: You receive all messages sent to this group.
-View/Reply Online (#237): https://lists.elisa.tech/g/linux-safety/message/237
-Mute This Topic: https://lists.elisa.tech/mt/79948363/5278000
+View/Reply Online (#238): https://lists.elisa.tech/g/linux-safety/message/=
+238
+Mute This Topic: https://lists.elisa.tech/mt/79978198/5278000
 Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@a=
+rchiver.kernel.org]
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 
 
