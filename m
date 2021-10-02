@@ -1,68 +1,54 @@
-Return-Path: <nghialm78@gmail.com>
+Return-Path: <SRS0=Hq7p=OW=lists.elisa.tech=bounce+72012+250+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0790BC433EF
-	for <webhook@archiver.kernel.org>; Sat,  2 Oct 2021 11:56:34 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 706EFC433F5
+	for <linux-safety@archiver.kernel.org>; Sat,  2 Oct 2021 11:56:34 +0000 (UTC)
+Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id EF7B061AED
+	for <linux-safety@archiver.kernel.org>; Sat,  2 Oct 2021 11:56:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EF7B061AED
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id N77nYY5279335x9IedIfRsgl; Sat, 02 Oct 2021 04:56:33 -0700
+X-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
  by mx.groups.io with SMTP id smtpd.web09.9845.1633175792935531401
  for <linux-safety@lists.elisa.tech>;
  Sat, 02 Oct 2021 04:56:33 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=L8QT6zg3;
- spf=pass (domain: gmail.com, ip: 209.85.167.50,
- mailfrom: nghialm78@gmail.com)
-Received: by mail-lf1-f50.google.com with SMTP id x27so49524352lfu.5
-        for <linux-safety@lists.elisa.tech>;
- Sat, 02 Oct 2021 04:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=KErbxHvPVdYW2PUdOpsmeeK72DV+p4hfHHQDE5GELqU=;
-        b=L8QT6zg3V4wE2xUJ70+oClTrJcueFEWh32q04TKIxRfZgqbJnMe8ONEtdrU7tBmlDn
-         lZzwurpHggCN2v3JR88hMPCMHe6WOcDiBR+8/GqKBdUBQsgrjW+ReBr2yuQeHcpRc1Rh
-         dqoYWsLZGK8XurxbYubnQkMshhyNjDd+nydAQzMVdLFM22wDY6eu2tV0eISJkj6+mjXU
-         CauFJNdnnb/VKt4/SvTNxEPqMZ7jl6FVBmB4nTVCfucLugDzba5Wk2I6qdnbRK4pidw3
-         c9iYkwew7llxLzXqzFUAuo5+0FoL8DhkmpKRXUTLkSMrq5J6ZJ1OT/QxyIm1FomgV8sf
-         cDyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=KErbxHvPVdYW2PUdOpsmeeK72DV+p4hfHHQDE5GELqU=;
-        b=LECtKY8fVc/gr8RfjHSihrPqkX3/sY8wm71pgUqw32CKSSmOQkWBNSsGWBHbAJIztx
-         1594Dtl7mpiNP64denIJWkVN4xd6svEjf1UlnR+7u+alvvTdlDZzsgfW4yTaXeveSfdY
-         T3E6HZqeWRi4/tDhkOYFidnbSe+MbscDW6mo95ufyrWiUGDvG1V/GvlS68RTszsXT8n/
-         xRGHOafMls7geTb7gwTIChIi8Gv+MH5LCdpZ/VpklcZGLYFH5vc7H9qyqRb8pAwsPQpb
-         bAEMyUFrYOi8p1VXjmEULDpAp1YpBa96DivqWcS1c5ZEMdJEub3K5W5nF60FJzgBXi1k
-         7INQ==
-X-Gm-Message-State: AOAM533yniiY61TrqOlxLfWo/cJy7GdqtACSkk3JxCa5fHvOxqorZ7FV
-	dclIbojjNE6VYlTzkisOUQ8csUnzwnNVmYr+5C0=
-X-Google-Smtp-Source: 
- ABdhPJwr1p2d+1DdlMg98LVCVJMRP8EkXgWR/MCVnGln3ma+A8ywoxviwnNGkmLwqJtieXzmNEo59ruoJzST7B8aQpk=
-X-Received: by 2002:a05:6512:3e03:: with SMTP id
- i3mr3667068lfv.374.1633175790720;
+X-Received: by mail-lf1-f50.google.com with SMTP id x27so49524352lfu.5
+        for <linux-safety@lists.elisa.tech>; Sat, 02 Oct 2021 04:56:32 -0700 (PDT)
+X-Gm-Message-State: 6jhNGbRk49S0ZV8IEBwmpSUbx5278000AA=
+X-Google-Smtp-Source: ABdhPJwr1p2d+1DdlMg98LVCVJMRP8EkXgWR/MCVnGln3ma+A8ywoxviwnNGkmLwqJtieXzmNEo59ruoJzST7B8aQpk=
+X-Received: by 2002:a05:6512:3e03:: with SMTP id i3mr3667068lfv.374.1633175790720;
  Sat, 02 Oct 2021 04:56:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20211001175732.75170-1-nghialm78@gmail.com>
- <CAKXUXMwT+dH_OZc_eJBMtSfbcL5hvhBoFXXbd1b_AcM2sBvW0A@mail.gmail.com>
-In-Reply-To: 
- <CAKXUXMwT+dH_OZc_eJBMtSfbcL5hvhBoFXXbd1b_AcM2sBvW0A@mail.gmail.com>
-From: Nghia Le <nghialm78@gmail.com>
+References: <20211001175732.75170-1-nghialm78@gmail.com> <CAKXUXMwT+dH_OZc_eJBMtSfbcL5hvhBoFXXbd1b_AcM2sBvW0A@mail.gmail.com>
+In-Reply-To: <CAKXUXMwT+dH_OZc_eJBMtSfbcL5hvhBoFXXbd1b_AcM2sBvW0A@mail.gmail.com>
+From: "Nghia Le" <nghialm78@gmail.com>
 Date: Sat, 2 Oct 2021 18:56:20 +0700
-Message-ID: 
- <CADkY59s+gU+jPJkMfaPLwSg-=RxY8LvnQT4x6UKpMFEN51PcUQ@mail.gmail.com>
-Subject: Re: [PATCH] mm/hugetlb.c: remove deadstore in demote_size_show()
+Message-ID: <CADkY59s+gU+jPJkMfaPLwSg-=RxY8LvnQT4x6UKpMFEN51PcUQ@mail.gmail.com>
+Subject: Re: [linux-safety] [PATCH] mm/hugetlb.c: remove deadstore in demote_size_show()
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Cc: linux-safety@lists.elisa.tech
-Content-Type: multipart/alternative; boundary="000000000000dc991805cd5d5e93"
+Precedence: Bulk
+List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
+List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
+List-Help: <mailto:linux-safety+help@lists.elisa.tech>
+Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
-X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
- aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <linux-safety@lists.elisa.tech>; Sat, 02 Oct 2021 11:56:34 -0000
-X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/250
+Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
+List-Post: <mailto:linux-safety@lists.elisa.tech>
+Content-Type: multipart/alternative; boundary="000000000000dc991805cd5d5e93"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1633175793;
+ bh=1jNN5Y3uIvq2xjTd11x0J+keqyUmQa6iVXjXPVOXd+0=;
+ h=Cc:Content-Type:Date:From:Subject:To;
+ b=sx0X9ISPTc6rW/eCs3kqPUCx1Gx/XMaIWZEuGKwLI3JKlgDoV79xPCIItVA/Q/FtLVA
+ /5ZeF/flp+x7ZTXOwejSo3Acz4ShdsyBOZWB/MRw1KlCBGN1bQBxezkf+X+6EVA7MKJP8
+ 2RnTgq+wRlyDDyujJ4yhD9nTKzk1XvK2/r4=
+Message-ID: <20211002115620.mIpFX1YH0pCC3Le2FFbkOMbWIsZXfEpuT1sbzU1__ng@z>
 
 --000000000000dc991805cd5d5e93
 Content-Type: text/plain; charset="UTF-8"
@@ -144,6 +130,17 @@ wrote:
 > > 2.25.1
 > >
 >
+
+
+-=-=-=-=-=-=-=-=-=-=-=-
+Links: You receive all messages sent to this group.
+View/Reply Online (#250): https://lists.elisa.tech/g/linux-safety/message/250
+Mute This Topic: https://lists.elisa.tech/mt/86006510/5278000
+Group Owner: linux-safety+owner@lists.elisa.tech
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
+-=-=-=-=-=-=-=-=-=-=-=-
+
+
 
 --000000000000dc991805cd5d5e93
 Content-Type: text/html; charset="UTF-8"
@@ -233,5 +230,24 @@ quot;,<br>
 &gt;<br>
 </blockquote></div>
 
---000000000000dc991805cd5d5e93--
 
+ <div width=3D"1" style=3D"color:white;clear:both">_._,_._,_</div> <hr>   L=
+inks:<p>   You receive all messages sent to this group.    <p> <a target=3D=
+"_blank" href=3D"https://lists.elisa.tech/g/linux-safety/message/250">View/=
+Reply Online (#250)</a> |  <a target=3D"_blank" href=3D"mailto:nghialm78@gm=
+ail.com?subject=3DPrivate:%20Re:%20Re%3A%20%5Blinux-safety%5D%20%5BPATCH%5D=
+%20mm%2Fhugetlb.c%3A%20remove%20deadstore%20in%20demote_size_show%28%29">Re=
+ply To Sender</a>  | <a target=3D"_blank" href=3D"mailto:linux-safety@lists=
+.elisa.tech?subject=3DRe:%20Re%3A%20%5Blinux-safety%5D%20%5BPATCH%5D%20mm%2=
+Fhugetlb.c%3A%20remove%20deadstore%20in%20demote_size_show%28%29">Reply To =
+Group</a>   |  <a target=3D"_blank" href=3D"https://lists.elisa.tech/mt/860=
+06510/5278000">Mute This Topic</a>  | <a href=3D"https://lists.elisa.tech/g=
+/linux-safety/post">New Topic</a><br>    <a href=3D"https://lists.elisa.tec=
+h/g/linux-safety/editsub/5278000">Your Subscription</a> | <a href=3D"mailto=
+:linux-safety+owner@lists.elisa.tech">Contact Group Owner</a> |  <a href=3D=
+"https://lists.elisa.tech/g/linux-safety/unsub">Unsubscribe</a>  [linux-saf=
+ety@archiver.kernel.org]<br> <div width=3D"1" style=3D"color:white;clear:bo=
+th">_._,_._,_</div>=20
+
+
+--000000000000dc991805cd5d5e93--
