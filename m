@@ -1,69 +1,57 @@
-Return-Path: <nghialm78@gmail.com>
+Return-Path: <SRS0=yfvh=OW=lists.elisa.tech=bounce+72012+249+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF4BFC433F5
-	for <webhook@archiver.kernel.org>; Sat,  2 Oct 2021 11:53:55 +0000 (UTC)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05E9CC433FE
+	for <linux-safety@archiver.kernel.org>; Sat,  2 Oct 2021 11:53:56 +0000 (UTC)
+Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id 6C71661AF7
+	for <linux-safety@archiver.kernel.org>; Sat,  2 Oct 2021 11:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6C71661AF7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id PwlXYY5279335x2EkIOneQXc; Sat, 02 Oct 2021 04:53:55 -0700
+X-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
  by mx.groups.io with SMTP id smtpd.web08.9819.1633175634648473763
  for <linux-safety@lists.elisa.tech>;
  Sat, 02 Oct 2021 04:53:54 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Lc42eXBC;
- spf=pass (domain: gmail.com, ip: 209.85.215.173,
- mailfrom: nghialm78@gmail.com)
-Received: by mail-pg1-f173.google.com with SMTP id 66so11529058pgc.9
-        for <linux-safety@lists.elisa.tech>;
- Sat, 02 Oct 2021 04:53:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1MyiOI+N5UBtlxA/N8Al/5+Vba/8FqMT5XKcAdzHxjg=;
-        b=Lc42eXBCmPF5Y4gA2cpY1Bi5Ps6KbaOyJIaLoqSMdHCXPHzwZWnK2fFH1gQc8satZc
-         ghoqrvzEtO7rkqrem2Hn4c2x2waFYd1wA/qTeiB1nwZQCdyy9qA4qCAYJbqlHl1gZXhB
-         iOYx70Jgi3YSfeSMwPAvtpyjELfGwfgzBUJq5lz6uPh2uyjXoQqh8vgR1AU2/kiGWe7b
-         9j5fMk07cHoUdYkDjacUP4xT/sS5OawsbFeijb0jL89dMOapwYOsMcqHrue9Cvf91DF2
-         cKALElaoMmedD8K7B0x/4UFJIUGrR2mZtXyBlAWLWlRfhH38NIpSAosj1wjnaSRfQ9op
-         KE2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1MyiOI+N5UBtlxA/N8Al/5+Vba/8FqMT5XKcAdzHxjg=;
-        b=GtzC/ltINB7Bq3y9zKw6m+gLSJYiTZAOc9j5FQsNU6UvaiwVLn4B1rNJ6auB62oOx/
-         mo/r/lndBHa/nNlitPQrKLrflgQH4YwTeDMFBXysZpW99/BuT2C43oLzWPPlLYJHWxbM
-         Px4G9SyhTP56oDWd+QjBbBmx3ayi+aRd0e8PWfxWR/Z37O80NWsGb90CE8tZuQ00s2O2
-         W9MPN1RcymQGCqlaOIyJiRHH7hAuS2uo0ODTnojwa+Us+Gqjo/tgS2H4mqQvHXMYAlDc
-         Hubn7iGFKP1wA4whUkMwrNK/xh6wxYjRoec9TvHKynMY+LRpNPcOVl6bzsymEKo1I1B7
-         p7MQ==
-X-Gm-Message-State: AOAM532/Gw+OQaHdGz1ZKuUXDO60/ICrBa+H49fuHEnQVZqTQt8+YEaV
-	h8E+RjZrV3+EdqCgFTjUtXHprOKLn8xg0oNB7gE=
-X-Google-Smtp-Source: 
- ABdhPJxloCUxTc56F/HOy43Q4SqA8F/BXNTNP9dx6SK/VutfKM4+n8gOq6ta+CANR1fSo2m/Ci/QtQ==
+X-Received: by mail-pg1-f173.google.com with SMTP id 66so11529058pgc.9
+        for <linux-safety@lists.elisa.tech>; Sat, 02 Oct 2021 04:53:54 -0700 (PDT)
+X-Gm-Message-State: 3eT12mqcLXgEWFiZYlWT0UvFx5278000AA=
+X-Google-Smtp-Source: ABdhPJxloCUxTc56F/HOy43Q4SqA8F/BXNTNP9dx6SK/VutfKM4+n8gOq6ta+CANR1fSo2m/Ci/QtQ==
 X-Received: by 2002:a65:6398:: with SMTP id h24mr2536932pgv.367.1633175633703;
         Sat, 02 Oct 2021 04:53:53 -0700 (PDT)
-Received: from ubuntu.localdomain ([171.224.177.7])
-        by smtp.gmail.com with ESMTPSA id
- y9sm8827901pfm.129.2021.10.02.04.53.51
+X-Received: from ubuntu.localdomain ([171.224.177.7])
+        by smtp.gmail.com with ESMTPSA id y9sm8827901pfm.129.2021.10.02.04.53.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 02 Oct 2021 04:53:53 -0700 (PDT)
-From: Nghia Le <nghialm78@gmail.com>
+From: "Nghia Le" <nghialm78@gmail.com>
 To: linux-safety@lists.elisa.tech
 Cc: Nghia Le <nghialm78@gmail.com>,
 	lukas.bulwahn@gmail.com
-Subject: [PATCH v2] mm/hugetlb.c: remove dead store in demote_size_show()
+Subject: [linux-safety] [PATCH v2] mm/hugetlb.c: remove dead store in demote_size_show()
 Date: Sat,  2 Oct 2021 18:53:47 +0700
-Message-Id: <20211002115347.77994-1-nghialm78@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Message-ID: <20211002115347.77994-1-nghialm78@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Precedence: Bulk
+List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
+List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
+List-Help: <mailto:linux-safety+help@lists.elisa.tech>
+Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
-X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
- aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <linux-safety@lists.elisa.tech>; Sat, 02 Oct 2021 11:53:55 -0000
-X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/249
+Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
+List-Post: <mailto:linux-safety@lists.elisa.tech>
+Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1633175635;
+ bh=K3icd7fKTufBrVFzuGaHfNbeV0NXEFMH5FbCRUVDN5E=;
+ h=Cc:Date:From:Subject:To;
+ b=N9nca/Al88i8KEp2HDq9QSN2QkVDlI5cpzy7zsGTJQePge308nZGOgwLIvVV6uhU62N
+ pP9K5/x/FuXWuIwocxxXuGPIOiPX/hrMvHnBkqSTLcW3UTmXnmXNVXyW/LYGMvW2EMBBd
+ ZVaZ4RJ0imiOIOJigb90HK1wBwa0ZiY7nhk=
+Message-ID: <20211002115347.JGv-yRXcmXgCp7-l7J-26OX4itxtVISjrcjiXVFPmsU@z>
 
 The command "make clang-analyzer" detected a dead store.
 
@@ -93,5 +81,15 @@ index 993efa70bce4..ef00e6ad0f6a 100644
  			(unsigned long)(PAGE_SIZE << h->demote_order) / SZ_1K);
 -- 
 2.25.1
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-
+Links: You receive all messages sent to this group.
+View/Reply Online (#249): https://lists.elisa.tech/g/linux-safety/message/249
+Mute This Topic: https://lists.elisa.tech/mt/86021091/5278000
+Group Owner: linux-safety+owner@lists.elisa.tech
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
+-=-=-=-=-=-=-=-=-=-=-=-
 
 
