@@ -1,53 +1,65 @@
-Return-Path: <SRS0=d8/N=OX=lists.elisa.tech=bounce+72012+251+5278000+9232812@kernel.org>
+Return-Path: <lukas.bulwahn@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A067C433F5
-	for <linux-safety@archiver.kernel.org>; Sun,  3 Oct 2021 05:01:02 +0000 (UTC)
-Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D2C1961A4F
-	for <linux-safety@archiver.kernel.org>; Sun,  3 Oct 2021 05:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D2C1961A4F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id g71XYY5279335x9MLyRRZ5r7; Sat, 02 Oct 2021 22:01:01 -0700
-X-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com [209.85.219.176])
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80421C433FE
+	for <webhook@archiver.kernel.org>; Sun,  3 Oct 2021 05:01:02 +0000 (UTC)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
  by mx.groups.io with SMTP id smtpd.web11.19314.1633237261040516677
  for <linux-safety@lists.elisa.tech>;
  Sat, 02 Oct 2021 22:01:01 -0700
-X-Received: by mail-yb1-f176.google.com with SMTP id z5so29835387ybj.2
-        for <linux-safety@lists.elisa.tech>; Sat, 02 Oct 2021 22:01:00 -0700 (PDT)
-X-Gm-Message-State: pQPPyek2gGnudpAoXSC41CRrx5278000AA=
-X-Google-Smtp-Source: ABdhPJyi6IMctJP8uAhDTaLiIj0g40xVYdgAhoLQ8UECqf4JFjKVYOK8XD5cPjzqoRlcRuMzd9iTD8xAnB6iWmmZIOk=
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=G3T+uXdg;
+ spf=pass (domain: gmail.com, ip: 209.85.219.176,
+ mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-yb1-f176.google.com with SMTP id z5so29835387ybj.2
+        for <linux-safety@lists.elisa.tech>;
+ Sat, 02 Oct 2021 22:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=UG230xZhWAbqNgLAGGetzYn1slEWCnzMA4+he45/Xzw=;
+        b=G3T+uXdgQlh9bENMcxnT1u+XZN24iiZnGLr1AbeRdqC5e5AEEsPmYl5jwBuwtOHJyK
+         d+53HeCf/eN64d5cinbYGhzYAQVHobwsgpQEG+ng94tpu5ZZyVLPI0vI78w4TwTZDIGR
+         CMEAqqdvWT4gRKmxDPUZ9sP2HJL8Fbflzj1kbC46XnxAilL/c+qoq2SWA7nrHKhXgS1v
+         bIwcNLhrJWYOT5XEhy2uZZE7Y2tNCw2Ibv21VjtihcDdlWJmiA8+L3KcLJJouprODO7V
+         RV7wcUKqIloJVUV3StGf9qZOtaVQIL/JCd97RHpMQgcdDmx/Zt2x8Wnj5mUc6k/ZlqZi
+         onqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=UG230xZhWAbqNgLAGGetzYn1slEWCnzMA4+he45/Xzw=;
+        b=gbC9aGgWuF2ad9KagDm9YgLN0CrsAWzVDuCQ8h52Fw5oWv67CSPlRzM5NX/8zezjBm
+         LAGtBRIV7vsxtiS9h+suAqT+rpWH0LVOTztxM75iErtM9QOA2HnfKG5qPNdiUwZ2vCgA
+         /H2kUrXZYV9lop6ORz9lxn5XCHz3/qjWaIAMyBqkv5KFDmOv9C68uZyUW/AXMrMUaAwp
+         KR8uiE3rQCmfgjpvWClgpTVZpMtYe98eL+6yhXP3hfp646GeCXUP2V+J4MvtAw7AnSH0
+         vo3lpMsZdjflrNtkfv4bt5e1eyATibzr77VE1WRmMowp1zz7bPo1pfqhOh1KAZctZQ4E
+         s3uA==
+X-Gm-Message-State: AOAM532RzCtOuU47zMqMm4oS9SVBjyIytDO2PSY2+YFjimTKo8QVYmZa
+	eEi4uWA+X2yNd6XQyZ3eZzMUp/KusyitQyXxGZA=
+X-Google-Smtp-Source: 
+ ABdhPJyi6IMctJP8uAhDTaLiIj0g40xVYdgAhoLQ8UECqf4JFjKVYOK8XD5cPjzqoRlcRuMzd9iTD8xAnB6iWmmZIOk=
 X-Received: by 2002:a25:accb:: with SMTP id x11mr6704089ybd.154.1633237260197;
  Sat, 02 Oct 2021 22:01:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211002115347.77994-1-nghialm78@gmail.com>
 In-Reply-To: <20211002115347.77994-1-nghialm78@gmail.com>
-From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Date: Sun, 3 Oct 2021 07:00:49 +0200
 Message-ID: <CAKXUXMxs7kxDhAfertYZ_=XVCFuX99dGAbo5MSGvQZY7zA58sg@mail.gmail.com>
-Subject: Re: [linux-safety] [PATCH v2] mm/hugetlb.c: remove dead store in demote_size_show()
+Subject: Re: [PATCH v2] mm/hugetlb.c: remove dead store in demote_size_show()
 To: Nghia Le <nghialm78@gmail.com>
 Cc: linux-safety@lists.elisa.tech
-Precedence: Bulk
-List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
-List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
-List-Help: <mailto:linux-safety+help@lists.elisa.tech>
-Sender: linux-safety@lists.elisa.tech
-List-Id: <linux-safety.lists.elisa.tech>
-Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
-List-Post: <mailto:linux-safety@lists.elisa.tech>
 Content-Type: text/plain; charset="UTF-8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1633237261;
- bh=sgd6VnSX9shY6Po2nXFLIPYyjE3MKTEUryOZZPODXBk=;
- h=Cc:Content-Type:Date:From:Subject:To;
- b=lpy0T01IhPGrTzJNNrRbIbsJneEk9pA8grwg6g07BoqyRcuJHzweG9ZgOauGqSE2sdw
- xl3JPqO8R+jP0m48oAqJiP6uAbhHjUDkmvHGYdPJu6xQiWjtu+ACBe/yYGdik7/zzfiRA
- 3mkZekA5d965HEM2M9rcMCaA7zgPYN+4cP4=
+List-Id: <linux-safety.lists.elisa.tech>
+X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
+ aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
+ <linux-safety@lists.elisa.tech>; Sun, 03 Oct 2021 05:01:02 -0000
+X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/251
+Message-ID: <20211003050049.4neFNq3_q47CDcms3bcJIJz5wIXHqkxwxakd_Clmu-Y@z>
 
 On Sat, Oct 2, 2021 at 1:53 PM Nghia Le <nghialm78@gmail.com> wrote:
 >
@@ -93,14 +105,4 @@ Lukas
 > --
 > 2.25.1
 >
-
-
--=-=-=-=-=-=-=-=-=-=-=-
-Links: You receive all messages sent to this group.
-View/Reply Online (#251): https://lists.elisa.tech/g/linux-safety/message/251
-Mute This Topic: https://lists.elisa.tech/mt/86021091/5278000
-Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
-
 
