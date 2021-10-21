@@ -1,99 +1,119 @@
-Return-Path: <SRS0=yJQW=PJ=lists.elisa.tech=bounce+72012+252+5278000+9232812@kernel.org>
+Return-Path: <lukas.bulwahn@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E298C433EF
-	for <linux-safety@archiver.kernel.org>; Thu, 21 Oct 2021 00:50:19 +0000 (UTC)
-Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1460E61052
-	for <linux-safety@archiver.kernel.org>; Thu, 21 Oct 2021 00:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1460E61052
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id yOCbYY5279335xF2lvzyO1lO; Wed, 20 Oct 2021 17:50:18 -0700
-X-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
- by mx.groups.io with SMTP id smtpd.web09.2998.1634777418322315688
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B49AAC433EF
+	for <webhook@archiver.kernel.org>; Thu, 21 Oct 2021 15:57:38 +0000 (UTC)
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
+ by mx.groups.io with SMTP id smtpd.web12.11384.1634831857832482017
  for <linux-safety@lists.elisa.tech>;
- Wed, 20 Oct 2021 17:50:18 -0700
-X-Received: by mail-pl1-f173.google.com with SMTP id g5so17341313plg.1
-        for <linux-safety@lists.elisa.tech>; Wed, 20 Oct 2021 17:50:18 -0700 (PDT)
-X-Gm-Message-State: iYckOhARr0yQ8NVbWHQHj2jbx5278000AA=
-X-Google-Smtp-Source: ABdhPJy6CtL/15SuLAvY6rH7OZTRYN/uhFAXU4MkfJR0fdQn2xE1r1o8Z6+hvAjaPgTSDiTTE14oXw==
-X-Received: by 2002:a17:902:ecc6:b0:13f:60d1:9360 with SMTP id a6-20020a170902ecc600b0013f60d19360mr2299982plh.9.1634777417339;
-        Wed, 20 Oct 2021 17:50:17 -0700 (PDT)
-X-Received: from ubuntu.localdomain ([171.224.177.148])
-        by smtp.gmail.com with ESMTPSA id l11sm7002483pjg.22.2021.10.20.17.50.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 Oct 2021 17:50:16 -0700 (PDT)
-From: "Nghia Le" <nghialm78@gmail.com>
-To: linux-safety@lists.elisa.tech
-Cc: Nghia Le <nghialm78@gmail.com>,
-	lukas.bulwahn@gmail.com
-Subject: [linux-safety] [PATCH] ext4/inode.c: remove dead stores in mpage_process_page()
-Date: Thu, 21 Oct 2021 07:49:14 +0700
-Message-ID: <20211021004914.17239-1-nghialm78@gmail.com>
+ Thu, 21 Oct 2021 08:57:38 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=ZhQCh2R5;
+ spf=pass (domain: gmail.com, ip: 209.85.219.180,
+ mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-yb1-f180.google.com with SMTP id r184so351585ybc.10
+        for <linux-safety@lists.elisa.tech>;
+ Thu, 21 Oct 2021 08:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=dBLowXB9jigYul+hft1U569RmSRlA0UmLtDJbFRQj7g=;
+        b=ZhQCh2R5nwBRUeqvFdLCtCJWOLyAd2muk8sQ55RVlmt26b0F7zAg2nHI9CFtHWq0qF
+         qCk9l2ZwwYWGB4PYZy/aaZ2rDvMctrpGnJHqSpYuxXdMQQRgTQ0lp5xj5O1ZL4unpppW
+         BJwOu7gpwIzrxgILqi4E6oyDPCgUXGNYZEgC09oiohs4pKb/JEY2CDKMbJYtXOyOBhNf
+         efMIdEkAHDsOLprsCj5V9QjG+MW+vpquRFXr90yoHDpAxGQwKaJ9MUCKnn/4tBtC2W8M
+         2pbAilFevU+OABrN63WUPJQyclBb05oabb5mUkxjkd+0hyANTfxa3bQqZTCSgQb9AQaD
+         ArbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=dBLowXB9jigYul+hft1U569RmSRlA0UmLtDJbFRQj7g=;
+        b=GwXH3H2ph17ADSherE0D/3Qj3+jn3woL5VkXL7K6eNK1bRoC9/OHOutoGl+COCOM6n
+         4oH2i0qJyWH8flnkbD6z6Q4mdQnV1MbkKbtXDPgeqIUuo91aLsxF3O7sSh78u3nFB7xf
+         UrT8fvZxqhFOOOxXlnXi4BLCA1dMxWZLsU6ru88Cwt0DaECl1sWL0v7wyS1KnNFBp0eU
+         O5ib/RXyaL2FXq9C/HSgmX0KES4Z20csn69NtU/9MsLXF/xRIM4csYzdvwVA4du+s1nt
+         RWZ08KIm01LCgfXkYLS6nCt1rL32Ql2d25gwZBCL5Jc5QDHoHgL6N3m/PCktZdTG6qUb
+         74jw==
+X-Gm-Message-State: AOAM532byXoYZoAu55iZlBHA1Gw3aQj3kQza/7bwnoMB/AWeNGk6z1ka
+	fU7matw+ulRLCM3sWGXE+A1seokbVVQR5VQy6Y8=
+X-Google-Smtp-Source: 
+ ABdhPJxTawHIHo/gh3eK2b7yNUNiI7Tk8eaHySwupR0ktNAG+dfU9HVZpQXCprV7zUfXiWL5B2OlHaVKNJutY7UbXq8=
+X-Received: by 2002:a25:10d7:: with SMTP id 206mr6991845ybq.339.1634831856931;
+ Thu, 21 Oct 2021 08:57:36 -0700 (PDT)
 MIME-Version: 1.0
-Precedence: Bulk
-List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
-List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
-List-Help: <mailto:linux-safety+help@lists.elisa.tech>
-Sender: linux-safety@lists.elisa.tech
+References: <20211021004914.17239-1-nghialm78@gmail.com>
+In-Reply-To: <20211021004914.17239-1-nghialm78@gmail.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Date: Thu, 21 Oct 2021 17:57:29 +0200
+Message-ID: 
+ <CAKXUXMxbLZ=y9EC9KUCCi42rO+n6ceZoPXBiMEo8ZMay=+rTeQ@mail.gmail.com>
+Subject: Re: [PATCH] ext4/inode.c: remove dead stores in mpage_process_page()
+To: Nghia Le <nghialm78@gmail.com>
+Cc: linux-safety@lists.elisa.tech
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <linux-safety.lists.elisa.tech>
-Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
-List-Post: <mailto:linux-safety@lists.elisa.tech>
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1634777418;
- bh=z6f1sxUQUBgV0miCQBToTb9zZPOiQJDSGp9nupwskiQ=;
- h=Cc:Date:From:Subject:To;
- b=AS8VDQQsU9zHsOgoSrDkKSCHdUpESsVcvptTkAOZHINPBR0ly2QMiuetzKSaPDHQD8y
- Y4dldEk2Wce42wKgjRk/EAMQxgLsfet+L9fSYAist+UsX1XhMbVwsZUl/7r0CDaTfrYm1
- 7tA42282lpvol2WAb+U2ZyyO5SN0qgVzApo=
-Message-ID: <20211021004914.lbiN6r9pb2A_m1f0V8KMK31Iu81EBq4rqIrzAdTdOP0@z>
+X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
+ aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
+ <linux-safety@lists.elisa.tech>; Thu, 21 Oct 2021 15:57:38 -0000
+X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/253
 
-The command "make clang-analyzer" detected dead stores.
+On Thu, Oct 21, 2021 at 2:50 AM Nghia Le <nghialm78@gmail.com> wrote:
+>
+> The command "make clang-analyzer" detected dead stores.
+>
 
-Removed the all the assignments io_end_size=0 to fix dead stores, as
-io_end_size is never read.
+Use present tense here. s/detected/detects/
 
-Signed-off-by: Nghia Le <nghialm78@gmail.com>
----
- fs/ext4/inode.c | 2 --
- 1 file changed, 2 deletions(-)
+> Removed the all the assignments io_end_size=0 to fix dead stores, as
+> io_end_size is never read.
+>
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 0f06305167d5..03efed2ed1ea 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -2260,7 +2260,6 @@ static int mpage_process_page(struct mpage_da_data *mpd, struct page *page,
- 			mpd->map.m_len = 0;
- 			mpd->map.m_flags = 0;
- 			io_end_vec->size += io_end_size;
--			io_end_size = 0;
- 
- 			err = mpage_process_page_bufs(mpd, head, bh, lblk);
- 			if (err > 0)
-@@ -2285,7 +2284,6 @@ static int mpage_process_page(struct mpage_da_data *mpd, struct page *page,
- 	} while (lblk++, (bh = bh->b_this_page) != head);
- 
- 	io_end_vec->size += io_end_size;
--	io_end_size = 0;
- 	*map_bh = false;
- out:
- 	*m_lblk = lblk;
--- 
-2.25.1
+Use imperative here. So: s/Removed/Remove/
 
+drop the first "the".
 
+Maybe a better wording is:
 
--=-=-=-=-=-=-=-=-=-=-=-
-Links: You receive all messages sent to this group.
-View/Reply Online (#252): https://lists.elisa.tech/g/linux-safety/message/252
-Mute This Topic: https://lists.elisa.tech/mt/86480121/5278000
-Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
+Do not reset io_end_size to 0 in the current paths, as the function
+exists on those paths without further using io_end_size.
 
+... and the subject line could be "ext4: remove useless resetting
+io_end_size in mpage_process_page()".
+
+I hope this helps.
+
+Lukas
+
+> Signed-off-by: Nghia Le <nghialm78@gmail.com>
+> ---
+>  fs/ext4/inode.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 0f06305167d5..03efed2ed1ea 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -2260,7 +2260,6 @@ static int mpage_process_page(struct mpage_da_data *mpd, struct page *page,
+>                         mpd->map.m_len = 0;
+>                         mpd->map.m_flags = 0;
+>                         io_end_vec->size += io_end_size;
+> -                       io_end_size = 0;
+>
+>                         err = mpage_process_page_bufs(mpd, head, bh, lblk);
+>                         if (err > 0)
+> @@ -2285,7 +2284,6 @@ static int mpage_process_page(struct mpage_da_data *mpd, struct page *page,
+>         } while (lblk++, (bh = bh->b_this_page) != head);
+>
+>         io_end_vec->size += io_end_size;
+> -       io_end_size = 0;
+>         *map_bh = false;
+>  out:
+>         *m_lblk = lblk;
+> --
+> 2.25.1
+>
 
