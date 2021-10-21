@@ -1,65 +1,54 @@
-Return-Path: <lukas.bulwahn@gmail.com>
+Return-Path: <SRS0=CcMt=PJ=lists.elisa.tech=bounce+72012+253+5278000+9232812@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B49AAC433EF
-	for <webhook@archiver.kernel.org>; Thu, 21 Oct 2021 15:57:38 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B291C433FE
+	for <linux-safety@archiver.kernel.org>; Thu, 21 Oct 2021 15:57:39 +0000 (UTC)
+Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id BC7D8611CE
+	for <linux-safety@archiver.kernel.org>; Thu, 21 Oct 2021 15:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BC7D8611CE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
+X-Received: by 127.0.0.2 with SMTP id jYSlYY5279335xKAyK0r52Cb; Thu, 21 Oct 2021 08:57:38 -0700
+X-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com [209.85.219.180])
  by mx.groups.io with SMTP id smtpd.web12.11384.1634831857832482017
  for <linux-safety@lists.elisa.tech>;
  Thu, 21 Oct 2021 08:57:38 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=ZhQCh2R5;
- spf=pass (domain: gmail.com, ip: 209.85.219.180,
- mailfrom: lukas.bulwahn@gmail.com)
-Received: by mail-yb1-f180.google.com with SMTP id r184so351585ybc.10
-        for <linux-safety@lists.elisa.tech>;
- Thu, 21 Oct 2021 08:57:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=dBLowXB9jigYul+hft1U569RmSRlA0UmLtDJbFRQj7g=;
-        b=ZhQCh2R5nwBRUeqvFdLCtCJWOLyAd2muk8sQ55RVlmt26b0F7zAg2nHI9CFtHWq0qF
-         qCk9l2ZwwYWGB4PYZy/aaZ2rDvMctrpGnJHqSpYuxXdMQQRgTQ0lp5xj5O1ZL4unpppW
-         BJwOu7gpwIzrxgILqi4E6oyDPCgUXGNYZEgC09oiohs4pKb/JEY2CDKMbJYtXOyOBhNf
-         efMIdEkAHDsOLprsCj5V9QjG+MW+vpquRFXr90yoHDpAxGQwKaJ9MUCKnn/4tBtC2W8M
-         2pbAilFevU+OABrN63WUPJQyclBb05oabb5mUkxjkd+0hyANTfxa3bQqZTCSgQb9AQaD
-         ArbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=dBLowXB9jigYul+hft1U569RmSRlA0UmLtDJbFRQj7g=;
-        b=GwXH3H2ph17ADSherE0D/3Qj3+jn3woL5VkXL7K6eNK1bRoC9/OHOutoGl+COCOM6n
-         4oH2i0qJyWH8flnkbD6z6Q4mdQnV1MbkKbtXDPgeqIUuo91aLsxF3O7sSh78u3nFB7xf
-         UrT8fvZxqhFOOOxXlnXi4BLCA1dMxWZLsU6ru88Cwt0DaECl1sWL0v7wyS1KnNFBp0eU
-         O5ib/RXyaL2FXq9C/HSgmX0KES4Z20csn69NtU/9MsLXF/xRIM4csYzdvwVA4du+s1nt
-         RWZ08KIm01LCgfXkYLS6nCt1rL32Ql2d25gwZBCL5Jc5QDHoHgL6N3m/PCktZdTG6qUb
-         74jw==
-X-Gm-Message-State: AOAM532byXoYZoAu55iZlBHA1Gw3aQj3kQza/7bwnoMB/AWeNGk6z1ka
-	fU7matw+ulRLCM3sWGXE+A1seokbVVQR5VQy6Y8=
-X-Google-Smtp-Source: 
- ABdhPJxTawHIHo/gh3eK2b7yNUNiI7Tk8eaHySwupR0ktNAG+dfU9HVZpQXCprV7zUfXiWL5B2OlHaVKNJutY7UbXq8=
+X-Received: by mail-yb1-f180.google.com with SMTP id r184so351585ybc.10
+        for <linux-safety@lists.elisa.tech>; Thu, 21 Oct 2021 08:57:37 -0700 (PDT)
+X-Gm-Message-State: Bi2HLMlnPKxgELUXCzfulbZFx5278000AA=
+X-Google-Smtp-Source: ABdhPJxTawHIHo/gh3eK2b7yNUNiI7Tk8eaHySwupR0ktNAG+dfU9HVZpQXCprV7zUfXiWL5B2OlHaVKNJutY7UbXq8=
 X-Received: by 2002:a25:10d7:: with SMTP id 206mr6991845ybq.339.1634831856931;
  Thu, 21 Oct 2021 08:57:36 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211021004914.17239-1-nghialm78@gmail.com>
 In-Reply-To: <20211021004914.17239-1-nghialm78@gmail.com>
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+From: "Lukas Bulwahn" <lukas.bulwahn@gmail.com>
 Date: Thu, 21 Oct 2021 17:57:29 +0200
-Message-ID: 
- <CAKXUXMxbLZ=y9EC9KUCCi42rO+n6ceZoPXBiMEo8ZMay=+rTeQ@mail.gmail.com>
-Subject: Re: [PATCH] ext4/inode.c: remove dead stores in mpage_process_page()
+Message-ID: <CAKXUXMxbLZ=y9EC9KUCCi42rO+n6ceZoPXBiMEo8ZMay=+rTeQ@mail.gmail.com>
+Subject: Re: [linux-safety] [PATCH] ext4/inode.c: remove dead stores in mpage_process_page()
 To: Nghia Le <nghialm78@gmail.com>
 Cc: linux-safety@lists.elisa.tech
-Content-Type: text/plain; charset="UTF-8"
+Precedence: Bulk
+List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
+List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
+List-Help: <mailto:linux-safety+help@lists.elisa.tech>
+Sender: linux-safety@lists.elisa.tech
 List-Id: <linux-safety.lists.elisa.tech>
-X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
- aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <linux-safety@lists.elisa.tech>; Thu, 21 Oct 2021 15:57:38 -0000
-X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/253
+Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
+List-Post: <mailto:linux-safety@lists.elisa.tech>
+Content-Type: text/plain; charset="UTF-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=lists.elisa.tech; q=dns/txt; s=20140610; t=1634831858;
+ bh=wDgwk69LuipE3dvJ9NPtjKN1D8lK+abIv66MInBuwoY=;
+ h=Cc:Content-Type:Date:From:Subject:To;
+ b=GxbOQ9O2tCBxS26RxOtzWizMSPe+qHHXa5Mi/ElDl1znUS803YBGCcq4MO1WT6dtYdg
+ A8pyJBxsbU847ymP9XQpFFSM2Q7gfgj8WQxXErm8ZTqU7NlyzM6O9IkDxv1OoUR9cp1jg
+ vyOfmU9lf4dcTF1vbceFYGsej2VHZ1veBHk=
+Message-ID: <20211021155729.8-XhbogCPNrXcPhr8dEjBR45VqBNWHnwkPoB2wdX3o4@z>
 
 On Thu, Oct 21, 2021 at 2:50 AM Nghia Le <nghialm78@gmail.com> wrote:
 >
@@ -116,4 +105,14 @@ Lukas
 > --
 > 2.25.1
 >
+
+
+-=-=-=-=-=-=-=-=-=-=-=-
+Links: You receive all messages sent to this group.
+View/Reply Online (#253): https://lists.elisa.tech/g/linux-safety/message/253
+Mute This Topic: https://lists.elisa.tech/mt/86480121/5278000
+Group Owner: linux-safety+owner@lists.elisa.tech
+Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
+-=-=-=-=-=-=-=-=-=-=-=-
+
 
