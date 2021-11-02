@@ -1,91 +1,125 @@
-Return-Path: <SRS0=p+Z1=PR=lists.elisa.tech=bounce+72012+258+5278000+9232812@kernel.org>
+Return-Path: <lukas.bulwahn@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE2AEC433EF
-	for <linux-safety@archiver.kernel.org>; Fri, 29 Oct 2021 16:00:49 +0000 (UTC)
-Received: from mail02.groups.io (mail02.groups.io [66.175.222.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6204F610D2
-	for <linux-safety@archiver.kernel.org>; Fri, 29 Oct 2021 16:00:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6204F610D2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.elisa.tech
-X-Received: by 127.0.0.2 with SMTP id nvxlYY5279335xtLkZRxgHmK; Fri, 29 Oct 2021 09:00:48 -0700
-X-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
- by mx.groups.io with SMTP id smtpd.web12.7271.1635523248673547941
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 529B5C433EF
+	for <webhook@archiver.kernel.org>; Tue,  2 Nov 2021 16:31:06 +0000 (UTC)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ by mx.groups.io with SMTP id smtpd.web10.253.1635870665690811171
  for <linux-safety@lists.elisa.tech>;
- Fri, 29 Oct 2021 09:00:48 -0700
-X-Received: by mail-pj1-f52.google.com with SMTP id v1-20020a17090a088100b001a21156830bso10947564pjc.1
-        for <linux-safety@lists.elisa.tech>; Fri, 29 Oct 2021 09:00:48 -0700 (PDT)
-X-Gm-Message-State: yrdaP8NCDkqkmoMMSg10j6O2x5278000AA=
-X-Google-Smtp-Source: ABdhPJwn92Mo32lRTbMVZGI5apBNvA3odbUODFVBZPRTEBMe7fzkorYNMhgr1ite8UdhJCFxWal22A==
-X-Received: by 2002:a17:90a:eb03:: with SMTP id j3mr12136744pjz.149.1635523244836;
-        Fri, 29 Oct 2021 09:00:44 -0700 (PDT)
-X-Received: from localhost.localdomain ([171.224.177.172])
-        by smtp.gmail.com with ESMTPSA id j15sm7496450pfh.35.2021.10.29.09.00.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 Oct 2021 09:00:44 -0700 (PDT)
-From: "Nghia Le" <nghialm78@gmail.com>
-To: linux-safety@lists.elisa.tech,
-	lukas.bulwahn@gmail.com
-Cc: Nghia Le <nghialm78@gmail.com>
-Subject: [linux-safety] [PATCH] io_uring: remove redundant assignment to ret in io_register_iowq_max_workers()
-Date: Fri, 29 Oct 2021 22:59:36 +0700
-Message-ID: <20211029155936.18094-1-nghialm78@gmail.com>
+ Tue, 02 Nov 2021 09:31:05 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=TmBDH2ne;
+ spf=pass (domain: gmail.com, ip: 209.85.219.179,
+ mailfrom: lukas.bulwahn@gmail.com)
+Received: by mail-yb1-f179.google.com with SMTP id s186so30325997yba.12
+        for <linux-safety@lists.elisa.tech>;
+ Tue, 02 Nov 2021 09:31:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=VcSDdcOUystfykUPXO0jA/xYb8jaE4IY6QKSLltzHbQ=;
+        b=TmBDH2ne7GQNaTQVH/SENi3W8YDB61zQAil9PThJbLvqTHxYkkq07McRktFU6Qw5fs
+         oWGkDIciJqN8qjWGow+YmapmFtZY5lea0JjqoVHObKE2n43bmTGhPbAMtHI4LXcUo/Gs
+         mOPH8LnBkTJZbU5V8xgPN9Ju3aKj3E+xGmhJ09Q52HgmwKaIvkg3G8PiqfFDmm2FBVcN
+         +6KUoJbZDHkwNFtM9RtXhI7OO9VthNB9BTr+62qp3+xCRLkF83H1fB8LF35hbi2t0PXg
+         aMY1nj43Z9UDNTLrVHNEnxR2LrerN8hqjeF55SAhHfWJHGob2A0Z4cXbeHr8+RkJY1aH
+         /zQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=VcSDdcOUystfykUPXO0jA/xYb8jaE4IY6QKSLltzHbQ=;
+        b=bk12K+XrvlPmQF0r53TsIopYkoxuy4KPTKWO3hc+Tnr1CLcTYyuGuibxlQJg7Ajw4j
+         r8tLzHJRTSpl6NXKvmfD9sQcbc4xYXkDhMjzSLrrD+qH4XPsdX8dnf/kPdo7gGkFF0eP
+         gOxylY4FHPCDLiVMNVR3G+RF0+4s7bLbImopNaYGaL1RS+saAsVNuwoLaIpSOZ+KlwT8
+         jooGFxl1FMUVsxH4ykGq8fRSFojjsM9oK0tiVOPf+kpjf6bkdqZjmnuvsshp4Bw6X+qH
+         VsljE68bQWrBC/qZiiWWdXmNGP7s8NgtzSJt1k+z3G/FTjAdidyMLVvcqNR8HiHiQYbB
+         DJDg==
+X-Gm-Message-State: AOAM531BPGkiPgYbmChqP+SIYvx+JYOW/kDu8oX6g3IqbZVotIfjRfoD
+	lMoB02gVXhwEoyB7dXJYo130nx6H/Swsp7SuK13hBKao0Jw=
+X-Google-Smtp-Source: 
+ ABdhPJynHm2YTzSSHMInV4+U8021Y27DXXnieDLJEYrq+Rg2bJLh1hmGOr9bajtQ/05GHRVBMmfzyBcRnz65+weSKuA=
+X-Received: by 2002:a25:71c3:: with SMTP id
+ m186mr38817337ybc.434.1635870664691;
+ Tue, 02 Nov 2021 09:31:04 -0700 (PDT)
 MIME-Version: 1.0
-Precedence: Bulk
-List-Unsubscribe: <mailto:linux-safety+unsubscribe@lists.elisa.tech>
-List-Subscribe: <mailto:linux-safety+subscribe@lists.elisa.tech>
-List-Help: <mailto:linux-safety+help@lists.elisa.tech>
-Sender: linux-safety@lists.elisa.tech
+References: <20211029155936.18094-1-nghialm78@gmail.com>
+In-Reply-To: <20211029155936.18094-1-nghialm78@gmail.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Date: Tue, 2 Nov 2021 17:30:54 +0100
+Message-ID: 
+ <CAKXUXMwKzf8+wjA_kFhBjETPs-6ZBgHmHP_q7pi6er=1RxpQBA@mail.gmail.com>
+Subject: Re: [PATCH] io_uring: remove redundant assignment to ret in
+ io_register_iowq_max_workers()
+To: Nghia Le <nghialm78@gmail.com>
+Cc: linux-safety@lists.elisa.tech
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <linux-safety.lists.elisa.tech>
-Mailing-List: list linux-safety@lists.elisa.tech; contact linux-safety+owner@lists.elisa.tech
-List-Post: <mailto:linux-safety@lists.elisa.tech>
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=lists.elisa.tech; q=dns/txt; s=20140610; t=1635523248;
- bh=fo40mPxPCYuXqNbqszKzl8lijmXTGopRFQ+Vqm7bNRs=;
- h=Cc:Date:From:Subject:To;
- b=UH/pgEX88cdqz17FQ4zxsTdu8n8EmdNxVHs8ztpWm3mjKykW8hTe/JmZEVNn1qF1t4x
- HfZxstT9zPoa5UpmllgC30OxcI3yN88zRpBFdkXqDtNLYqPxZab3xYT9RF1gFGTtfmtpN
- 4+Q+S6wHU2lbcwEXpiAN2pgT7T3b3s42qSA=
-Message-ID: <20211029155936.AIAuzzJrRDz95-HshlGW95_OKS185XM7pNZfw2dpQew@z>
+X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
+ aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
+ <linux-safety@lists.elisa.tech>; Tue, 02 Nov 2021 16:31:06 -0000
+X-Groupsio-URL: https://lists.elisa.tech/g/linux-safety/message/259
 
-After the assignment, no paths but only exit path 'err' using ret as
-return value. However,before going to exit path 'err', ret is changed
-as the return value of io_wq_max_workers(). Hence, the assignment is
-redundant and can be removed.
+On Fri, Oct 29, 2021 at 6:00 PM Nghia Le <nghialm78@gmail.com> wrote:
+>
+> After the assignment, no paths but only exit path 'err' using ret as
+> return value. However,before going to exit path 'err', ret is changed
+> as the return value of io_wq_max_workers(). Hence, the assignment is
+> redundant and can be removed.
+>
 
-Signed-off-by: Nghia Le <nghialm78@gmail.com>
+Just a few comments on wording:
+
+ After the assignment, no paths but only exit path 'err' using ret as
+return value.
+
+-> in proper English (as far as I understand):
+
+Only the exit path with label 'err' uses ret as return value.
+
 ---
- fs/io_uring.c | 1 -
- 1 file changed, 1 deletion(-)
+However, before going to exit path 'err', ret is changed as the return
+value of io_wq_max_workers().
 
-diff --git a/fs/io_uring.c b/fs/io_uring.c
-index acc05ff3aa19..d18f1f46ca83 100644
---- a/fs/io_uring.c
-+++ b/fs/io_uring.c
-@@ -10800,7 +10800,6 @@ static __cold int io_register_iowq_max_workers(struct io_ring_ctx *ctx,
- 	memcpy(ctx->iowq_limits, new_count, sizeof(new_count));
- 	ctx->iowq_limits_set = true;
- 
--	ret = -EINVAL;
- 	if (tctx && tctx->io_wq) {
- 		ret = io_wq_max_workers(tctx->io_wq, new_count);
- 		if (ret)
--- 
-2.25.1
+-> in proper English (as far as I understand):
+
+However, before exiting through this path with label 'err', ret is
+assigned with the return value of io_wq_max_workers().
+
+---
+Hence, the assignment is redundant and can be removed.
+
+How about?
+
+Hence, the initial assignment is redundant and can be removed.
 
 
+Other than that, it looks good. How about rephrasing a bit as above
+and then sending it to the authors?
 
--=-=-=-=-=-=-=-=-=-=-=-
-Links: You receive all messages sent to this group.
-View/Reply Online (#258): https://lists.elisa.tech/g/linux-safety/message/258
-Mute This Topic: https://lists.elisa.tech/mt/86680054/5278000
-Group Owner: linux-safety+owner@lists.elisa.tech
-Unsubscribe: https://lists.elisa.tech/g/linux-safety/unsub [linux-safety@archiver.kernel.org]
--=-=-=-=-=-=-=-=-=-=-=-
+Lukas
 
+> Signed-off-by: Nghia Le <nghialm78@gmail.com>
+> ---
+>  fs/io_uring.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/fs/io_uring.c b/fs/io_uring.c
+> index acc05ff3aa19..d18f1f46ca83 100644
+> --- a/fs/io_uring.c
+> +++ b/fs/io_uring.c
+> @@ -10800,7 +10800,6 @@ static __cold int io_register_iowq_max_workers(struct io_ring_ctx *ctx,
+>         memcpy(ctx->iowq_limits, new_count, sizeof(new_count));
+>         ctx->iowq_limits_set = true;
+>
+> -       ret = -EINVAL;
+>         if (tctx && tctx->io_wq) {
+>                 ret = io_wq_max_workers(tctx->io_wq, new_count);
+>                 if (ret)
+> --
+> 2.25.1
+>
 
